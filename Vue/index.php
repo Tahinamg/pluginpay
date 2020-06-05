@@ -17,7 +17,7 @@ if(isset($_SESSION['matricule'],$_SESSION['inscription'])&&($_SESSION['inscripti
 
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="windows-1252">
+<head><meta charset="UTF-8">
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Validation d'inscription</title>
