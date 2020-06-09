@@ -1,4 +1,5 @@
-//TODO uploadena
+//UPLOAD
+
 $(document).ready(function(){
     (function(){
     $("[name='motif']").change(function (e) { 
@@ -92,7 +93,7 @@ $("#mvolacash").click(function(){
         })
 
       
-    var element = '<div id="refmvola" style="position:relative" class="form-group"><div class="form-group"><label for="date">date</label><input type="date" class="form-control" name="date" required id="dateheure"/></div><label for="NBR">Numero de Reference</label><input type="text" class="form-control" id="NBR" placeholder="178941324567954" name="reference" required><div class="valid-feedback">Valide</div><div class="invalid-feedback">Non valide</div></div>';
+    var element = '<div id="refmvola" style="position:relative" class="form-group"><div class="form-group"><label for="date">date</label><input type="date" class="form-control" name="date" required id="dateheure"/></div><label for="NBR">Numero de Reference</label><input type="text" class="form-control" id="NBR" placeholder="Exemple : 14589654521357" name="reference" required><div class="valid-feedback">Valide</div><div class="invalid-feedback">Non valide</div></div>';
     var parent = $("#formatpaiement").parent();
     $("#formatpaiement").val("mvola");
     parent.after(element);
@@ -123,7 +124,7 @@ $("#cheque").click(function(){
         })
 
        
-    var element = '<div id="refcheque" style="position:relative;opacity:1" class="form-group"><label for="etablissement">Etablissement payeur</label><input type="text" id="etablissement" class="form-control" placeholder="ex : BOA" required name="etablissement"/><div class="form-group"><label for="tireur">Tireur</label><input type="text" class="form-control" id="tireur" placeholder="ex : Rakotozafy henry" name="tireur" required/></div><label for="Ncheque">Numero de cheque</label><input type="text" class="form-control" id="Ncheque" placeholder="ex : 1120120454 " name="ncheque" required><div class="valid-feedback">Valide</div><div class="invalid-feedback">Non valide</div></div> ';
+    var element = '<div id="refcheque" style="position:relative;opacity:1" class="form-group"><label for="etablissement">Etablissement du payeur</label><input type="text" id="etablissement" class="form-control" placeholder="Exemple: BOA" required name="etablissement"/><div class="form-group"><label for="tireur">Tireur</label><input type="text" class="form-control" id="tireur" placeholder="Exemple:Marie Cecile" name="tireur" required/></div><label for="Ncheque">Numero de cheque</label><input type="text" class="form-control" id="Ncheque" placeholder="Exemple: 1120120454 " name="ncheque" required><div class="valid-feedback">Valide</div><div class="invalid-feedback">Non valide</div></div> ';
     var parent = $("#formatpaiement").parent();
     $("#formatpaiement").val("cheque");
     parent.after(element);
@@ -153,7 +154,7 @@ $("#cash").click(function(){
             $("#refwestern").remove();
         })
 
-    var element = '<div id="refbordereaux" style="position:relative;opacity:1" class="form-group"><label for="Nrecu">Numero du bordereaux</label><input type="number" class="form-control" id="Nrecu" placeholder="ex : 01234567 " name="nrecu" required><div class="valid-feedback">Valide</div><div class="invalid-feedback">Non valide</div><div class="form-group"><label for="date">date :</label><input type="date" class="form-control" required name="date" id="date"></div><div class="form-group"><label for="agence" > Agence</label><input placeholder="Ambanidia" name="agence" type="text" required class="form-control" id="agence"/></div></div> ';
+    var element = '<div id="refbordereaux" style="position:relative;opacity:1" class="form-group"><label for="Nrecu">Numero du bordereaux</label><input type="number" class="form-control" id="Nrecu" placeholder="Exemple: 01234567 " name="nrecu" required><div class="valid-feedback">Valide</div><div class="invalid-feedback">Non valide</div><div class="form-group"><label for="date">date :</label><input type="date" class="form-control" required name="date" id="date"></div><div class="form-group"><label for="agence" > Agence</label><input placeholder="Exemple: Ambanidia" name="agence" type="text" required class="form-control" id="agence"/></div></div> ';
     
     
 
@@ -176,6 +177,7 @@ $('.toast').toast('show');
 
 
 $("#virement").click(function(){
+    var jour=new Date();
 
     if($(".refcompte").attr("data-visibility")!=="true"){
 
@@ -192,13 +194,15 @@ $("#virement").click(function(){
         })
 
         
-    var element1 = '<div  class="form-group refcompte" style="position:relative;opacity:1"><label for="Ncompte">Numero du compte</label><input type="text" class="form-control" id="Ncompte" placeholder="ex :00008 00019 04506001603 39" name="ncompte" required><div class="valid-feedback">Valide</div><div class="invalid-feedback">Non valide</div></div>'
+    var element1 = '<div  class="form-group refcompte" style="position:relative;opacity:1"><label for="Ncompte">Votre numero de compte</label><input type="text" class="form-control" id="Ncompte" placeholder="Exemple: 00008 00019 04506001603 39" name="ncompte" required><div class="valid-feedback">Valide</div><div class="invalid-feedback">Non valide</div></div>';
 
     var element2 = '<div class="form-group refcompte" style="position:relative;opacity:1"><label for="Tcompte">Titulaire du compte</label><input type="text" class="form-control" id="Tcompte" placeholder="Titulaire du compte" name="tcompte" required><div class="valid-feedback">Valide</div><div class="invalid-feedback">Non valide</div></div>';
+
+     var element3='<div class="form-group refcompte" style="position:relative;opacity:1"><label for="Datevirement">Date de votre virement</label><input type="text" class="form-control" id="Datevirement" placeholder="exemple: Jours/Mois/Anneé ('+jour.getDate()+'/'+jour.getMonth()+'/'+jour.getFullYear()+')" name="datevirement" required><div class="valid-feedback">Valide</div><div class="invalid-feedback">Non valide</div></div>'
     
     var parent = $("#formatpaiement").parent();
     $("#formatpaiement").val("virement");
-    parent.after(element1,element2);
+    parent.after(element1,element2,element3);
     $(".refcompte").attr("data-visibility","true");
 
     $(".refcompte").animate({

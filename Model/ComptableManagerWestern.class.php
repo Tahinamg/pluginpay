@@ -1,5 +1,4 @@
 <?php
-//TODO uploadena
 class ComptableManagerWestern{
 
 protected $db;

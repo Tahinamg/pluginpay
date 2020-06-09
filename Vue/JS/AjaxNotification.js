@@ -1,6 +1,9 @@
+//UPLOAD
+/*THIS module allow the financial to show the notification of the transaction
+* AjaxNotification 1.0,
+* (c) Ravelojaona Tahina Natanaela
+*/
 $("document").ready(function(){
-    //display number of mvola
-    //TODO AVERINA UPLOADENA
     setInterval(function () { 
         $.ajax({
             type: "GET",

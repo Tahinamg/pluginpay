@@ -1,5 +1,5 @@
 $("document").ready(function(){
-    //TODO uploadena
+//UPLOAD
     var ajourlistvirement=0;
     var ajourlistcheque=0;
     var ajourlistmvola=0;
@@ -339,7 +339,7 @@ $("document").ready(function(){
                              
                         $(".table").empty();
                         $(".table").append(
-                         "<thead> <tr> <th>MATRICULE</th><th>NOM</th><th>PRENOM</th><th>SEMESTRE</th><th>MOTIF</th><th>NCOMPTE</th><th>TITUCOMPTE</th><th>MONTANT</th><th>IDVIREMENT</th><th>ETAT</th><th>DECISION</th><th>DATESERVER</th><th>ACTION</th></tr></thead>"   
+                         "<thead> <tr> <th>MATRICULE</th><th>NOM</th><th>PRENOM</th><th>SEMESTRE</th><th>MOTIF</th><th>NCOMPTE</th><th>TITUCOMPTE</th><th>DATEVIREMENT</th><th>MONTANT</th><th>IDVIREMENT</th><th>ETAT</th><th>DECISION</th><th>DATESERVER</th><th>ACTION</th></tr></thead>"   
                         );
                         $(".table").append(
                             "<tbody></tbody>"
@@ -347,7 +347,7 @@ $("document").ready(function(){
                          var jsonformat=response4;
                       for (var index = 0; index<jsonformat.length; index++) {
                           $("tbody").append(
-                            "<tr><td>"+jsonformat[index]['MATRICULE']+"</td><td>"+jsonformat[index]['NOM']+"</td><td>"+jsonformat[index]['PRENOM']+"</td><td>"+jsonformat[index]['SEMESTRE']+"</td><td>"+jsonformat[index]['MOTIF']+"</td><td>"+jsonformat[index]['NCOMPTE']+"</td><td>"+jsonformat[index]['TITUCOMPTE']+"</td><td>"+jsonformat[index]['MONTANT']+"</td><td>"+jsonformat[index]['IDVIREMENT']+"</td><td>"+jsonformat[index]['ETAT']+"</td><td>"+jsonformat[index]['DECISION']+"</td><td>"+jsonformat[index]['DATESERVER']+"</td><td><a href='#' data-toggle='modal' data-target='#myModal"+index+"' ><i class='mx-1 fas fa-check text-success'></i></a> <a href='#' data-toggle='modal' data-target='#refuModal"+index+"'><i class='mx-1 fas fa-window-close text-danger'></i></a>\
+                            "<tr><td>"+jsonformat[index]['MATRICULE']+"</td><td>"+jsonformat[index]['NOM']+"</td><td>"+jsonformat[index]['PRENOM']+"</td><td>"+jsonformat[index]['SEMESTRE']+"</td><td>"+jsonformat[index]['MOTIF']+"</td><td>"+jsonformat[index]['NCOMPTE']+"</td><td>"+jsonformat[index]['TITUCOMPTE']+"</td><td>"+jsonformat[index]['DATEVIREMENT']+"</td><td>"+jsonformat[index]['MONTANT']+"</td><td>"+jsonformat[index]['IDVIREMENT']+"</td><td>"+jsonformat[index]['ETAT']+"</td><td>"+jsonformat[index]['DECISION']+"</td><td>"+jsonformat[index]['DATESERVER']+"</td><td><a href='#' data-toggle='modal' data-target='#myModal"+index+"' ><i class='mx-1 fas fa-check text-success'></i></a> <a href='#' data-toggle='modal' data-target='#refuModal"+index+"'><i class='mx-1 fas fa-window-close text-danger'></i></a>\
                             <div class='modal fade' id='myModal"+index+"'>\
                             <div class='modal-dialog modal-sm'><div class='modal-content'>\
                             <div class='modal-header'><h4 class='modal-title text-success'>VALIDER?</h4><button type='button' class='close' data-dismiss='modal'>×</button></div>\
@@ -390,7 +390,7 @@ $("document").ready(function(){
                          var jsonformat=response4;
                       for (nombretd; nombretd<jsonformat.length; nombretd++) {
                           $("tbody").append(
-                            "<tr><td>"+jsonformat[nombretd]['MATRICULE']+"</td><td>"+jsonformat[nombretd]['NOM']+"</td><td>"+jsonformat[nombretd]['PRENOM']+"</td><td>"+jsonformat[nombretd]['SEMESTRE']+"</td><td>"+jsonformat[nombretd]['MOTIF']+"</td><td>"+jsonformat[nombretd]['NCOMPTE']+"</td><td>"+jsonformat[nombretd]['TITUCOMPTE']+"</td><td>"+jsonformat[nombretd]['MONTANT']+"</td><td>"+jsonformat[nombretd]['IDVIREMENT']+"</td><td>"+jsonformat[nombretd]['ETAT']+"</td><td>"+jsonformat[nombretd]['DECISION']+"</td><td>"+jsonformat[nombretd]['DATESERVER']+"</td><td><a href='#' data-toggle='modal' data-target='#myModal"+nombretd+"' ><i class='mx-1 fas fa-check text-success'></i></a> <a href='#' data-toggle='modal' data-target='#refuModal"+nombretd+"' ><i class='mx-1 fas fa-window-close text-danger'></i></a>\
+                            "<tr><td>"+jsonformat[nombretd]['MATRICULE']+"</td><td>"+jsonformat[nombretd]['NOM']+"</td><td>"+jsonformat[nombretd]['PRENOM']+"</td><td>"+jsonformat[nombretd]['SEMESTRE']+"</td><td>"+jsonformat[nombretd]['MOTIF']+"</td><td>"+jsonformat[nombretd]['NCOMPTE']+"</td><td>"+jsonformat[nombretd]['TITUCOMPTE']+"</td><td>"+jsonformat[nombretd]['DATEVIREMENT']+"</td><td>"+jsonformat[nombretd]['MONTANT']+"</td><td>"+jsonformat[nombretd]['IDVIREMENT']+"</td><td>"+jsonformat[nombretd]['ETAT']+"</td><td>"+jsonformat[nombretd]['DECISION']+"</td><td>"+jsonformat[nombretd]['DATESERVER']+"</td><td><a href='#' data-toggle='modal' data-target='#myModal"+nombretd+"' ><i class='mx-1 fas fa-check text-success'></i></a> <a href='#' data-toggle='modal' data-target='#refuModal"+nombretd+"' ><i class='mx-1 fas fa-window-close text-danger'></i></a>\
                             <div class='modal fade' id='myModal"+nombretd+"'>\
                             <div class='modal-dialog modal-sm'><div class='modal-content'>\
                             <div class='modal-header'><h4 class='modal-title text-success'>VALIDER?</h4><button type='button' class='close' data-dismiss='modal'>×</button></div>\

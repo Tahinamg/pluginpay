@@ -1,12 +1,11 @@
 <?php
-//TODO ASIVO western union
-    ob_start();
+//UPLOAD
+//CDN Change the local  to CDN before upload
+ob_start();
 
-    header('Content-Type:text/html ; charset=utf-8');
+header('Content-Type:text/html ; charset=utf-8');
 
-       //TODO Ovay cdn
-
-    function loadclass($class){
+function loadclass($class){
        
         require "../Model/".$class.'.class.php';
        
@@ -27,8 +26,8 @@
 
     <title>Paiement</title>
 
-      <!--<link rel="stylesheet" href="CSS/bootstrap.min.css"/>-->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+     <link rel="stylesheet" href="CSS/bootstrap.min.css"/>
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>-->
     <link rel="stylesheet" href="CSS/fontawesome.min.css"/>
     <link rel="stylesheet" href="CSS/main.css" />
 </head>
@@ -557,7 +556,7 @@
     </div>
     
 </body>
-
+ <!--
 <script
 	src="https://code.jquery.com/jquery-3.5.1.min.js"
 	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
@@ -565,13 +564,13 @@
 <script type="text/javascript" src="https://unpkg.com/@popperjs/core@2" async="false"></script>
 <script type="text/javascript" src="JS/all.min.js"></script>
 <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="JS/paiement.js"></script>
+<script type="text/javascript" src="JS/paiement.js"></script>-->
        
-       <!-- <script type="text/javascript" src="JS/jquery 3.5.1.js" ></script>
+       <script type="text/javascript" src="JS/jquery 3.5.1.js" ></script>
 <script type="text/javascript" src="node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
 <script type="text/javascript" src="JS/all.min.js"></script>
 <script type="text/javascript" src="JS/bootstrap.min.js"></script>
-<script type="text/javascript" src="JS/paiement.js"></script> -->
+<script type="text/javascript" src="JS/paiement.js"></script> 
 
 </html>
 
