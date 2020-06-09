@@ -34,8 +34,14 @@ $mpianatra = array("nationalite" =>$nationalite,
                     "id"=>$id,
                     "repechage"=>$repechage[0]
                 );
-setcookie("Origin",$mpianatra['nationalite'],0,'/');
-setcookie("Semestre",$mpianatra['semestre'],0,'/');
-setcookie("Inscription",$inscri[0],0,'/');
 
+if($mpianatra['nationalite']=="MG"){
+    setcookie("Origin","LOCAL",0,'/');
+    setcookie("Semestre",$mpianatra['semestre'],0,'/');
+    setcookie("Inscription",$inscri[0],0,'/');
+}else{
+    setcookie("Origin","ETRANGER",0,'/');
+    setcookie("Semestre",$mpianatra['semestre'],0,'/');
+    setcookie("Inscription",$inscri[0],0,'/');
+}
 ?>
