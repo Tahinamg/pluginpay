@@ -185,6 +185,8 @@ switch ($formatpaiement) {
     break;
   
 }
+}else{
+    header('location:paiement.php?error=1&errtype=formatpaiement');
 }
 
 

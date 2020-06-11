@@ -1,12 +1,13 @@
 <?php
+//UPLOAD
 function loadclass($class){
        
     require_once "../Model/".$class.'.class.php';
    
 }
 spl_autoload_register("loadclass");
-$promotion= new Promotion();
-//UPLOAD
+
+
 $prix_promotion=array();
 
 $prix_promotion['ETRANGER']['S1']['0']=80;//etranger S1 Non inscri
@@ -53,13 +54,10 @@ $prix_promotion['LOCAL']['S10']['1']=80000;
 
 //if(isset($_POST['Origin'],$_POST['Semestre'],$_POST['Inscription'],$_POST['CodePromo']))
 //$keys_prix_promotion=array($_POST['Origin'],$_POST['Semestre'],$_POST['Inscription']);
-$keys_prix_promotion=array('ETRANGER','S1','1');
+$keys_prix_promotion=array('ETRANGER','S8','1');
 
     if(array_key_exists($keys_prix_promotion[0],$prix_promotion)&&array_key_exists($keys_prix_promotion[1],$prix_promotion[$keys_prix_promotion[0]])&&array_key_exists($keys_prix_promotion[2],$prix_promotion[$keys_prix_promotion[0]][$keys_prix_promotion[1]])){
-        $promotion->generateCodePromo();
-        $codepromo="12345";
-       var_dump($promotion->useCodePromo($codepromo),Promotion::$CODEPROMO);
-        echo $prix_promotion[$keys_prix_promotion[0]][$keys_prix_promotion[1]][$keys_prix_promotion[2]];
+     
         
    }
 

@@ -1,42 +1,38 @@
 <?php
+//UPLOAD
 final class Promotion{
-    static public $CODEPROMO;
-    static public $UTILISE;
-    public static function generateCodePromo(){
-    array_push(SELF::$CODEPROMO,/*str_shuffle("853Md1aP70m0!$")*/"1234567");
-       array_push(SELF::$UTILISE,"NON");
+    protected $codepromo;
+    protected $utilise;
+
+    public function __construct($donne)
+    {
+        $this->hydrate($donne);
     }
-    public static function useCodePromo($codepromo){
-    if(array_search($codepromo,SELF::$CODEPROMO,false)!==false){
-        foreach(array_keys(SELF::$CODEPROMO,$codepromo,TRUE) as $key){
-            SELF::$UTILISE[$key]="OUI";
+    public function hydrate($donne){
+        foreach($donne as $key => $value){
+            $method= "set".ucfirst(strtolower($key));
+            if(method_exists($this,$method)){
+                $this->$method($value);
+            }
         }
-        return true;
-    }else{
-        return false;
     }
-   
-    }
-    public static function getCodePromoNotUsing(){
-        $promodisponible=array();
-        foreach(array_keys(SELF::$UTILISE,"NON",TRUE) as $key){
-            array_push($promodisponible,SELF::$CODEPROMO[$key]);
-        };
-        return $promodisponible;
+    public function generatePromo(){
+        $cle=random_int(1,786);
+        $this->codepromo=str_shuffle("3M3D14Pr0Mau1NsRi".$cle);
     }
 
-    public static function getCodePromoUsing(){
-        $promodisponible=array();
-        foreach(array_keys(SELF::$UTILISE,"OUI",TRUE) as $key){
-            array_push($promodisponible,SELF::$CODEPROMO[$key]);
-        };
-        return $promodisponible;
+    public function setCodepromo($codepromo){
+        $this->codepromo=$codepromo;
     }
-    public static function destroyCodePromoUsing(){
-        foreach(array_keys(SELF::$UTILISE,"OUI",TRUE) as $key){
-            unset(SELF::$CODEPROMO[$key]);
-            unset(SELF::$UTILISE[$key]);
-        }
+    public function setUtilise($utilite){
+        $this->utilise=$utilite;
     }
+    public function getCodepromo(){
+        return $this->codepromo;
+    }
+    public function getUtilise(){
+        return $this->utilise;
+    }
+    
 }
 ?>
