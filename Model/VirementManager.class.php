@@ -1,7 +1,7 @@
 <?php 
 class VirementManager{
     //UPLOAD
-    //TODO OVAY Ilay ordre colonne ary @ bsd
+    //TODO OVAY Ilay ordre colonne ary @ bsd TYPE STRING
     protected $db;
     public function __construct(PDO $db)
     {

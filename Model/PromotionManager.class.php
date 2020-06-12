@@ -69,8 +69,9 @@ final class PromotionManager{
                 file_put_contents(SELF::JSONFILE,$file);
                 return true;
             }
-        }
+        }else{
         return false;
+        }
     }
     public function unsetPromoUtilise(Promotion $promotion){
         $file=file_get_contents(SELF::JSONFILE);

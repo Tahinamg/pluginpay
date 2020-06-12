@@ -61,18 +61,21 @@ if(isset($_POST['codepromo'])){
     $code_promo_manager=new PromotionManager();
     if($code_promo_manager->existPromo($code_promo)){
         //check if the value of the cookie is realy exact
-        if(isset($_POST['Origin'],$_POST['Semestre'],$_POST['Inscription'],$_POST['CodePromo'])){
+        if(isset($_POST['Origin'],$_POST['Semestre'],$_POST['Inscription'])){
             $keys_prix_promotion=array($_POST['Origin'],$_POST['Semestre'],$_POST['Inscription']);
             if(array_key_exists($keys_prix_promotion[0],$prix_promotion)&&array_key_exists($keys_prix_promotion[1],$prix_promotion[$keys_prix_promotion[0]])&&array_key_exists($keys_prix_promotion[2],$prix_promotion[$keys_prix_promotion[0]][$keys_prix_promotion[1]])){
-
+                $code_promo_manager->utiliseCodePromo($code_promo);
                 echo $prix_promotion[$keys_prix_promotion[0]][$keys_prix_promotion[1]][$keys_prix_promotion[2]];
-                    
+                   
             }else{
-                echo 404;
+                echo 0;
             }
+        }else{
+            echo 0;
         }
+        
     }else{
-        echo "Votre code promo n'existe pas";
+        echo 0;
     }
 }else{
     header("location:../index.html");

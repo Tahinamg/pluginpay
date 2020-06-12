@@ -13,8 +13,10 @@ $etudiantmanager=new EtudiantManager($db);
 $data=$etudiantmanager->createEtudiant($_SESSION["matricule"]);
 $etudiant=new Etudiant($data);
 $mpianatra = array("id"=>$etudiant->getIdetudiants());
+
 if(isset($_POST['formatpaiement'])){
     $formatpaiement=(string) $_POST['formatpaiement'];
+
 
 switch ($formatpaiement) {
     case 'mvola':

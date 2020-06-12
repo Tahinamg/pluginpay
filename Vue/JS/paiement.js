@@ -12,17 +12,16 @@ $(document).ready(function() {
                 /*choix du motif*/
                 //on detruit toute moyen du payement si c'est du Certificat
 
-                if ($(this).val() == "CE") {
-
-                    $("#refmvola,#refcheque,#refbordereaux,.refcompte").animate({
+              /*  if ($(this).val() == "certificat") {
+                    $(".codepromo").animate({
                         left: "10px",
                         opacity: "0"
                     }, "fast", function() {
                         $(this).remove();
                     })
-                }
+                }*/
                 if ($(this).val() == "ecolage") {
-                    var element = '<div id="qe" style="position:relative;opacity:0" class="form-group"><label for="nbm">Nombre de mois à payer</label><input id="nbm" type="number" class="form-control"  placeholder="Indiquez le nombre de mois d\'ecolage que vous voulez payez" name="nbecolage" required><div class="valid-feedback">Valide</div><div class="invalid-feedback">Non valide</div></div>';
+                    var element = '<div id="qe" style="position:relative;opacity:0" class="form-group"><label for="nbm">Nombre de mois à payer</label><input id="nbm" type="number" class="form-control"  placeholder="Indiquez le nombre de mois d\'ecolage que vous voulez payez" name="nbecolage" required></div>';
                     $("#motif").after(element);
                     $("#qe").animate({
                         opacity: 1,
@@ -31,13 +30,86 @@ $(document).ready(function() {
 
 
                     }, "fast", function() {
-                        $("#qce").remove();
+                        $("#qce,#refpromo").remove();
                     });
                     //choix du quantité
                     $("#nbm").change(function() {
                         $("[name='montant']").val(parseInt($("[value='ecolage']").data("value")) * $(this).val());
                         $("#Panier").text($("[name='montant']").val());
                     });
+                }else if($(this).val()=="inscription"){
+                   
+                    
+
+                    $("#qe").animate({
+                        left: '10px',
+                        opacity: '0',
+                    }, "fast", function() {
+                        $(this).remove();
+                    });
+                   
+                    if($("#refpromo").length===0){
+                        var codepromoelement='<div id="refpromo" class="form-group"> <label for="checkpromo">Activez promo</label> <input type="checkbox" id="checkpromo" name="promotion" value="true" class="form-check-inline"/> <br/> <input type="text" id="codepromo" class="form-control" placeholder="Entrez votre Promo" name="codepromo" disabled="disabled"/><div><strong class="text-danger invalidpromo" style="display:none;">Votre Code promo est invalide</strong><strong class="text-success validpromo" style="display:none;" >Code promo valide</strong></div></div>';
+                        var elementparent = $("#formatpaiement").parent();
+                        elementparent.after(codepromoelement);
+
+                                // enable form promotion
+                        $('#checkpromo').click(function(){
+                            if(($('#codepromo').attr("disabled"))=="disabled"){
+                                $("#codepromo").removeAttr("disabled"); 
+                            
+                            }else{
+                                $('#codepromo').attr("disabled","disabled");
+
+                            }
+                        
+                        });
+                         //ajax promotion
+                        function getCookie(cname) {
+                            var name = cname + "=";
+                            var decodedCookie = document.cookie;
+                            var ca = decodedCookie.split(';');
+                            for(var i = 0; i <ca.length; i++) {
+                              var c = ca[i];
+                              while (c.charAt(0) == ' ') {
+                                c = c.substring(1);
+                              }
+                              if (c.indexOf(name) == 0) {
+                                return c.substring(name.length, c.length);
+                              }
+                            }
+                            return "";
+                          }
+
+                        $('#codepromo').keyup(function() { 
+                           
+                            if(e.which==13){
+                                e.preventDefault();
+                            }else{
+                            var codepromovalue=$(this).val();
+                          
+                            $.post("../Controller/ControlPromotion.php",{ codepromo : codepromovalue,Origin : getCookie("Origin") , Semestre : getCookie("Semestre") , Inscription : getCookie("Inscription") },function(data){
+                                if(data==0){
+                                   $("strong.text-danger.invalidpromo").show();
+                                   $("strong.text-success.validpromo").hide();
+                                                    
+                                }else if(data!=0){
+                                    $("strong.text-danger.invalidpromo").hide();
+                                   $("strong.text-success.validpromo").show();
+                                   $("#codepromo").attr("readonly","readonly");
+                                   $('[name="montant"]').val(data);
+                                   $('#Panier').text(data);
+                                }
+                            },"text");
+                        }
+                         });
+                    }
+                    
+
+
+                
+                   
+                    
                 }
                 /*else if($(this).val()=="CE"){
                             var element = '<div id="qce" class="form-group" style="position:relative;opacity:0"><label for="NBC">Nombre de Certificat</label><input type="number" class="form-control" id="NBC" placeholder="1" name="nbcertificat" required><div class="valid-feedback">Valide</div><div class="invalid-feedback">Non valide</div></div>';
@@ -53,7 +125,7 @@ $(document).ready(function() {
                            });
                        }*/
                 else {
-                    $("#qe,#qce").animate({
+                    $("#qe,#qce,#refpromo").animate({
                         left: '10px',
                         opacity: '0',
                     }, "fast", function() {
@@ -94,8 +166,9 @@ $(document).ready(function() {
                     $(".refcompte").remove();
                 })
 
-
-                var element = '<div id="refmvola" style="position:relative" class="form-group"><div class="form-group"><label for="date">date</label><input type="date" class="form-control" name="date" required id="dateheure"/></div><label for="NBR">Numero de Reference</label><input type="text" class="form-control" id="NBR" placeholder="Exemple : 14589654521357" name="reference" required><div class="valid-feedback">Valide</div><div class="invalid-feedback">Non valide</div></div>';
+                    var element = '<div id="refmvola" style="position:relative" class="form-group"><div class="form-group"><label for="date">date</label><input type="date" class="form-control" name="date" required id="dateheure"/></div><label for="NBR">Numero de Reference</label><input type="text" class="form-control" id="NBR" placeholder="Exemple : 14589654521357" name="reference" required></div>';
+                
+             
                 var parent = $("#formatpaiement").parent();
                 $("#formatpaiement").val("mvola");
                 parent.after(element);
@@ -250,8 +323,18 @@ $(document).ready(function() {
 
         });
 
+        // enable form promotion
+$('#checkpromo').click(function(){
+    if(($('#codepromo').attr("disabled"))=="disabled"){
+        $("#codepromo").removeAttr("disabled"); 
+       
+    }else{
+        $('#codepromo').attr("disabled","disabled");
+
     }
-
-
+   
+});
+    }
+    
 
 );
