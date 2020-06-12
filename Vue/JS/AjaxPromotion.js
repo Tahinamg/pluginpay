@@ -16,8 +16,9 @@ $(document).ready(function(){
         return "";
       }
 
-    $("#codepromo").keyup(function (e) { 
-        if(e.which==13){
+    $("#codepromo").keyup(function(e) { 
+        
+        if(e.key=="Enter"||e.key=="Control"){
             e.preventDefault();
         }else{
         var codepromovalue=$(this).val();
@@ -29,12 +30,11 @@ $(document).ready(function(){
                
 
             }else if(data!=0){
-                $("strong.text-danger.invalidpromo").hide();
-               $("strong.text-success.validpromo").show();
-               $("#codepromo").attr("readonly","readonly");
                $('[name="montant"]').val(data);
                $('#Panier').text(data);
-               
+               $("#codepromo").attr("readonly","readonly");
+               $("strong.text-danger.invalidpromo").hide();
+               $("strong.text-success.validpromo").show();
             }
         },"text");
     }

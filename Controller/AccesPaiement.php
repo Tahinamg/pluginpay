@@ -5,7 +5,6 @@ session_start();
 //TODO asio session matricule rehefa locale
 //UPLOAD
 
-
 if(!isset($_SESSION['matricule'])){
     header("location: ../index.html");
 }
