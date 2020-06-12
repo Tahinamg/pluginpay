@@ -8,7 +8,5 @@ function loadclass($class){
 spl_autoload_register("loadclass");
 
 $promotionManager=new PromotionManager();
-$promotion = new Promotion(array("codepromo"=>"7041MU3APDM3","utilise"=>"NON"));
-
-$promotionManager->unsetPromo($promotion);
+$promotion = new Promotion(array("codepromo"=>"RrD1P92M4s0N2uia133M","utilise"=>"NON"));
 ?>

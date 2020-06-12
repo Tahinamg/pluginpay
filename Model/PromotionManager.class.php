@@ -58,6 +58,7 @@ final class PromotionManager{
                 $file=json_decode($file,true);
                 foreach($file as $key => $value){
                     if($value['codepromo']===$promotion->getCodepromo()){
+                        $promotion->setUtilise("OUI");
                         $value['utilise'] = "OUI";
                         $file[$key]=$value;
                     break;
@@ -71,14 +72,30 @@ final class PromotionManager{
         }
         return false;
     }
-
+    public function unsetPromoUtilise(Promotion $promotion){
+        $file=file_get_contents(SELF::JSONFILE);
+        if($file!=false){
+            $file=json_decode($file,true);
+            foreach($file as $key => $value){
+                if($value['codepromo']===$promotion->getCodepromo()&&$value['utilise']===$promotion->getUtilise()){
+                   
+                    unset($file[$key]);
+                    $file=json_encode($file);
+                    file_put_contents(SELF::JSONFILE,$file);
+                    return true;
+                }
+            }
+            return false;
+        }else{
+            new JsonException("The files who store the promotion was dismiss",0);
+        }
+    }
     public function unsetPromo(Promotion $promotion){
         $file=file_get_contents(SELF::JSONFILE);
         if($file!=false){
             $file=json_decode($file,true);
             foreach($file as $key => $value){
                 if($value['codepromo']===$promotion->getCodepromo()){
-                    echo $value['codepromo'];
                     unset($file[$key]);
                     $file=json_encode($file);
                     file_put_contents(SELF::JSONFILE,$file);
