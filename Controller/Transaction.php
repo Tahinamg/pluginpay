@@ -1,11 +1,5 @@
 <?php
-//TODO uploadena
-/*Donner choix du payement*/
-/*donner montant*/
-/*motif*/
-/*Numero id*/
-/*Etat */
-/*matricule*/ 
+//UPLOAD
 ob_start();
 
 session_start();
@@ -13,8 +7,6 @@ session_start();
 if(!isset($_SESSION['matricule'])){
     header("location: https://www.E-media.mg");
 }
-echo 'h';
-
 $db=MyPDO::getMysqlConnexion();
 //maka ilay id aloha mba ampifandraisana azy @ table resaka payement
 $etudiantmanager=new EtudiantManager($db);
@@ -82,8 +74,8 @@ switch ($formatpaiement) {
                 header('location:paiement.php?error=1');
 
             }
-}else{
-             header('location: paiement.php?error=1&errtype=mvola');
+        }else{
+             header('location: paiement.php?error=1&errtype=Western');
         }
         
     break;
@@ -136,22 +128,22 @@ switch ($formatpaiement) {
         
 
        
-        $data=array(
-            "tireur"=>(string) $_POST['tireur'],
-            "etablissement"=>(string) $_POST['etablissement'],
-            "ncheque"=>(string) $_POST['ncheque'],
-            "idetudiants"=>(int) $mpianatra['id'],
-            "motif"=>(string) $_POST['motif'],
-            "etat"=>"non lu",
-            "decision"=>"non prise",
-            "montant"=>(string) $_POST['montant']
-            );
-            $cheque=new Cheque($data);
-            $chequemanager = new ChequeManager($db);
-            $chequemanager->setCheque($cheque);
-            header('location:paiement.php?error=0');
+                $data=array(
+                    "tireur"=>(string) $_POST['tireur'],
+                    "etablissement"=>(string) $_POST['etablissement'],
+                    "ncheque"=>(string) $_POST['ncheque'],
+                    "idetudiants"=>(int) $mpianatra['id'],
+                    "motif"=>(string) $_POST['motif'],
+                    "etat"=>"non lu",
+                    "decision"=>"non prise",
+                    "montant"=>(string) $_POST['montant']
+                );
+                $cheque=new Cheque($data);
+                $chequemanager = new ChequeManager($db);
+                $chequemanager->setCheque($cheque);
+                header('location:paiement.php?error=0');
 
-        }else{
+            }else{
             header('location:paiement.php?error=1');
 
         }
@@ -162,29 +154,30 @@ switch ($formatpaiement) {
     break;
       
     case 'virement':
-        if(isset($_POST['ncompte'],$_POST['tcompte'],$_POST['motif'],$_POST['montant'])){
+        if(isset($_POST['ncompte'],$_POST['tcompte'],$_POST['motif'],$_POST['montant'],$_POST['datevirement'])){
        $regncompte='/[0-9 \s]{15,25}/';
         $regtcompte='/[a-zA-Z]{2,20}/';
         $regmotif='/inscription|ecolage|droit examen semestriel|Droit de soutenance|repechage|certificat/';
         $regmontant = '/[0-9]{1,8}/';
         if(preg_match($regncompte,$_POST['ncompte'])&&preg_match($regtcompte,$_POST['tcompte'])&&preg_match($regmotif,$_POST['motif'])&&preg_match($regmontant,$_POST['montant'])){
-        $data=array(
-            "ncompte"=>(string) $_POST['ncompte'],
-            "titucompte"=>(string) $_POST['tcompte'],
-            "idetudiants"=>(int) $mpianatra['id'],
-            "motif"=>(string) $_POST['motif'],
-            "etat"=>"non lu",
-            "decision"=>"non prise",
-            "montant"=>(string) $_POST['montant']
+            $data=array(
+                "ncompte"=>(string) $_POST['ncompte'],
+                "titucompte"=>(string) $_POST['tcompte'],
+                "idetudiants"=>(int) $mpianatra['id'],
+                "motif"=>(string) $_POST['motif'],
+                "etat"=>"non lu",
+                "decision"=>"non prise",
+                "montant"=>(string) $_POST['montant'],
+                "datevirement"=>(string) $_POST['datevirement']
 
-        );
-        $virement=new Virement($data);
-        $virementmanager=new VirementManager($db);
-        $virementmanager->setVirement($virement);
-        header('location:paiement.php?error=0');
-    }else{
+            );
+            $virement=new Virement($data);
+            $virementmanager=new VirementManager($db);
+            $virementmanager->setVirement($virement);
+            header('location:paiement.php?error=0');
+        }else{
         header('location:paiement.php?error=1');
-    }
+        }
     }else{
         header('location:paiement.php?error=1&errtype=virement');
     }

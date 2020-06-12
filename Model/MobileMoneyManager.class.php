@@ -1,5 +1,4 @@
 <?php
-//TODO OVAY NY ORDRE DE COLONNE ATY @ BSD
 class MobileMoneyManager{
 protected $db;
     public function __construct(PDO $db)

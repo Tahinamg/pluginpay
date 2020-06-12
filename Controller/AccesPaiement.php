@@ -3,7 +3,8 @@
 
 session_start();
 //TODO asio session matricule rehefa locale
-
+//UPLOAD
+$_SESSION['matricule']="TIC-V1/000/MG";
 
 if(!isset($_SESSION['matricule'])){
     header("location: ../index.html");
@@ -25,14 +26,16 @@ $donne=array(
     'numero'=>$etudiant->getNumero()
 );
 //TODO ASIVO CONTRAINTE OE A CHAQUE FIN DE 2 SEMESTRE DIA MIOVA 0 FOANA NY INSCRIPTION
+$inscri=array();
 $inscri=$etudiantmanager->dejaInscrit($donne);
-
 
 $mpianatra = array("nationalite" =>$nationalite,
                    "semestre" =>$semestre,
                     "id"=>$id,
                     "repechage"=>$repechage[0]
                 );
-
+setcookie("Origin",$mpianatra['nationalite'],0,'/');
+setcookie("Semestre",$mpianatra['semestre'],0,'/');
+setcookie("Inscription",$inscri[0],0,'/');
 
 ?>

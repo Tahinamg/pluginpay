@@ -1,6 +1,5 @@
 <?php
 class ComptableManagerCheque{
-//TODO INSERT MAIL AT VALIDATION AND REQUEST
 protected $db;
 
     public function __construct($db)

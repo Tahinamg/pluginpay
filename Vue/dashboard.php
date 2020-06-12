@@ -1,14 +1,10 @@
 <?php
 header('Content-Type:text/html ; charset=utf-8');
 ob_start();
-//TODO UPLOADENA
+//CDN  change the local to CDN before upload
 //TODO ASIVO NOTIFICATION KELY
 
-
-
 session_start();
-
-
 
 if(!isset($_SESSION['finance'])){
     
@@ -23,8 +19,8 @@ if(!isset($_SESSION['finance'])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau du bord ecolage</title>
-   <!-- <link rel="stylesheet" href="CSS/bootstrap.min.css"/>-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="CSS/bootstrap.min.css"/>
+   <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>-->
     <link rel="stylesheet" href="CSS/fontawesome.min.css"/>
     <link rel="stylesheet" href="CSS/dashboard.css"/>
     
@@ -138,19 +134,19 @@ if(isset($_GET['status'],$_GET['mode'])&&$_GET['status']=='refuser'){
  
   
 </body>
-
+<!--
 <script
 	src="https://code.jquery.com/jquery-3.5.1.min.js"
 	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 	crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://unpkg.com/@popperjs/core@2" async="false"></script>
 <script type="text/javascript" src="JS/all.min.js"></script>
-<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>-->
 
-<!--<script type="text/javascript" src="JS/jquery 3.5.1.js" ></script>
+<script type="text/javascript" src="JS/jquery 3.5.1.js" ></script>
 <script type="text/javascript" src="node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
 <script type="text/javascript" src="JS/all.min.js"></script>
-<script type="text/javascript" src="JS/bootstrap.min.js"></script>-->
+<script type="text/javascript" src="JS/bootstrap.min.js"></script>
 <script type="text/javascript" src="JS/dasboard.js" ></script>
 <script type="text/javascript" src="JS/AjaxNotification.js"></script>
 <script type="text/javascript" src="JS/AjaxAffichage.js"></script>
