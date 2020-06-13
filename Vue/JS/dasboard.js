@@ -7,5 +7,9 @@ $("document").ready(function(){
             $(".notificationsubmain").slideToggle("fast");
         }
     );
+    $("#menu-toggle").click(function (e) {
+    e.preventDefault();
+    $("#content-wrapper").toggleClass("toggled");
+  });
 });
 
