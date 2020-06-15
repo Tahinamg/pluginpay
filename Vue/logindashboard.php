@@ -3,6 +3,7 @@
     ob_start();
     
 ?>
+//UPLOADMYELANE
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,25 +13,38 @@
     <link rel="icon" href="Image/logo E-media.png" type="image/png" sizes="16x16"> 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="CSS/fontawesome.min.css"/>
-    <link rel="stylesheet" href="CSS/logindashboard.css"/>
+    <!-- <link rel="stylesheet" href="CSS/logindashboard.css"/>-->
 <style>
 
 
 </style>
 </head>
 <body>
-    <h1>Authentification vers le tableau de bord du paiement</h1>
-
-<div class="w-100">
-   
-  <form  method="POST"  action="../Controller/ControlLoginToDashboard.php" class="d-flex flex-column ">
-    <input type="text" name="matricule" class="align-self-center formStyle" placeholder="Matricule (necessaire)" required />
-    <input type="password" name="password" class="align-self-center formStyle" placeholder="Mot de passe (necessaire)" required />
-    
-    <input class="align-self-center btn btn-success formButton" type="submit" value="Entrez !!" />
-  </form>
+<br>
+<br>
+<div class="container  my-auto">
+  <div class="row">
+    <div class="col-0 col-sm-0 col-md-6 col-lg-6">
+      <img class="img-fluid" src="Image/log.png">
+    </div>
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+    <div class="container">
+    <br>
+    <br>
+  <h4 style="border-bottom-style:groove;">Authentification vers le tableau de bord du paiement</h4>
+  <br>
+      <form  method="POST"  action="../Controller/ControlLoginToDashboard.php">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Matricule (necessaire)" name="matricule" required>
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" placeholder="Mot de passe (necessaire)" name="password" required>
+        </div>
+        <input class="btn btn-info" align="center" type="submit" value="Entrez !!" />
+      </form>
+    </div>
+  </div>
 </div>
-
 
 </body>
 <script
