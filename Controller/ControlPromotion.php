@@ -1,5 +1,5 @@
 <?php
-//UPLOAD
+
 function loadclass($class){
        
     require_once "../Model/".$class.'.class.php';
