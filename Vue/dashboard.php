@@ -65,8 +65,6 @@ if(!isset($_SESSION['finance'])){
     </div>
 
     <div id="page-container" class="w-100 bg-light-blue">
-
-
       <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
         <div class="container">
         <button class="btn" id="menu-toggle"><i class="fas fa-bars lead"></i></button>
@@ -88,14 +86,14 @@ if(!isset($_SESSION['finance'])){
 
       <section>
        
-        <div id="welcoming" class="container-fluid p-5 table-responsive-xl">
+        <div id="welcoming" class="container-fluid p-5">
           <div>
             <h2>Bienvenu dans le tableau de bord </h2>
           </div>
         </div>
         <br>
-          <div class="table-responsive-lg container">
-            <table class="table table-hover w-auto">
+          <div class="table-responsive-xl container" style="overflow-x: auto">
+            <table class="table table-responsive-xl table-hover w-auto">
             </table>
           </div>
         
