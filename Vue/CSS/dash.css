@@ -66,6 +66,6 @@
         width: 100%;
     }
     #content-wrapper.toggled #sidebar-container {
-      margin-left: -18rem;
+      margin-left: -15rem;
     }
   }

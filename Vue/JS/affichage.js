@@ -54,7 +54,20 @@ $("#classification").click(function () {
     </script>"
     );
 });
+
 $("#promo").click(function(){
+    $.ajax({
+        type: "GET",
+        url: "../Controller/ControlPromotion.php",
+        dataType: "json",
+        success : function(){
+           
+        },
+ 
+        error : function(){
+ 
+        }
+      });
     $("#welcoming").empty();
     $(".table").empty();
     $("#welcoming").append(
@@ -67,23 +80,23 @@ $("#promo").click(function(){
                         <option value=\"NON\">Non utiliser</option>\
                     </select>\
                     <br>\
-                    <div class=\"card border-0 shadow-md shadow-hover col-8\">\
+                    <div class=\"card border-0 shadow-md shadow-hover col-8 sup\">\
                         <div class=\"card-body d-flex text-right align-items-center\">\
-                            <button class=\"btn btn-danger text-white\"><strong>X</strong></button>\
+                            <button class=\"btn btn-danger text-white\" id=\"sup\"><strong>X</strong></button>\
                             <p id=\"nbr\" class=\"mb-0 ml-2\">3203DRFGHUIOPHGFDSEZR</p>\
                         </div>\
                     </div>\
                     <br>\
-                    <div class=\"card border-0 shadow-md shadow-hover col-8\">\
+                    <div class=\"card border-0 shadow-md shadow-hover col-8 sup\">\
                         <div class=\"card-body d-flex text-right align-items-center\">\
-                            <button class=\"btn btn-danger text-white\"><strong>X</strong></button>\
+                            <button class=\"btn btn-danger text-white\" id=\"sup\"><strong>X</strong></button>\
                             <p id=\"nbr\" class=\"mb-0 ml-2\">3203DRFGHUIOPHGFDSEZR</p>\
                         </div>\
                     </div>\
                     <br>\
-                    <div class=\"card border-0 shadow-md shadow-hover col-8\">\
+                    <div class=\"card border-0 shadow-md shadow-hover col-8 sup\">\
                         <div class=\"card-body d-flex text-right align-items-center\">\
-                            <button class=\"btn btn-danger text-white\"><strong>X</strong></button>\
+                            <button class=\"btn btn-danger text-white\" id=\"sup\"><strong>X</strong></button>\
                             <p id=\"nbr\" class=\"mb-0 ml-2\">3203DRFGHUIOPHGFDSEZR</p>\
                         </div>\
                     </div>\
@@ -95,6 +108,15 @@ $("#promo").click(function(){
             </div>\
         </div>"
     );
+    $("#sup").click(function(){
+        $('.sup').empty();
+    });
+    $("select.choix").change(function () {
+        var choix = $(this).children("option:selected").val();
+        //TEST ALERTE
+        alert("Vous avez sélectionné le langage : " + choix);
+    });
+    
 });
 $(document).ready(function () {
     $('#user_data').DataTable();
