@@ -3,6 +3,7 @@ header('Content-Type:text/html ; charset=utf-8');
 ob_start();
 //CDN  change the local to CDN before upload
 //TODO ASIVO NOTIFICATION KELY
+//UPLOADMYELANE
 
 session_start();
 
@@ -80,7 +81,6 @@ if(!isset($_SESSION['finance'])){
               <li class="nav-item">
                 <span><i class="fas fa-user lead mr-2"></i> Gaelle</span>
               </li>
-
             </ul>
           </div>
         </div>

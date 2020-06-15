@@ -1,3 +1,4 @@
+//UPLOADMYELANE
 $("#classification").click(function () {
     $("#welcoming").empty();
     $(".table").empty();
@@ -61,7 +62,7 @@ $("#promo").click(function(){
         <div class=\"container\">\
             <div class=\"row\">\
                 <div class=\"col-6 col-sm-6 col-md-6 col-lg-6\">\
-                    <select name=\"choix\" id=\"choix\" class=\"col-8 form-control\">\
+                    <select name=\"choix\" id=\"choix\" class=\"col-8 form-control choix\">\
                         <option value=\"OUI\">Utiliser</option>\
                         <option value=\"NON\">Non utiliser</option>\
                     </select>\
