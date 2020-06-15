@@ -1,5 +1,4 @@
 <?php
-//UPLOAD
 final class Promotion{
     protected $codepromo;
     protected $utilise;

@@ -3,8 +3,8 @@
 
 session_start();
 //TODO asio session matricule rehefa locale
-//UPLOAD
 
+$_SESSION['matricule']="MBA-V1/001/MG";
 if(!isset($_SESSION['matricule'])){
     header("location: ../index.html");
 }

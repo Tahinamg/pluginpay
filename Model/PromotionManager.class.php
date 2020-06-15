@@ -2,6 +2,8 @@
 //UPLOAD
 final class PromotionManager{
     const JSONFILE = "../JSON/Promotion.json";
+    const JSONFILEUNUSED = "../JSON/UnusedPromotion.json"; 
+    const JSONFILEUSED = "../JSON/UsedPromotion.json"; 
     public function createPromo(Promotion $promotion){
         $data=file_get_contents(SELF::JSONFILE);
         if($data!=false){
@@ -21,6 +23,42 @@ final class PromotionManager{
         }
         
     }
+    public function listUnusedPromo(){
+        $data=file_get_contents(SELF::JSONFILE);
+        if($data!=false){
+            $data=json_decode($data,true);
+            $data1=array();
+            foreach($data as $key => $value){
+                if($value['utilise']=="NON"){
+                    array_push($data1,$data[$key]);
+                }
+            }
+            $data1=json_encode($data1);
+            file_put_contents(SELF::JSONFILEUNUSED,$data1);
+            return $data1;
+        }else{
+            throw new Exception("le fichier JSON n'existe pas", 0);
+        }
+    }
+
+    public function listUsedPromo(){
+        $data=file_get_contents(SELF::JSONFILE);
+        if($data!=false){
+            $data=json_decode($data,true);
+            $data1=array();
+            foreach($data as $key => $value){
+                if($value['utilise']=="OUI"){
+                    array_push($data1,$data[$key]);
+                }
+            }
+            $data1=json_encode($data1);
+            file_put_contents(SELF::JSONFILEUSED,$data1);
+            return $data1;
+        }else{
+            throw new Exception("le fichier JSON n'existe pas", 0);
+        }
+    }
+
     public function existPromo(Promotion $promotion){
         $file=file_get_contents(SELF::JSONFILE);
         if($file!=false){
@@ -105,7 +143,7 @@ final class PromotionManager{
             }
             return false;
         }else{
-            new JsonException("The files who store the promotion was dismiss",0);
+         throw new JsonException("The files who store the promotion was dismiss",0);
         }
     }
 }
