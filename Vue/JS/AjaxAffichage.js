@@ -1,5 +1,6 @@
 $("document").ready(function(){
 //UPLOAD
+//UPLOADMYELANE
     var ajourlistvirement=0;
     var ajourlistcheque=0;
     var ajourlistmvola=0;
@@ -21,7 +22,7 @@ $("document").ready(function(){
                         success: function (response) {
                             $(".table").empty();
                            $(".table").append(
-                            "<thead> <tr> <th>MATRICULE</th> <th>NOM</th><th>PRENOM</th><th>SEMESTRE</th><th>MOTIF</th><th>REFERENCE</th><th>DATEREF</th><th>MONTANT</th><th>IDMOBILE</th><th>ETAT</th><th>DECISION</th><th>DATESERVER</th> <th>ACTION</th></tr></thead>"   
+                            "<thead> <tr> <th>Matricule</th> <th>Nom</th><th>Prenom</th><th>Semestre</th><th>Motif</th><th>Reference</th><th>Dateref</th><th>Montant</th><th>IdMobile</th><th>Etat</th><th>Decision</th><th>Dateserver</th> <th>Action</th></tr></thead>"   
                            );
                            $(".table").append(
                                "<tbody></tbody>"
@@ -128,7 +129,7 @@ $("document").ready(function(){
                             
                             $(".table").empty();
                             $(".table").append(
-                             "<thead> <tr> <th>MATRICULE</th>  <th>NOM</th><th>PRENOM</th><th>SEMESTRE</th><th>MOTIF</th><th>TIREUR</th><th>ETABLISSEMENT</th><th>MONTANT</th><th>NCHEQUE</th><th>ETAT</th><th>DECISION</th><th>DATESERVER</th> <th>IDCHEQUE</th><th>ACTION</th></tr></thead>"   
+                             "<thead> <tr> <th>Matricule</th>  <th>Nom</th><th>Prenom</th><th>Semestre</th><th>Motif</th><th>Tireur</th><th>Etablissement</th><th>Montant</th><th>Ncheque</th><th>Etat</th><th>Decision</th><th>Dateserver</th> <th>IdCheque</th><th>Action</th></tr></thead>"   
                             );
                             $(".table").append(
                                 "<tbody></tbody>"
@@ -212,6 +213,7 @@ $("document").ready(function(){
 
 
             });
+            
 
             $("#VersementVoir").click(function(){
                 $(".notif,#welcoming").remove();
@@ -232,7 +234,7 @@ $("document").ready(function(){
                                  
                             $(".table").empty();
                             $(".table").append(
-                             "<thead> <tr> <th>MATRICULE</th><th>NOM</th><th>PRENOM</th><th>SEMESTRE</th><th>MOTIF</th><th>NBORDEREAUX</th><th>AGENCE</th><th>MONTANT</th><th>IDVERSEMENT</th><th>ETAT</th><th>DECISION</th><th>DATESERVER</th><th>ACTION</th></tr></thead>"   
+                             "<thead> <tr> <th>Matricule</th><th>Nom</th><th>Prenom</th><th>Semestre</th><th>Motif</th><th>Nbordereaux</th><th>Agence</th><th>Montant</th><th>IdVersement</th><th>Etat</th><th>Decision</th><th>DateServer</th><th>Action</th></tr></thead>"   
                             );
                             $(".table").append(
                                 "<tbody></tbody>"
@@ -339,7 +341,7 @@ $("document").ready(function(){
                              
                         $(".table").empty();
                         $(".table").append(
-                         "<thead> <tr> <th>MATRICULE</th><th>NOM</th><th>PRENOM</th><th>SEMESTRE</th><th>MOTIF</th><th>NCOMPTE</th><th>TITUCOMPTE</th><th>DATEVIREMENT</th><th>MONTANT</th><th>IDVIREMENT</th><th>ETAT</th><th>DECISION</th><th>DATESERVER</th><th>ACTION</th></tr></thead>"   
+                         "<thead> <tr> <th>Matricule</th><th>Nom</th><th>Prenom</th><th>Semestre</th><th>Motif</th><th>NCompte</th><th>TituCompte</th><th>DateVirement</th><th>Montant</th><th>IdVirement</th><th>Etat</th><th>Decision</th><th>DateServer</th><th>Acion</th></tr></thead>"   
                         );
                         $(".table").append(
                             "<tbody></tbody>"
@@ -376,6 +378,7 @@ $("document").ready(function(){
                         }
 
                 });
+                
 
 
                 ajourlistvirement=setInterval(function(){
@@ -447,7 +450,7 @@ $("document").ready(function(){
                         success: function (response5) {
                             $(".table").empty();
                            $(".table").append(
-                            "<thead> <tr> <th>MTCN</th><th>EXPEDITEUR</th><th>MONTANTWESTERN</th><th>DEVOIR</th><th>MOTIF</th> <th>MATRICULE</th><th>NOM</th><th>PRENOM</th><th>SEMESTRE</th><th>DATESERVER</th><th>ETAT</th><th>DECISION</th><th>ACTION</th></tr></thead>"   
+                            "<thead> <tr> <th>MTCN</th><th>Expediteur</th><th>MontantWestern</th><th>Devoir</th><th>Motif</th> <th>Matricule</th><th>Nom</th><th>Prenom</th><th>Semestre</th><th>DateServer</th><th>Etat</th><th>Decision</th><th>Action</th></tr></thead>"   
                            );
                            $(".table").append(
                                "<tbody></tbody>"

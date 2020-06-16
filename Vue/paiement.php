@@ -26,8 +26,8 @@ function loadclass($class){
 
     <title>Paiement</title>
 
-     <link rel="stylesheet" href="CSS/bootstrap.min.css"/>
-  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>-->
+    <!--  <link rel="stylesheet" href="CSS/bootstrap.min.css"/>-->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="CSS/fontawesome.min.css"/>
     <link rel="stylesheet" href="CSS/main.css" />
 </head>
@@ -478,6 +478,14 @@ function loadclass($class){
                     <div class="form-group">
                         <input type="hidden" class="form-control"  id="formatpaiement" placeholder="1" name="formatpaiement" value="null" required>
                     </div>
+                    
+                    <div id="refpromo" class="form-group"> 
+                        <label for="checkpromo">Activez promo</label> <input type="checkbox" id="checkpromo" name="promotion" value="true" class="form-check-inline"/> <br/> <input type="text" class="form-control" placeholder="Entrez votre Promo" name="codepromo" id="codepromo" disabled="disabled" />
+                        <div>
+                            <strong class="text-danger invalidpromo" style="display:none;" >Votre Code promo est invalide</strong>
+                            <strong class="text-success validpromo" style="display:none;" >Code promo valide</strong>
+                        </div>
+                    </div>
                     <?php
                                 if($mpianatra['nationalite']=='MG' && ($mpianatra['semestre']=='S1'|| $mpianatra['semestre']=='S2'||$mpianatra['semestre']=='S3' || $mpianatra['semestre']=='S4' || $mpianatra['semestre']=='S5'||$mpianatra['semestre']=='S6')){ 
                                     if($inscri[0]>=1){
@@ -538,13 +546,12 @@ function loadclass($class){
                                 }
                             ?>
                     
-
                     <div class="d-flex justify-content-end">
                         <button style="opacity: 0;" class="btn validation btn-success">
                             Validez!
                         </button>
                     </div>
-                    
+                   
                 </form>
                 </div>
                 <div class="col-1 col-sm-1 col-md-1 col-lg-1"></div>
@@ -556,7 +563,7 @@ function loadclass($class){
     </div>
     
 </body>
- <!--
+ 
 <script
 	src="https://code.jquery.com/jquery-3.5.1.min.js"
 	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
@@ -564,13 +571,14 @@ function loadclass($class){
 <script type="text/javascript" src="https://unpkg.com/@popperjs/core@2" async="false"></script>
 <script type="text/javascript" src="JS/all.min.js"></script>
 <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="JS/paiement.js"></script>-->
+<script type="text/javascript" src="JS/paiement.js"></script>
        
-       <script type="text/javascript" src="JS/jquery 3.5.1.js" ></script>
+      <!-- <script type="text/javascript" src="JS/jquery 3.5.1.js" ></script>
 <script type="text/javascript" src="node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
 <script type="text/javascript" src="JS/all.min.js"></script>
 <script type="text/javascript" src="JS/bootstrap.min.js"></script>
-<script type="text/javascript" src="JS/paiement.js"></script> 
+<script type="text/javascript" src="JS/paiement.js"></script> -->
+<script type="text/javascript" src="JS/AjaxPromotion.js"></script>
 
 </html>
 

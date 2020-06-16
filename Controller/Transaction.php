@@ -1,5 +1,4 @@
 <?php
-//UPLOAD
 ob_start();
 
 session_start();
@@ -13,8 +12,10 @@ $etudiantmanager=new EtudiantManager($db);
 $data=$etudiantmanager->createEtudiant($_SESSION["matricule"]);
 $etudiant=new Etudiant($data);
 $mpianatra = array("id"=>$etudiant->getIdetudiants());
+
 if(isset($_POST['formatpaiement'])){
     $formatpaiement=(string) $_POST['formatpaiement'];
+
 
 switch ($formatpaiement) {
     case 'mvola':
@@ -185,6 +186,8 @@ switch ($formatpaiement) {
     break;
   
 }
+}else{
+    header('location:paiement.php?error=1&errtype=formatpaiement');
 }
 
 

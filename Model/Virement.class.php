@@ -1,5 +1,4 @@
 <?php
-//UPLOAD
 class Virement{
 
     protected $ncompte ,$titucompte ,$idvirement,$idetudiants,$motif,$decision,$etat,$dateserver,$montant,$datevirement;

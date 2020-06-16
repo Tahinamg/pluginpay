@@ -3,6 +3,7 @@ header('Content-Type:text/html ; charset=utf-8');
 ob_start();
 //CDN  change the local to CDN before upload
 //TODO ASIVO NOTIFICATION KELY
+//UPLOADMYELANE
 
 session_start();
 
@@ -22,115 +23,86 @@ if(!isset($_SESSION['finance'])){
     <link rel="stylesheet" href="CSS/bootstrap.min.css"/>
    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>-->
     <link rel="stylesheet" href="CSS/fontawesome.min.css"/>
-    <link rel="stylesheet" href="CSS/dashboard.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="CSS/dash.css"/>
     
 </head>
 <body>
-    <style>
-        /* RESET RULES
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
-@import url("https://fonts.googleapis.com/css?family=Lato:400,700&display=swap");
-
-</style>
-<div class="row w-100 " style="position: relative;">
-<header class="page-header px-0 col-2">
-    <nav>
-        <div class="d-flex flex-column my-2">
-            <div class="fas fa-user fa-3x align-self-center"></div>
-            <div class="align-self-center">Gaelle</div>
-        </div>
     
-      
+<div id="content-wrapper" class="d-flex">
+    <div id="sidebar-container" class="bg-light border-right">
+      <div class="logo">
+        <h4 class="font-weight-bold mb-8">E-media</h4>
+      </div>
+      <div class="menu list-group-flush">
+        <a href="" id="notification" class="list-group-item list-group-item-action bg-light p-3 border-0"><i
+            class="fas fa-bell lead mr-2"></i> Notifications</a>
+        <div class="notificationsubmain" id="test">
+          <a href="#" id="MvolaVoir" class="list-group-item list-group-item-action bg-light p-1 pl-5 border-0">MVOLA
+            <span class="badge badge-pill badge-light float-right mr-5" id="MvolaNotif"></span></a>
+          <a href="#" id="ChequeVoir" class="list-group-item list-group-item-action bg-light p-1 pl-5 border-0">CHEQUE
+            <span class="badge badge-pill badge-light float-right mr-5" id="ChequeNotif"></span></a>
+          <a href="#" id="VersementVoir"
+            class="list-group-item list-group-item-action bg-light p-1 pl-5 border-0">VERSEMENT <span
+              class="badge badge-pill badge-light float-right mr-5" id="VersementNotif"></span></a>
+          <a href="#" id="VirementVoir"
+            class="list-group-item list-group-item-action bg-light p-1 pl-5 border-0">VIREMENT <span
+              class="badge badge-pill badge-light float-right mr-5" id="VirementNotif"></span></a>
+          <a href="#" id="WesternVoir" class="list-group-item list-group-item-action bg-light p-1 pl-5 border-0">WESTERN
+            <span class="badge badge-pill badge-light float-right mr-5" id="WesternNotif"></span></a>
+        </div>
 
+        <a href="#" id="classification" class="list-group-item list-group-item-action bg-light p-3 border-0"><i
+            class="fas fa-clipboard-list lead mr-2"></i> Classification</a>
+        <a href="" id="stat" class="list-group-item list-group-item-action bg-light p-3 border-0"><i
+            class="fas fa-chart-bar lead mr-2"></i> Statistique</a>
+        <a href="#" id="promo" class="list-group-item list-group-item-action bg-light p-3 border-0"><i
+            class="fas fa-wallet lead mr-2"></i> Code Promo</a>
+        <a href="../Controller/DeconnexionFinance.php"
+          class="list-group-item list-group-item-action bg-light p-3 border-0"><i
+            class="fas fa-sign-out-alt lead mr-2"></i> Deconnection</a>
+      </div>
+    </div>
 
-      <ul class="admin-menu">
+    <div id="page-container" class="w-100 bg-light-blue">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <div class="container">
+        <button class="btn" id="menu-toggle"><i class="fas fa-bars lead"></i></button>
 
-       <!-- <li class="menu-heading">
-          <h3><i class="fas fa-bell"></i>notifications <span class="badge badge-danger">2</span></h3>
-        </li>-->
-        
-        <li class="menu-heading">
-          <a id="notification" href="#">
-            <i class="fas fa-1x fa-bell"></i>
-            <h3>notifications </h3>
-          </a>
-            <ul class="notificationsubmain">
-              <li id="MvolaVoir" >
-                <a>MVOLA  &nbsp;<span  id="MvolaNotif"></span></a>
-              </li>
-              <li id="ChequeVoir">
-              <a>CHEQUE &nbsp;<span id="ChequeNotif"></span></a>
-              </li>
-              <li id="VersementVoir">
-                <a>VERSEMENT &nbsp;<span  id="VersementNotif"></span></a>
-                
-              </li>
-              <li id="VirementVoir">
-                <a>VIREMENT &nbsp;<span id="VirementNotif"></span></a>
-              </li>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
 
-              <li id="WesternVoir">
-                <a>WESTERN &nbsp;<span id="WesternNotif"></span></a>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <span><i class="fas fa-user lead mr-2"></i> Gaelle</span>
               </li>
             </ul>
+          </div>
+        </div>
+      </nav>
 
-        </li>
+      <section>
+       
+        <div id="welcoming" class="container-fluid p-5">
+          <div>
+            <h2>Bienvenu dans le tableau de bord </h2>
+          </div>
+        </div>
+        <br>
+          <div class="table-responsive-xl container" style="overflow-x: auto">
+            <table class="table table-responsive-xl table-hover w-auto">
+            </table>
+          </div>
         
+      </section>
 
 
-       <!-- <li class="menu-heading">
-          <h3>Classification</h3>
-        </li>-->
-        <li class="menu-heading">
-          <a href="#">
-            <i class="fas fa-clipboard-list"></i>
-            <h3>Classification</h3> 
-          </a>
-        </li>
-        
-
-        <li>
-          <button class="collapse-btn text-danger" aria-expanded="true" aria-label="collapse menu">
-            <i class="fas fa-reply"></i>
-            <span > <a href="../Controller/DeconnexionFinance.php">Se Deconnecter</a></span>
-          </button>
-        </li>
-        
-      </ul>
-    </nav>
-  </header>
-
-  <section class="col-10">
-
-
-<?php
-if(isset($_GET['status'],$_GET['motif'],$_GET['mode'])&&$_GET['status']=='valider'){
-echo '<div class="container mt-4 notif alert-dismissible">
-          <div class="alert alert-success">
-          <strong>'.$_GET['status'].'!!! </strong>'.$_GET['motif'].' en mode '.$_GET['mode'].' a ete valider</div></div>';
-}
-if(isset($_GET['status'],$_GET['mode'])&&$_GET['status']=='refuser'){
-  echo '<div class="container mt-4 notif alert-dismissible">
-            <div class="alert alert-danger">
-            <strong>'.$_GET['status'].'</strong> Le mode de paiement  '.$_GET['mode'].' \' a ete refuse&eacute;</div></div>';
-  }
-
-?>
-<div id="welcoming">
-<h1>
-  Bienvenu dans le tableau de bord 
-</h1>
-<p>Ce site est toujours en cours de maintenace mais vous pouvez deja avoir les fonctionalit&eacute; necessaire pour l'instant</p></div>
-
-
-    <div class="table-responsive-xl">
-      <table class="table">
-      </table>
 
     </div>
-  </section>
-</div>
-
+  </div>
  
   
 </body>
@@ -147,9 +119,22 @@ if(isset($_GET['status'],$_GET['mode'])&&$_GET['status']=='refuser'){
 <script type="text/javascript" src="node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
 <script type="text/javascript" src="JS/all.min.js"></script>
 <script type="text/javascript" src="JS/bootstrap.min.js"></script>
-<script type="text/javascript" src="JS/dasboard.js" ></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<!--<script type="text/javascript" src="JS/dasboard.js" ></script>-->
 <script type="text/javascript" src="JS/AjaxNotification.js"></script>
 <script type="text/javascript" src="JS/AjaxAffichage.js"></script>
+<script type="text/javascript" src="JS/affichage.js"></script>
+<script>
+$("#notification").click(
+        function(){
+            $(".notificationsubmain").slideToggle("fast");
+        }
+    );
+    $("#menu-toggle").click(function (e) {
+    e.preventDefault();
+    $("#content-wrapper").toggleClass("toggled");
+  });
+</script>
 
 <?php
 
