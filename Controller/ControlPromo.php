@@ -9,8 +9,8 @@ if(isset($_POST['create'])){
 
         $promotionManager=new PromotionManager();
         $promotion = new Promotion(array("codepromo"=>"iM403M9D1sau31rP3RN8","utilise"=>"NON"));
-        
-        return $promotionManager->createPromo($promotion);
+        //return true
+        echo $promotionManager->createPromo($promotion);
         }
 }
 
@@ -20,6 +20,7 @@ if(isset($_POST['unset'])){
         $promotionManager=new PromotionManager();
         $promotion = new Promotion(array("codepromo"=>$_POST['codepromo'],"utilise"=>"NON"));
         $promotionManager->unsetPromo($promotion);
+        echo 'unset success';
     }
 }
 
