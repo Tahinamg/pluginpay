@@ -69,25 +69,7 @@ $("#promo").click(function(){
                         <option value=\"NON\">Non utiliser</option>\
                     </select>\
                     <br>\
-                    <div class=\"card border-0 shadow-md shadow-hover col-8 sup\">\
-                        <div class=\"card-body d-flex text-right align-items-center\">\
-                            <button class=\"btn btn-danger text-white\" id=\"sup\"><strong>X</strong></button>\
-                            <p id=\"nbr\" class=\"mb-0 ml-2\">3203DRFGHUIOPHGFDSEZR</p>\
-                        </div>\
-                    </div>\
-                    <br>\
-                    <div class=\"card border-0 shadow-md shadow-hover col-8 sup\">\
-                        <div class=\"card-body d-flex text-right align-items-center\">\
-                            <button class=\"btn btn-danger text-white\" id=\"sup\"><strong>X</strong></button>\
-                            <p id=\"nbr\" class=\"mb-0 ml-2\">3203DRFGHUIOPHGFDSEZR</p>\
-                        </div>\
-                    </div>\
-                    <br>\
-                    <div class=\"card border-0 shadow-md shadow-hover col-8 sup\">\
-                        <div class=\"card-body d-flex text-right align-items-center\">\
-                            <button class=\"btn btn-danger text-white\" id=\"sup\"><strong>X</strong></button>\
-                            <p id=\"nbr\" class=\"mb-0 ml-2\">3203DRFGHUIOPHGFDSEZR</p>\
-                        </div>\
+                    <div class=\"ut\">\
                     </div>\
                 </div>\
                 <div class=\"col-6 col-sm-6 col-md-6 col-lg-6\">\
@@ -101,20 +83,46 @@ $("#promo").click(function(){
         $.ajax({
             type: "POST",
             dataType: "TEXT",
-            url: "../Controller/ControlAjaxAffichagePromo.php",
-            data: "utilisation=OUI",
+            url: "../Controller/ControlPromo.php",
+            data: "create=OUI",
             success : function(data){  
                console.log(data);
             },
           });
     });
-    $("#sup").click(function(){
-        $('.sup').empty();
-    });
     $("select.choix").change(function () {
         var choix = $(this).children("option:selected").val();
-        //TEST ALERTE
-        alert("Vous avez sélectionné le langage : " + choix);
+        $.ajax({
+            type: "POST",
+            dataType: "JSON",
+            url: "../Controller/ControlAjaxAffichagePromo.php",
+            data: "utilisation="+choix,
+            success : function(data){
+                for (var i = 0; i<data.length; i++){
+                    $(".ut").append(
+                        "<div class=\"card border-0 shadow-md shadow-hover col-8 sup\">\
+                            <div class=\"card-body d-flex text-right align-items-center\">\
+                            <button class=\"btn btn-danger text-white\" id=\"sup\"><strong>X</strong></button>\
+                            <p id="+data[i]['codepromo']+" class=\"mb-0 ml-2\">"+data[i]['codepromo']+"</p>\
+                            </div>\
+                        </div>\
+                        <br>");
+                    console.log(data[i]['codepromo']);
+                    console.log(data[i]['utilise']);
+                }
+                $("#sup").click(function(){
+                    $.ajax({
+                        type: "POST",
+                        dataType: "JSON",
+                        url: "../Controller/ControlPromo.php",
+                        data: "unset=OUI",
+                        success : function (data) { 
+                           alert("sup");
+                         },
+                    });
+                });
+            },
+        });
     });
     
 });
