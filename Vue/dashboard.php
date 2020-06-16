@@ -92,7 +92,7 @@ if(!isset($_SESSION['finance'])){
           </div>
         </div>
         <br>
-          <div class="table-responsive-xl container" style="overflow-x: auto">
+          <div class="table-responsive-xl" style="overflow-x: auto">
             <table class="table table-responsive-xl table-hover w-auto">
             </table>
           </div>
