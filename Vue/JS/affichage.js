@@ -56,18 +56,7 @@ $("#classification").click(function () {
 });
 
 $("#promo").click(function(){
-    $.ajax({
-        type: "GET",
-        url: "../Controller/ControlPromotion.php",
-        dataType: "json",
-        success : function(){
-           
-        },
- 
-        error : function(){
- 
-        }
-      });
+    
     $("#welcoming").empty();
     $(".table").empty();
     $("#welcoming").append(
@@ -102,12 +91,23 @@ $("#promo").click(function(){
                     </div>\
                 </div>\
                 <div class=\"col-6 col-sm-6 col-md-6 col-lg-6\">\
-                    <button class=\"btn btn-outline-danger align-items-center col-12\">GENENRER UNE CODE PROMO</button>\
+                    <button class=\"btn btn-outline-danger align-items-center col-12 genere\" id=\"genere\">GENENRER UNE CODE PROMO</button>\
                     <img class=\"justify-content-center align-items-center mx-auto d-block img-fluid\" align=\"center\" src=\"../Vue/Image/promo.png\" alt=\"error\">\
                 </div>\
             </div>\
         </div>"
     );
+    $('.genere').click(function(){
+        $.ajax({
+            type: "POST",
+            dataType: "TEXT",
+            url: "../Controller/ControlAjaxAffichagePromo.php",
+            data: "utilisation=OUI",
+            success : function(data){  
+               console.log(data);
+            },
+          });
+    });
     $("#sup").click(function(){
         $('.sup').empty();
     });
