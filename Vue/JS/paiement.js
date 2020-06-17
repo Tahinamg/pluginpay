@@ -1,5 +1,5 @@
 $(document).ready(function() {
-        (function() {
+    (function() {
             $("[name='motif']").change(function(e) {
                 /*Mise a jour du panier*/
                 $("[name='montant']").val($(this).attr("data-value"));
@@ -80,7 +80,7 @@ $(document).ready(function() {
                           }
 
                         $('#codepromo').keyup(function(e) { 
-                           
+                            $(".validation").attr("disabled","disabled");
                             if(e.key=="Enter"||e.key=="Control"){
                                 e.preventDefault();
                             }else{
@@ -88,12 +88,13 @@ $(document).ready(function() {
                           
                             $.post("../Controller/ControlPromotion.php",{ codepromo : codepromovalue,Origin : getCookie("Origin") , Semestre : getCookie("Semestre") , Inscription : getCookie("Inscription") },function(data){
                                 if(data==0){
+                                    $(".validation").removeAttr("disabled");
                                    $("strong.text-danger.invalidpromo").show();
                                    $("strong.text-success.validpromo").hide();
                                                     
                                 }else if(data!=0){
                                    
-                                  
+                                    $(".validation").removeAttr("disabled");
                                    $('[name="montant"]').val(data);
                                    $('#Panier').text(data);
                                    $("#codepromo").attr("readonly","readonly");
@@ -144,9 +145,14 @@ $(document).ready(function() {
         /*choix du solution du paiement selon boutton*/
 
         $("#mvolacash,#cheque,#cash,#virement,#western").click(function() {
+            $(".validation").removeAttr("disabled");$(".validation").removeAttr("disabled");
             $(".validation").animate({
+                
                 opacity: 1,
-            }, "fast");
+
+            }, "fast",function(){
+                $(".validation").removeAttr("disabled");
+            });
         }, );
 
         $("#mvolacash").click(function() {

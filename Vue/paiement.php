@@ -674,7 +674,7 @@ function loadclass($class){
                             ?>
                     
                     <div class="d-flex justify-content-end">
-                        <button style="opacity: 0;" class="btn validation btn-success">
+                        <button style="opacity: 0;" disabled class="btn validation btn-success">
                             Validez!
                         </button>
                     </div>

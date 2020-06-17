@@ -17,6 +17,7 @@ $(document).ready(function(){
 
     $("#codepromo").keyup(function(e) { 
         
+        $(".validation").attr("disabled","disabled");
         if(e.key=="Enter"||e.key=="Control"){
             e.preventDefault();
         }else{
@@ -24,11 +25,13 @@ $(document).ready(function(){
       
         $.post("../Controller/ControlPromotion.php",{ codepromo : codepromovalue,Origin : getCookie("Origin") , Semestre : getCookie("Semestre") , Inscription : getCookie("Inscription") },function(data){
             if(data==0){
+                $(".validation").removeAttr("disabled");
                $("strong.text-danger.invalidpromo").show();
                $("strong.text-success.validpromo").hide();
                
 
             }else if(data!=0){
+                $(".validation").removeAttr("disabled");
                $('[name="montant"]').val(data);
                $('#Panier').text(data);
                $("#codepromo").attr("readonly","readonly");
