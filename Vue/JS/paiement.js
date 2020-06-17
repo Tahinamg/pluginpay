@@ -1,5 +1,3 @@
-//UPLOAD
-
 $(document).ready(function() {
         (function() {
             $("[name='motif']").change(function(e) {

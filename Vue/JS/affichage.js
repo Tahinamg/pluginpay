@@ -1,4 +1,3 @@
-//UPLOADMYELANE
 $("#classification").click(function () {
     $("#welcoming").empty();
     $(".table").empty();
