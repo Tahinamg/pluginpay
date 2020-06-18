@@ -1,7 +1,14 @@
 <?php
 ob_start();
-
+//UPLOAD
 session_start();
+
+function loadclass($class){
+       
+    require_once "../Model/".$class.'.class.php';
+   
+}
+spl_autoload_register("loadclass");
 
 if(!isset($_SESSION['matricule'])){
     header("location: https://www.E-media.mg");

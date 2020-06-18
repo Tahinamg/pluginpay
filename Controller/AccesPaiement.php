@@ -4,10 +4,10 @@
 session_start();
 //TODO asio session matricule rehefa locale
 
-$_SESSION['matricule']="MBA-V1/001/MG";
 if(!isset($_SESSION['matricule'])){
     header("location: ../index.html");
 }
+
 $db=MyPDO::getMysqlConnexion();
 $etudiantmanager=new EtudiantManager($db);
 $matricule=(string)$_SESSION["matricule"];
@@ -33,6 +33,9 @@ $mpianatra = array("nationalite" =>$nationalite,
                     "id"=>$id,
                     "repechage"=>$repechage[0]
                 );
+if($mpianatra["id"]==0){
+    header("location: ../../vue/login.php");
+}
 
 if($mpianatra['nationalite']=="MG"){
     setcookie("Origin","LOCAL",0,'/');

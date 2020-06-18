@@ -3,7 +3,6 @@ header('Content-Type:text/html ; charset=utf-8');
 ob_start();
 //CDN  change the local to CDN before upload
 //TODO ASIVO NOTIFICATION KELY
-//UPLOADMYELANE
 
 session_start();
 
@@ -120,7 +119,6 @@ if(!isset($_SESSION['finance'])){
 <script type="text/javascript" src="JS/all.min.js"></script>
 <script type="text/javascript" src="JS/bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<!--<script type="text/javascript" src="JS/dasboard.js" ></script>-->
 <script type="text/javascript" src="JS/AjaxNotification.js"></script>
 <script type="text/javascript" src="JS/AjaxAffichage.js"></script>
 <script type="text/javascript" src="JS/affichage.js"></script>
