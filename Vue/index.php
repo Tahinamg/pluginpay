@@ -12,6 +12,22 @@ if(!isset($_SESSION['matricule'],$_SESSION['inscription'])){
 if(isset($_SESSION['matricule'],$_SESSION['inscription'])&&($_SESSION['inscription']!=0)){
     header("location:paiement.php");
 }
+
+function loadclass($class){
+       
+    require "../Model/".$class.'.class.php';
+   
+}
+
+spl_autoload_register("loadclass");
+$db=MyPDO::getMysqlConnexion();
+$etudiantmanager=new EtudiantManager($db);
+$matricule=(string)$_SESSION["matricule"];
+$data=$etudiantmanager->createEtudiant($matricule);
+$etudiant=new Etudiant($data);
+if($etudiant->getIdetudiants()==0){
+    header("location: ../../vue/login.php");
+}
 ?>
 
 
@@ -48,7 +64,7 @@ if(isset($_SESSION['matricule'],$_SESSION['inscription'])&&($_SESSION['inscripti
                     <h5><span style="color: #2A2A2A;"> :Please Confirm your registration by paying your registration free</span></h5>
                 </div>
                 <br>
-                <h3 style="text-align: center; color: rgb(6, 153, 238); border-bottom:ridge; border-bottom-style:ridge;">PLUSIEURS FACILITE DE PAIEMENT</h3>
+                <h3 style="text-align: center; color: rgb(6, 153, 238); border-bottom:ridge; border-bottom-style:ridge;">PLUSIEURS MOYEN DE PAIEMENT</h3>
                 <br>
                 <div class="d-flex flex-column flex-md-row justify-content-center col-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="d-flex flex-column align-content-center justify-content-center mx-1 paiementitem embed-responsive-item">

@@ -1,18 +1,15 @@
 <?php
+//UPLOAD
 //CDN Change the local  to CDN before upload
 ob_start();
 
 header('Content-Type:text/html ; charset=utf-8');
 
 function loadclass($class){
-       
-        require "../Model/".$class.'.class.php';
-       
-    }
-
-    spl_autoload_register("loadclass");
-    include "../Controller/AccesPaiement.php";
-   
+    require "../Model/".$class.'.class.php';
+}
+spl_autoload_register("loadclass");
+include "../Controller/AccesPaiement.php";   
 ?>
 
 
@@ -286,7 +283,7 @@ function loadclass($class){
             <div class="row">
                 <div class="col-1 col-sm-1 col-md-1 col-lg-2"></div>
                 <div class="col-11 col-sm-11 col-md-11 col-lg-10">
-                <form action="yourtransaction.php" method="POST" >
+                <form action="../Controller/Transaction.php" method="POST" >
 
                     
 
