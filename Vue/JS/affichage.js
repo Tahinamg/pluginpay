@@ -108,12 +108,32 @@ $("#promo").click(function(){
                             </div>\
                         </div>\
                         <br>");
-                        
-                    console.log(data[i]['codepromo']);
-                    console.log(data[i]['utilise']);
                 }
-                
-                
+                //suppression code promo dashboard
+            var container=document.querySelectorAll(".card-body");
+
+            for(let i=0;i<container.length;i++){
+                container[i].firstElementChild.addEventListener("click",function () { 
+                    $.ajax({
+                        type: "POST",
+                        url: "../Controller/ControlPromo.php",
+                        data:{unset:"OUI",codepromo:container[i].lastElementChild.id},
+                        dataType: "text",
+                        success: function (response) {
+                            if(response=="unset success"){
+                                container[i].parentNode.style.transition="0.01s all 0s ease-in";
+                                container[i].parentNode.style.transform="translate(0px,-30px)";
+                                setTimeout(function(){
+                                    container[i].parentNode.parentNode.removeChild(container[i].parentNode);
+                                },20);
+                            }
+                        }
+                    });
+                    
+
+                 },false);
+            }
+
             },
         });
     });
