@@ -54,7 +54,6 @@ $("document").ready(function(){
                                     </div></div></div></div></td></tr>"
                              );
                            
-                            
                          }
                          nombretd=index; 
                         }

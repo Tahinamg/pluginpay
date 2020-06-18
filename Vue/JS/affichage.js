@@ -79,6 +79,7 @@ $("#promo").click(function(){
             </div>\
         </div>"
     );
+    
     $('.genere').click(function(){
         $.ajax({
             type: "POST",
@@ -136,6 +137,7 @@ $("#promo").click(function(){
 
             },
         });
+        
     });
     
 });
