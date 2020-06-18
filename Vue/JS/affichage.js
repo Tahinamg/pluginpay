@@ -97,29 +97,42 @@ $("#promo").click(function(){
             url: "../Controller/ControlAjaxAffichagePromo.php",
             data: "utilisation="+choix,
             success : function(data){
+                $(".ut").empty();
                 for (var i = 0; i<data.length; i++){
                     $(".ut").append(
-                        "<div class=\"card border-0 shadow-md shadow-hover col-8 sup\">\
-                            <div class=\"card-body d-flex text-right align-items-center\">\
-                            <button class=\"btn btn-danger text-white\" id=\"sup\"><strong>X</strong></button>\
-                            <p id="+data[i]['codepromo']+" class=\"mb-0 ml-2\">"+data[i]['codepromo']+"</p>\
+                        "<div class=\"card border-0 shadow-md shadow-hover w-auto col-8 sup\">\
+                            <div class=\"card-body d-flex text-right align-items-center w-auto vue\">\
+                                <button class=\"btn btn-danger text-white te\"><strong>X</strong></button>\
+                                <p id="+data[i]['codepromo']+" class=\"mb-0 ml-2 w-auto im\">"+data[i]['codepromo']+"</p>\
                             </div>\
                         </div>\
                         <br>");
-                    console.log(data[i]['codepromo']);
-                    console.log(data[i]['utilise']);
                 }
-                $("#sup").click(function(){
+                //suppression code promo dashboard
+            var container=document.querySelectorAll(".card-body");
+
+            for(let i=0;i<container.length;i++){
+                container[i].firstElementChild.addEventListener("click",function () { 
                     $.ajax({
                         type: "POST",
-                        dataType: "JSON",
                         url: "../Controller/ControlPromo.php",
-                        data: "unset=OUI",
-                        success : function (data) { 
-                           alert("sup");
-                         },
+                        data:{unset:"OUI",codepromo:container[i].lastElementChild.id},
+                        dataType: "text",
+                        success: function (response) {
+                            if(response=="unset success"){
+                                container[i].parentNode.style.transition="0.01s all 0s ease-in";
+                                container[i].parentNode.style.transform="translate(0px,-30px)";
+                                setTimeout(function(){
+                                    container[i].parentNode.parentNode.removeChild(container[i].parentNode);
+                                },20);
+                            }
+                        }
                     });
-                });
+                    
+
+                 },false);
+            }
+
             },
         });
     });
