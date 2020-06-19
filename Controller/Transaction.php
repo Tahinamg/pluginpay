@@ -20,6 +20,9 @@ $data=$etudiantmanager->createEtudiant($_SESSION["matricule"]);
 $etudiant=new Etudiant($data);
 $mpianatra = array("id"=>$etudiant->getIdetudiants());
 
+if($mpianatra["id"]==0){
+    header("location:../Vue/paiement.php?error=1");
+}
 if(isset($_POST['formatpaiement'])){
     $formatpaiement=(string) $_POST['formatpaiement'];
 
