@@ -53,7 +53,7 @@ $("document").ready(function(){
                              );
                            
                          }
-                         nombretd=index; 
+                         nombretd=index;
                         }
                     });
 
@@ -67,12 +67,13 @@ $("document").ready(function(){
 
 
                ajourlistmvola=setInterval(function(){
+
                 
                 $.ajax({
                     type: "GET",
                     url: "../Controller/ControlFinanceAffichage.php",
                     data: "notification=mvola",
-                    dataType: "json",
+                    dataType: "JSON",
                    
                     success: function (response) {
                         var jsonformat=response;
@@ -100,10 +101,10 @@ $("document").ready(function(){
                                 </form>\
                                 </div></div></div></div></td></tr>"
                          );
-                         
-                     }
+                     }   
 
                     }
+                  
                 });
            },3000);
         });
@@ -298,7 +299,7 @@ $("document").ready(function(){
                                 <input type='submit' class='btn btn-success' value='validation'/>\
                                 </form>\
                                 </div></div></div></div>\
-                                <div class='modal fade' id='refuModal"+index+"'><div class='modal-dialog modal-sm'><div class='modal-content'><div class='modal-header'><h4 class='modal-title text-danger'>REFUSER?</h4><button type='button' class='close' data-dismiss='modal'>×</button></div>\
+                                <div class='modal fade' id='refuModal"+nombretd+"'><div class='modal-dialog modal-sm'><div class='modal-content'><div class='modal-header'><h4 class='modal-title text-danger'>REFUSER?</h4><button type='button' class='close' data-dismiss='modal'>×</button></div>\
                                 <div class='modal-body'>\
                                 <form method='POST' action='../Controller/ControlFinanceRefusVersement.php'>\
                                 <input type='hidden' value='"+jsonformat[nombretd]['IDVERSEMENT']+"' name='idversement'/>\
@@ -494,7 +495,7 @@ $("document").ready(function(){
 
 
 
-               ajourlistmvola=setInterval(function(){
+               ajourlistwestern=setInterval(function(){
                 
                 $.ajax({
                     type: "GET",
@@ -506,24 +507,24 @@ $("document").ready(function(){
                         var jsonformat=response5;
                      for (nombretd; nombretd<jsonformat.length; nombretd++) {
                          $("tbody").append(
-                            "<tr><td>"+jsonformat[index]['NSUIVI']+"</td><td>"+jsonformat[index]['NOMEXP']+"</td><td>"+jsonformat[index]['MONTANTWESTERN']+"</td><td>"+jsonformat[index]['MONTANT']+"</td><td>"+jsonformat[index]['MOTIF']+"</td><td>"+jsonformat[index]['MATRICULE']+"</td><td>"+jsonformat[index]['NOM']+"</td><td>"+jsonformat[index]['PRENOM']+"</td><td>"+jsonformat[index]['SEMESTRE']+"</td><td>"+jsonformat[index]['DATESERVER']+"</td><td>"+jsonformat[index]['ETAT']+"</td><td>"+jsonformat[index]['DECISION']+"</td><td><a href='#' data-toggle='modal' data-target='#myModal"+index+"' ><i class='mx-1 fas fa-check text-success'></i></a> <a href='#' data-toggle='modal' data-target='#refuModal"+index+"'><i class='mx-1 fas fa-window-close text-danger'></i></a>\
-                            <div class='modal fade' id='myModal"+index+"'>\
+                            "<tr><td>"+jsonformat[nombretd]['NSUIVI']+"</td><td>"+jsonformat[nombretd]['NOMEXP']+"</td><td>"+jsonformat[nombretd]['MONTANTWESTERN']+"</td><td>"+jsonformat[nombretd]['MONTANT']+"</td><td>"+jsonformat[nombretd]['MOTIF']+"</td><td>"+jsonformat[nombretd]['MATRICULE']+"</td><td>"+jsonformat[nombretd]['NOM']+"</td><td>"+jsonformat[nombretd]['PRENOM']+"</td><td>"+jsonformat[nombretd]['SEMESTRE']+"</td><td>"+jsonformat[nombretd]['DATESERVER']+"</td><td>"+jsonformat[nombretd]['ETAT']+"</td><td>"+jsonformat[nombretd]['DECISION']+"</td><td><a href='#' data-toggle='modal' data-target='#myModal"+nombretd+"' ><i class='mx-1 fas fa-check text-success'></i></a> <a href='#' data-toggle='modal' data-target='#refuModal"+nombretd+"'><i class='mx-1 fas fa-window-close text-danger'></i></a>\
+                            <div class='modal fade' id='myModal"+nombretd+"'>\
                             <div class='modal-dialog modal-sm'><div class='modal-content'>\
                             <div class='modal-header'><h4 class='modal-title text-success'>VALIDER?</h4><button type='button' class='close' data-dismiss='modal'>×</button></div>\
                             <div class='modal-body'>\
                             <form action='../Controller/ControlFinanceValidationWestern.php' method='POST'>\
-                            <input type='hidden' value='"+jsonformat[index]['MOTIF']+"' name='motif' />\
-                            <input type='hidden' value='"+jsonformat[index]['MATRICULE']+"' name='matricule' />\
-                            <input type='hidden' value='"+jsonformat[index]['IDETUDIANTS']+"' name='idetudiants' />\
-                            <input type='hidden' value='"+jsonformat[index]['IDWESTERN']+"'name='idwestern'/>\
+                            <input type='hidden' value='"+jsonformat[nombretd]['MOTIF']+"' name='motif' />\
+                            <input type='hidden' value='"+jsonformat[nombretd]['MATRICULE']+"' name='matricule' />\
+                            <input type='hidden' value='"+jsonformat[nombretd]['IDETUDIANTS']+"' name='idetudiants' />\
+                            <input type='hidden' value='"+jsonformat[nombretd]['IDWESTERN']+"'name='idwestern'/>\
                             <input type='number' placeholder='0' name='quantite'/>\
                             <input type='submit' class='btn btn-success' value='validation'/>\
                             </form>\
                             </div></div></div></div>\
-                            <div class='modal fade' id='refuModal"+index+"'><div class='modal-dialog modal-sm'><div class='modal-content'><div class='modal-header'><h4 class='modal-title text-danger'>REFUSER?</h4><button type='button' class='close' data-dismiss='modal'>×</button></div>\
+                            <div class='modal fade' id='refuModal"+nombretd+"'><div class='modal-dialog modal-sm'><div class='modal-content'><div class='modal-header'><h4 class='modal-title text-danger'>REFUSER?</h4><button type='button' class='close' data-dismiss='modal'>×</button></div>\
                             <div class='modal-body'>\
                             <form method='POST' action='../Controller/ControlFinanceRefusWestern.php'>\
-                            <input type='hidden' value='"+jsonformat[index]['IDWESTERN']+"' name='idwestern'/>\
+                            <input type='hidden' value='"+jsonformat[nombretd]['IDWESTERN']+"' name='idwestern'/>\
                             <input type='submit' value='refuser' class='btn btn-danger'/>\
                             </form>\
                             </div></div></div></div></td></tr>"
