@@ -1,5 +1,7 @@
 ---
   deployment:
     tasks:
-      - export DEPLOYPATH=/home/emediam/public_html/universite/paiement/Model/
-      - /bin/cp -f Model/ComptableManagerCheque.class.php $DEPLOYPATH
+      - export DEPLOYPATHMODEL= /home/emediam/public_html/universite/paiement/Model/
+      - export DEPLOYPATHJS= /home/emediam/public_html/universite/paiement/Vue/JS/
+      - /bin/cp -f Model/{ComptableManagerCheque.class.php,ComptableManagerMobileMoney.class.php,ComptableManagerVersement.class.php,ComptableManagerVirement.class.php,ComptableManagerWestern.class.php} $DEPLOYPATHMODEL
+      -/bin/cp -f Vue/JS/AjaxAffichage.js $DEPLOYPATHJS
