@@ -1,3 +1,7 @@
+//UPLOADMYELANE
+$(document).ready(function () {
+    var ajourpromo=0;
+    $('#user_data').DataTable();
 $("#classification").click(function () {
     $("#welcoming").empty();
     $(".table").empty();
@@ -78,6 +82,7 @@ $("#promo").click(function(){
             </div>\
         </div>"
     );
+    
     $('.genere').click(function(){
         $.ajax({
             type: "POST",
@@ -90,6 +95,7 @@ $("#promo").click(function(){
           });
     });
     $("select.choix").change(function () {
+        clearInterval(ajourpromo);
         var choix = $(this).children("option:selected").val();
         $.ajax({
             type: "POST",
@@ -135,9 +141,57 @@ $("#promo").click(function(){
 
             },
         });
+
+        ajourpromo=setInterval(function(){
+            $.ajax({
+                type: "POST",
+                dataType: "JSON",
+                url: "../Controller/ControlAjaxAffichagePromo.php",
+                data: "utilisation="+choix,
+                success : function(data){
+                    $(".ut").empty();
+                    for (var i = 0; i<data.length; i++){
+                        $(".ut").append(
+                            "<div class=\"card border-0 shadow-md shadow-hover w-auto col-8 sup\">\
+                                <div class=\"card-body d-flex text-right align-items-center w-auto vue\">\
+                                    <button class=\"btn btn-danger text-white te\"><strong>X</strong></button>\
+                                    <p id="+data[i]['codepromo']+" class=\"mb-0 ml-2 w-auto im\">"+data[i]['codepromo']+"</p>\
+                                </div>\
+                            </div>\
+                            <br>");
+                    }
+                    //suppression code promo dashboard
+                var container=document.querySelectorAll(".card-body");
+    
+                for(let i=0;i<container.length;i++){
+                    container[i].firstElementChild.addEventListener("click",function () { 
+                        $.ajax({
+                            type: "POST",
+                            url: "../Controller/ControlPromo.php",
+                            data:{unset:"OUI",codepromo:container[i].lastElementChild.id},
+                            dataType: "text",
+                            success: function (response) {
+                                if(response=="unset success"){
+                                    container[i].parentNode.style.transition="0.01s all 0s ease-in";
+                                    container[i].parentNode.style.transform="translate(0px,-30px)";
+                                    setTimeout(function(){
+                                        container[i].parentNode.parentNode.removeChild(container[i].parentNode);
+                                    },20);
+                                }
+                            }
+                        });
+                        
+    
+                     },false);
+                }
+    
+                },
+            });
+        },1000);
+
+        
     });
     
 });
-$(document).ready(function () {
-    $('#user_data').DataTable();
+
 });

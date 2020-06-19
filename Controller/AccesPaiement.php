@@ -3,8 +3,11 @@
 
 session_start();
 //TODO asio session matricule rehefa locale
+<<<<<<< HEAD
+=======
 
 $_SESSION["matricule"]="TIC-V1/000/MG";
+>>>>>>> 28ba8f7cc79bbd2083a3eb932e46d986576884d6
 if(!isset($_SESSION['matricule'])){
     header("location: ../index.html");
 }
