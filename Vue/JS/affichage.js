@@ -1,4 +1,7 @@
 //UPLOADMYELANE
+$(document).ready(function () {
+    var ajourpromo=0;
+    $('#user_data').DataTable();
 $("#classification").click(function () {
     $("#welcoming").empty();
     $(".table").empty();
@@ -54,7 +57,9 @@ $("#classification").click(function () {
     </script>"
     );
 });
+
 $("#promo").click(function(){
+    
     $("#welcoming").empty();
     $(".table").empty();
     $("#welcoming").append(
@@ -67,35 +72,126 @@ $("#promo").click(function(){
                         <option value=\"NON\">Non utiliser</option>\
                     </select>\
                     <br>\
-                    <div class=\"card border-0 shadow-md shadow-hover col-8\">\
-                        <div class=\"card-body d-flex text-right align-items-center\">\
-                            <button class=\"btn btn-danger text-white\"><strong>X</strong></button>\
-                            <p id=\"nbr\" class=\"mb-0 ml-2\">3203DRFGHUIOPHGFDSEZR</p>\
-                        </div>\
-                    </div>\
-                    <br>\
-                    <div class=\"card border-0 shadow-md shadow-hover col-8\">\
-                        <div class=\"card-body d-flex text-right align-items-center\">\
-                            <button class=\"btn btn-danger text-white\"><strong>X</strong></button>\
-                            <p id=\"nbr\" class=\"mb-0 ml-2\">3203DRFGHUIOPHGFDSEZR</p>\
-                        </div>\
-                    </div>\
-                    <br>\
-                    <div class=\"card border-0 shadow-md shadow-hover col-8\">\
-                        <div class=\"card-body d-flex text-right align-items-center\">\
-                            <button class=\"btn btn-danger text-white\"><strong>X</strong></button>\
-                            <p id=\"nbr\" class=\"mb-0 ml-2\">3203DRFGHUIOPHGFDSEZR</p>\
-                        </div>\
+                    <div class=\"ut\">\
                     </div>\
                 </div>\
                 <div class=\"col-6 col-sm-6 col-md-6 col-lg-6\">\
-                    <button class=\"btn btn-outline-danger align-items-center col-12\">GENENRER UNE CODE PROMO</button>\
+                    <button class=\"btn btn-outline-danger align-items-center col-12 genere\" id=\"genere\">GENENRER UNE CODE PROMO</button>\
                     <img class=\"justify-content-center align-items-center mx-auto d-block img-fluid\" align=\"center\" src=\"../Vue/Image/promo.png\" alt=\"error\">\
                 </div>\
             </div>\
         </div>"
     );
+    
+    $('.genere').click(function(){
+        $.ajax({
+            type: "POST",
+            dataType: "TEXT",
+            url: "../Controller/ControlPromo.php",
+            data: "create=OUI",
+            success : function(data){  
+               console.log(data);
+            },
+          });
+    });
+    $("select.choix").change(function () {
+        clearInterval(ajourpromo);
+        var choix = $(this).children("option:selected").val();
+        $.ajax({
+            type: "POST",
+            dataType: "JSON",
+            url: "../Controller/ControlAjaxAffichagePromo.php",
+            data: "utilisation="+choix,
+            success : function(data){
+                $(".ut").empty();
+                for (var i = 0; i<data.length; i++){
+                    $(".ut").append(
+                        "<div class=\"card border-0 shadow-md shadow-hover w-auto col-8 sup\">\
+                            <div class=\"card-body d-flex text-right align-items-center w-auto vue\">\
+                                <button class=\"btn btn-danger text-white te\"><strong>X</strong></button>\
+                                <p id="+data[i]['codepromo']+" class=\"mb-0 ml-2 w-auto im\">"+data[i]['codepromo']+"</p>\
+                            </div>\
+                        </div>\
+                        <br>");
+                }
+                //suppression code promo dashboard
+            var container=document.querySelectorAll(".card-body");
+
+            for(let i=0;i<container.length;i++){
+                container[i].firstElementChild.addEventListener("click",function () { 
+                    $.ajax({
+                        type: "POST",
+                        url: "../Controller/ControlPromo.php",
+                        data:{unset:"OUI",codepromo:container[i].lastElementChild.id},
+                        dataType: "text",
+                        success: function (response) {
+                            if(response=="unset success"){
+                                container[i].parentNode.style.transition="0.01s all 0s ease-in";
+                                container[i].parentNode.style.transform="translate(0px,-30px)";
+                                setTimeout(function(){
+                                    container[i].parentNode.parentNode.removeChild(container[i].parentNode);
+                                },20);
+                            }
+                        }
+                    });
+                    
+
+                 },false);
+            }
+
+            },
+        });
+
+        ajourpromo=setInterval(function(){
+            $.ajax({
+                type: "POST",
+                dataType: "JSON",
+                url: "../Controller/ControlAjaxAffichagePromo.php",
+                data: "utilisation="+choix,
+                success : function(data){
+                    $(".ut").empty();
+                    for (var i = 0; i<data.length; i++){
+                        $(".ut").append(
+                            "<div class=\"card border-0 shadow-md shadow-hover w-auto col-8 sup\">\
+                                <div class=\"card-body d-flex text-right align-items-center w-auto vue\">\
+                                    <button class=\"btn btn-danger text-white te\"><strong>X</strong></button>\
+                                    <p id="+data[i]['codepromo']+" class=\"mb-0 ml-2 w-auto im\">"+data[i]['codepromo']+"</p>\
+                                </div>\
+                            </div>\
+                            <br>");
+                    }
+                    //suppression code promo dashboard
+                var container=document.querySelectorAll(".card-body");
+    
+                for(let i=0;i<container.length;i++){
+                    container[i].firstElementChild.addEventListener("click",function () { 
+                        $.ajax({
+                            type: "POST",
+                            url: "../Controller/ControlPromo.php",
+                            data:{unset:"OUI",codepromo:container[i].lastElementChild.id},
+                            dataType: "text",
+                            success: function (response) {
+                                if(response=="unset success"){
+                                    container[i].parentNode.style.transition="0.01s all 0s ease-in";
+                                    container[i].parentNode.style.transform="translate(0px,-30px)";
+                                    setTimeout(function(){
+                                        container[i].parentNode.parentNode.removeChild(container[i].parentNode);
+                                    },20);
+                                }
+                            }
+                        });
+                        
+    
+                     },false);
+                }
+    
+                },
+            });
+        },1000);
+
+        
+    });
+    
 });
-$(document).ready(function () {
-    $('#user_data').DataTable();
+
 });

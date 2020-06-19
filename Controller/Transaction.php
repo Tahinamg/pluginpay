@@ -1,7 +1,14 @@
 <?php
 ob_start();
-
+//UPLOAD
 session_start();
+
+function loadclass($class){
+       
+    require_once "../Model/".$class.'.class.php';
+   
+}
+spl_autoload_register("loadclass");
 
 if(!isset($_SESSION['matricule'])){
     header("location: https://www.E-media.mg");
@@ -13,6 +20,9 @@ $data=$etudiantmanager->createEtudiant($_SESSION["matricule"]);
 $etudiant=new Etudiant($data);
 $mpianatra = array("id"=>$etudiant->getIdetudiants());
 
+if($mpianatra["id"]==0){
+    header("location:../Vue/paiement.php?error=1");
+}
 if(isset($_POST['formatpaiement'])){
     $formatpaiement=(string) $_POST['formatpaiement'];
 
@@ -38,13 +48,13 @@ switch ($formatpaiement) {
             $mvola = new MobileMoney($data);
             $mvolamanager= new MobileMoneyManager($db);
             $mvolamanager->setMobileMoney($mvola);
-            header('location:paiement.php?error=0');
+            header('location:../Vue/paiement.php?error=0');
         }else{
-            header('location:paiement.php?error=1');
+            header('location:../Vue/paiement.php?error=1');
         } 
       
     }else{
-        header('location: paiement.php?error=1&errtype=mvola');
+        header('location:../Vue/paiement.php?error=1&errtype=mvola');
     }
     break;
 
@@ -70,13 +80,13 @@ switch ($formatpaiement) {
                 $western=new Western($data3);
                 $westernmanager=new WesternManager($db);
                 $westernmanager->setWestern($western);
-                header('location:paiement.php?error=0');
+                header('location:../Vue/paiement.php?error=0');
             }else{
-                header('location:paiement.php?error=1');
+                header('location:../Vue/paiement.php?error=1');
 
             }
         }else{
-             header('location: paiement.php?error=1&errtype=Western');
+             header('location:../Vue/paiement.php?error=1&errtype=Western');
         }
         
     break;
@@ -105,14 +115,14 @@ switch ($formatpaiement) {
         $versement= new Versement($data);
         $versementmanager=new VersementManager($db);
         $versementmanager->setVersement($versement);
-        header('location:paiement.php?error=0');
+        header('location:../Vue/paiement.php?error=0');
     }else{
-        header('location:paiement.php?error=1');
+        header('location:../Vue/paiement.php?error=1');
 
     }
         
     }else{
-        header('location :paiement.php?error=1&errtype=versement');
+        header('location:../Vue/paiement.php?error=1&errtype=versement');
     }
     break;
     case 'cheque':
@@ -142,14 +152,14 @@ switch ($formatpaiement) {
                 $cheque=new Cheque($data);
                 $chequemanager = new ChequeManager($db);
                 $chequemanager->setCheque($cheque);
-                header('location:paiement.php?error=0');
+                header('location:../Vue/paiement.php?error=0');
 
             }else{
-            header('location:paiement.php?error=1');
+            header('location:../Vue/paiement.php?error=1');
 
         }
         }else{
-            header('location:paiement.php?error=1&errtype=cheque');
+            header('location:../Vue/paiement.php?error=1&errtype=cheque');
         }
 
     break;
@@ -175,19 +185,19 @@ switch ($formatpaiement) {
             $virement=new Virement($data);
             $virementmanager=new VirementManager($db);
             $virementmanager->setVirement($virement);
-            header('location:paiement.php?error=0');
+            header('location:../Vue/paiement.php?error=0');
         }else{
-        header('location:paiement.php?error=1');
+        header('location:../Vue/paiement.php?error=1');
         }
     }else{
-        header('location:paiement.php?error=1&errtype=virement');
+        header('location:../Vue/paiement.php?error=1&errtype=virement');
     }
     
     break;
   
 }
 }else{
-    header('location:paiement.php?error=1&errtype=formatpaiement');
+    header('location:../Vue/paiement.php?error=1&errtype=formatpaiement');
 }
 
 

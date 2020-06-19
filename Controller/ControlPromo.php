@@ -1,5 +1,4 @@
 <?php
-//UPLOAD
 function loadclass($class){   
     require "../Model/".$class.'.class.php';
 }

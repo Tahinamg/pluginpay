@@ -1,6 +1,4 @@
 $("document").ready(function(){
-//UPLOAD
-//UPLOADMYELANE
     var ajourlistvirement=0;
     var ajourlistcheque=0;
     var ajourlistmvola=0;
@@ -54,7 +52,6 @@ $("document").ready(function(){
                                     </div></div></div></div></td></tr>"
                              );
                            
-                            
                          }
                          nombretd=index; 
                         }

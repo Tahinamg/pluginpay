@@ -1,5 +1,4 @@
 <?php
-//UPLOAD
 final class PromotionManager{
     const JSONFILE = "../JSON/Promotion.json";
     const JSONFILEUNUSED = "../JSON/UnusedPromotion.json"; 
