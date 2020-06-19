@@ -1,6 +1,4 @@
 <?php
-//notification
-//TODO AVERINA UPLOADENA
 ob_start();
 
 function loadclass($class){

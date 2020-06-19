@@ -1,28 +1,31 @@
 <?php
-//TODO uploadena
-/*Donner choix du payement*/
-/*donner montant*/
-/*motif*/
-/*Numero id*/
-/*Etat */
-/*matricule*/ 
 ob_start();
-
+//UPLOAD
 session_start();
+
+function loadclass($class){
+       
+    require_once "../Model/".$class.'.class.php';
+   
+}
+spl_autoload_register("loadclass");
 
 if(!isset($_SESSION['matricule'])){
     header("location: https://www.E-media.mg");
 }
-echo 'h';
-
 $db=MyPDO::getMysqlConnexion();
 //maka ilay id aloha mba ampifandraisana azy @ table resaka payement
 $etudiantmanager=new EtudiantManager($db);
 $data=$etudiantmanager->createEtudiant($_SESSION["matricule"]);
 $etudiant=new Etudiant($data);
 $mpianatra = array("id"=>$etudiant->getIdetudiants());
+
+if($mpianatra["id"]==0){
+    header("location:../Vue/paiement.php?error=1");
+}
 if(isset($_POST['formatpaiement'])){
     $formatpaiement=(string) $_POST['formatpaiement'];
+
 
 switch ($formatpaiement) {
     case 'mvola':
@@ -45,13 +48,13 @@ switch ($formatpaiement) {
             $mvola = new MobileMoney($data);
             $mvolamanager= new MobileMoneyManager($db);
             $mvolamanager->setMobileMoney($mvola);
-            header('location:paiement.php?error=0');
+            header('location:../Vue/paiement.php?error=0');
         }else{
-            header('location:paiement.php?error=1');
+            header('location:../Vue/paiement.php?error=1');
         } 
       
     }else{
-        header('location: paiement.php?error=1&errtype=mvola');
+        header('location:../Vue/paiement.php?error=1&errtype=mvola');
     }
     break;
 
@@ -77,13 +80,13 @@ switch ($formatpaiement) {
                 $western=new Western($data3);
                 $westernmanager=new WesternManager($db);
                 $westernmanager->setWestern($western);
-                header('location:paiement.php?error=0');
+                header('location:../Vue/paiement.php?error=0');
             }else{
-                header('location:paiement.php?error=1');
+                header('location:../Vue/paiement.php?error=1');
 
             }
-}else{
-             header('location: paiement.php?error=1&errtype=mvola');
+        }else{
+             header('location:../Vue/paiement.php?error=1&errtype=Western');
         }
         
     break;
@@ -112,14 +115,14 @@ switch ($formatpaiement) {
         $versement= new Versement($data);
         $versementmanager=new VersementManager($db);
         $versementmanager->setVersement($versement);
-        header('location:paiement.php?error=0');
+        header('location:../Vue/paiement.php?error=0');
     }else{
-        header('location:paiement.php?error=1');
+        header('location:../Vue/paiement.php?error=1');
 
     }
         
     }else{
-        header('location :paiement.php?error=1&errtype=versement');
+        header('location:../Vue/paiement.php?error=1&errtype=versement');
     }
     break;
     case 'cheque':
@@ -136,62 +139,65 @@ switch ($formatpaiement) {
         
 
        
-        $data=array(
-            "tireur"=>(string) $_POST['tireur'],
-            "etablissement"=>(string) $_POST['etablissement'],
-            "ncheque"=>(string) $_POST['ncheque'],
-            "idetudiants"=>(int) $mpianatra['id'],
-            "motif"=>(string) $_POST['motif'],
-            "etat"=>"non lu",
-            "decision"=>"non prise",
-            "montant"=>(string) $_POST['montant']
-            );
-            $cheque=new Cheque($data);
-            $chequemanager = new ChequeManager($db);
-            $chequemanager->setCheque($cheque);
-            header('location:paiement.php?error=0');
+                $data=array(
+                    "tireur"=>(string) $_POST['tireur'],
+                    "etablissement"=>(string) $_POST['etablissement'],
+                    "ncheque"=>(string) $_POST['ncheque'],
+                    "idetudiants"=>(int) $mpianatra['id'],
+                    "motif"=>(string) $_POST['motif'],
+                    "etat"=>"non lu",
+                    "decision"=>"non prise",
+                    "montant"=>(string) $_POST['montant']
+                );
+                $cheque=new Cheque($data);
+                $chequemanager = new ChequeManager($db);
+                $chequemanager->setCheque($cheque);
+                header('location:../Vue/paiement.php?error=0');
 
-        }else{
-            header('location:paiement.php?error=1');
+            }else{
+            header('location:../Vue/paiement.php?error=1');
 
         }
         }else{
-            header('location:paiement.php?error=1&errtype=cheque');
+            header('location:../Vue/paiement.php?error=1&errtype=cheque');
         }
 
     break;
       
     case 'virement':
-        if(isset($_POST['ncompte'],$_POST['tcompte'],$_POST['motif'],$_POST['montant'])){
+        if(isset($_POST['ncompte'],$_POST['tcompte'],$_POST['motif'],$_POST['montant'],$_POST['datevirement'])){
        $regncompte='/[0-9 \s]{15,25}/';
         $regtcompte='/[a-zA-Z]{2,20}/';
         $regmotif='/inscription|ecolage|droit examen semestriel|Droit de soutenance|repechage|certificat/';
         $regmontant = '/[0-9]{1,8}/';
         if(preg_match($regncompte,$_POST['ncompte'])&&preg_match($regtcompte,$_POST['tcompte'])&&preg_match($regmotif,$_POST['motif'])&&preg_match($regmontant,$_POST['montant'])){
-        $data=array(
-            "ncompte"=>(string) $_POST['ncompte'],
-            "titucompte"=>(string) $_POST['tcompte'],
-            "idetudiants"=>(int) $mpianatra['id'],
-            "motif"=>(string) $_POST['motif'],
-            "etat"=>"non lu",
-            "decision"=>"non prise",
-            "montant"=>(string) $_POST['montant']
+            $data=array(
+                "ncompte"=>(string) $_POST['ncompte'],
+                "titucompte"=>(string) $_POST['tcompte'],
+                "idetudiants"=>(int) $mpianatra['id'],
+                "motif"=>(string) $_POST['motif'],
+                "etat"=>"non lu",
+                "decision"=>"non prise",
+                "montant"=>(string) $_POST['montant'],
+                "datevirement"=>(string) $_POST['datevirement']
 
-        );
-        $virement=new Virement($data);
-        $virementmanager=new VirementManager($db);
-        $virementmanager->setVirement($virement);
-        header('location:paiement.php?error=0');
+            );
+            $virement=new Virement($data);
+            $virementmanager=new VirementManager($db);
+            $virementmanager->setVirement($virement);
+            header('location:../Vue/paiement.php?error=0');
+        }else{
+        header('location:../Vue/paiement.php?error=1');
+        }
     }else{
-        header('location:paiement.php?error=1');
-    }
-    }else{
-        header('location:paiement.php?error=1&errtype=virement');
+        header('location:../Vue/paiement.php?error=1&errtype=virement');
     }
     
     break;
   
 }
+}else{
+    header('location:../Vue/paiement.php?error=1&errtype=formatpaiement');
 }
 
 

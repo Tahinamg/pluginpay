@@ -1,5 +1,4 @@
 $("document").ready(function(){
-    //TODO uploadena
     var ajourlistvirement=0;
     var ajourlistcheque=0;
     var ajourlistmvola=0;
@@ -21,7 +20,7 @@ $("document").ready(function(){
                         success: function (response) {
                             $(".table").empty();
                            $(".table").append(
-                            "<thead> <tr> <th>MATRICULE</th> <th>NOM</th><th>PRENOM</th><th>SEMESTRE</th><th>MOTIF</th><th>REFERENCE</th><th>DATEREF</th><th>MONTANT</th><th>IDMOBILE</th><th>ETAT</th><th>DECISION</th><th>DATESERVER</th> <th>ACTION</th></tr></thead>"   
+                            "<thead> <tr> <th>Matricule</th> <th>Nom</th><th>Prenom</th><th>Semestre</th><th>Motif</th><th>Reference</th><th>Dateref</th><th>Montant</th><th>IdMobile</th><th>Etat</th><th>Decision</th><th>Dateserver</th> <th>Action</th></tr></thead>"   
                            );
                            $(".table").append(
                                "<tbody></tbody>"
@@ -53,7 +52,6 @@ $("document").ready(function(){
                                     </div></div></div></div></td></tr>"
                              );
                            
-                            
                          }
                          nombretd=index; 
                         }
@@ -128,7 +126,7 @@ $("document").ready(function(){
                             
                             $(".table").empty();
                             $(".table").append(
-                             "<thead> <tr> <th>MATRICULE</th>  <th>NOM</th><th>PRENOM</th><th>SEMESTRE</th><th>MOTIF</th><th>TIREUR</th><th>ETABLISSEMENT</th><th>MONTANT</th><th>NCHEQUE</th><th>ETAT</th><th>DECISION</th><th>DATESERVER</th> <th>IDCHEQUE</th><th>ACTION</th></tr></thead>"   
+                             "<thead> <tr> <th>Matricule</th>  <th>Nom</th><th>Prenom</th><th>Semestre</th><th>Motif</th><th>Tireur</th><th>Etablissement</th><th>Montant</th><th>Ncheque</th><th>Etat</th><th>Decision</th><th>Dateserver</th> <th>IdCheque</th><th>Action</th></tr></thead>"   
                             );
                             $(".table").append(
                                 "<tbody></tbody>"
@@ -212,6 +210,7 @@ $("document").ready(function(){
 
 
             });
+            
 
             $("#VersementVoir").click(function(){
                 $(".notif,#welcoming").remove();
@@ -232,7 +231,7 @@ $("document").ready(function(){
                                  
                             $(".table").empty();
                             $(".table").append(
-                             "<thead> <tr> <th>MATRICULE</th><th>NOM</th><th>PRENOM</th><th>SEMESTRE</th><th>MOTIF</th><th>NBORDEREAUX</th><th>AGENCE</th><th>MONTANT</th><th>IDVERSEMENT</th><th>ETAT</th><th>DECISION</th><th>DATESERVER</th><th>ACTION</th></tr></thead>"   
+                             "<thead> <tr> <th>Matricule</th><th>Nom</th><th>Prenom</th><th>Semestre</th><th>Motif</th><th>Nbordereaux</th><th>Agence</th><th>Montant</th><th>IdVersement</th><th>Etat</th><th>Decision</th><th>DateServer</th><th>Action</th></tr></thead>"   
                             );
                             $(".table").append(
                                 "<tbody></tbody>"
@@ -339,7 +338,7 @@ $("document").ready(function(){
                              
                         $(".table").empty();
                         $(".table").append(
-                         "<thead> <tr> <th>MATRICULE</th><th>NOM</th><th>PRENOM</th><th>SEMESTRE</th><th>MOTIF</th><th>NCOMPTE</th><th>TITUCOMPTE</th><th>MONTANT</th><th>IDVIREMENT</th><th>ETAT</th><th>DECISION</th><th>DATESERVER</th><th>ACTION</th></tr></thead>"   
+                         "<thead> <tr> <th>Matricule</th><th>Nom</th><th>Prenom</th><th>Semestre</th><th>Motif</th><th>NCompte</th><th>TituCompte</th><th>DateVirement</th><th>Montant</th><th>IdVirement</th><th>Etat</th><th>Decision</th><th>DateServer</th><th>Acion</th></tr></thead>"   
                         );
                         $(".table").append(
                             "<tbody></tbody>"
@@ -347,7 +346,7 @@ $("document").ready(function(){
                          var jsonformat=response4;
                       for (var index = 0; index<jsonformat.length; index++) {
                           $("tbody").append(
-                            "<tr><td>"+jsonformat[index]['MATRICULE']+"</td><td>"+jsonformat[index]['NOM']+"</td><td>"+jsonformat[index]['PRENOM']+"</td><td>"+jsonformat[index]['SEMESTRE']+"</td><td>"+jsonformat[index]['MOTIF']+"</td><td>"+jsonformat[index]['NCOMPTE']+"</td><td>"+jsonformat[index]['TITUCOMPTE']+"</td><td>"+jsonformat[index]['MONTANT']+"</td><td>"+jsonformat[index]['IDVIREMENT']+"</td><td>"+jsonformat[index]['ETAT']+"</td><td>"+jsonformat[index]['DECISION']+"</td><td>"+jsonformat[index]['DATESERVER']+"</td><td><a href='#' data-toggle='modal' data-target='#myModal"+index+"' ><i class='mx-1 fas fa-check text-success'></i></a> <a href='#' data-toggle='modal' data-target='#refuModal"+index+"'><i class='mx-1 fas fa-window-close text-danger'></i></a>\
+                            "<tr><td>"+jsonformat[index]['MATRICULE']+"</td><td>"+jsonformat[index]['NOM']+"</td><td>"+jsonformat[index]['PRENOM']+"</td><td>"+jsonformat[index]['SEMESTRE']+"</td><td>"+jsonformat[index]['MOTIF']+"</td><td>"+jsonformat[index]['NCOMPTE']+"</td><td>"+jsonformat[index]['TITUCOMPTE']+"</td><td>"+jsonformat[index]['DATEVIREMENT']+"</td><td>"+jsonformat[index]['MONTANT']+"</td><td>"+jsonformat[index]['IDVIREMENT']+"</td><td>"+jsonformat[index]['ETAT']+"</td><td>"+jsonformat[index]['DECISION']+"</td><td>"+jsonformat[index]['DATESERVER']+"</td><td><a href='#' data-toggle='modal' data-target='#myModal"+index+"' ><i class='mx-1 fas fa-check text-success'></i></a> <a href='#' data-toggle='modal' data-target='#refuModal"+index+"'><i class='mx-1 fas fa-window-close text-danger'></i></a>\
                             <div class='modal fade' id='myModal"+index+"'>\
                             <div class='modal-dialog modal-sm'><div class='modal-content'>\
                             <div class='modal-header'><h4 class='modal-title text-success'>VALIDER?</h4><button type='button' class='close' data-dismiss='modal'>×</button></div>\
@@ -376,6 +375,7 @@ $("document").ready(function(){
                         }
 
                 });
+                
 
 
                 ajourlistvirement=setInterval(function(){
@@ -390,7 +390,7 @@ $("document").ready(function(){
                          var jsonformat=response4;
                       for (nombretd; nombretd<jsonformat.length; nombretd++) {
                           $("tbody").append(
-                            "<tr><td>"+jsonformat[nombretd]['MATRICULE']+"</td><td>"+jsonformat[nombretd]['NOM']+"</td><td>"+jsonformat[nombretd]['PRENOM']+"</td><td>"+jsonformat[nombretd]['SEMESTRE']+"</td><td>"+jsonformat[nombretd]['MOTIF']+"</td><td>"+jsonformat[nombretd]['NCOMPTE']+"</td><td>"+jsonformat[nombretd]['TITUCOMPTE']+"</td><td>"+jsonformat[nombretd]['MONTANT']+"</td><td>"+jsonformat[nombretd]['IDVIREMENT']+"</td><td>"+jsonformat[nombretd]['ETAT']+"</td><td>"+jsonformat[nombretd]['DECISION']+"</td><td>"+jsonformat[nombretd]['DATESERVER']+"</td><td><a href='#' data-toggle='modal' data-target='#myModal"+nombretd+"' ><i class='mx-1 fas fa-check text-success'></i></a> <a href='#' data-toggle='modal' data-target='#refuModal"+nombretd+"' ><i class='mx-1 fas fa-window-close text-danger'></i></a>\
+                            "<tr><td>"+jsonformat[nombretd]['MATRICULE']+"</td><td>"+jsonformat[nombretd]['NOM']+"</td><td>"+jsonformat[nombretd]['PRENOM']+"</td><td>"+jsonformat[nombretd]['SEMESTRE']+"</td><td>"+jsonformat[nombretd]['MOTIF']+"</td><td>"+jsonformat[nombretd]['NCOMPTE']+"</td><td>"+jsonformat[nombretd]['TITUCOMPTE']+"</td><td>"+jsonformat[nombretd]['DATEVIREMENT']+"</td><td>"+jsonformat[nombretd]['MONTANT']+"</td><td>"+jsonformat[nombretd]['IDVIREMENT']+"</td><td>"+jsonformat[nombretd]['ETAT']+"</td><td>"+jsonformat[nombretd]['DECISION']+"</td><td>"+jsonformat[nombretd]['DATESERVER']+"</td><td><a href='#' data-toggle='modal' data-target='#myModal"+nombretd+"' ><i class='mx-1 fas fa-check text-success'></i></a> <a href='#' data-toggle='modal' data-target='#refuModal"+nombretd+"' ><i class='mx-1 fas fa-window-close text-danger'></i></a>\
                             <div class='modal fade' id='myModal"+nombretd+"'>\
                             <div class='modal-dialog modal-sm'><div class='modal-content'>\
                             <div class='modal-header'><h4 class='modal-title text-success'>VALIDER?</h4><button type='button' class='close' data-dismiss='modal'>×</button></div>\
@@ -447,7 +447,7 @@ $("document").ready(function(){
                         success: function (response5) {
                             $(".table").empty();
                            $(".table").append(
-                            "<thead> <tr> <th>MTCN</th><th>EXPEDITEUR</th><th>MONTANTWESTERN</th><th>DEVOIR</th><th>MOTIF</th> <th>MATRICULE</th><th>NOM</th><th>PRENOM</th><th>SEMESTRE</th><th>DATESERVER</th><th>ETAT</th><th>DECISION</th><th>ACTION</th></tr></thead>"   
+                            "<thead> <tr> <th>MTCN</th><th>Expediteur</th><th>MontantWestern</th><th>Devoir</th><th>Motif</th> <th>Matricule</th><th>Nom</th><th>Prenom</th><th>Semestre</th><th>DateServer</th><th>Etat</th><th>Decision</th><th>Action</th></tr></thead>"   
                            );
                            $(".table").append(
                                "<tbody></tbody>"

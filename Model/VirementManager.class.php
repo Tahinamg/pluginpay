@@ -6,9 +6,10 @@ class VirementManager{
         $this->db=$db;
     }
     public function setVirement(Virement $virement){
-        $sql=$this->db->prepare("INSERT INTO VIREMENT VALUES(NULL,:ncompte,:titucompte,:idetudiants,:motif,:etat,:decision,:dateserver,:montant)");
+        $sql=$this->db->prepare("INSERT INTO VIREMENT VALUES(NULL,:ncompte,:titucompte,:datevirement,:idetudiants,:motif,:etat,:decision,:dateserver,:montant)");
         $sql->bindValue(":ncompte",$virement->getNcompte(),PDO::PARAM_STR);
         $sql->bindValue(":titucompte",$virement->getTitucompte(),PDO::PARAM_STR);
+        $sql->bindValue(":datevirement",$virement->getDatevirement(),PDO::PARAM_STR);
         $sql->bindValue(":idetudiants",$virement->getIdetudiants(),PDO::PARAM_INT);
         $sql->bindValue(":motif",$virement->getMotif(),PDO::PARAM_STR);
         $sql->bindValue(":etat",$virement->getEtat(),PDO::PARAM_STR);

@@ -1,7 +1,7 @@
 <?php
 class Virement{
 
-    protected $ncompte ,$titucompte ,$idvirement,$idetudiants,$motif,$decision,$etat,$dateserver,$montant;
+    protected $ncompte ,$titucompte ,$idvirement,$idetudiants,$motif,$decision,$etat,$dateserver,$montant,$datevirement;
 
 
     public function __construct($donnes)
@@ -49,6 +49,9 @@ class Virement{
     public function getDateserver(){
         return $this->dateserver;
     }
+    public function getDatevirement(){
+        return $this->datevirement;
+    }
 
     
     public function setNcompte($ncompte)
@@ -75,6 +78,9 @@ class Virement{
     }
     public function setMontant($montant){
         $this->montant=$montant;
+    }
+    public function setDatevirement($datevirement){
+        $this->datevirement=$datevirement;
     }
 
 
