@@ -2,4 +2,4 @@
   deployment:
     tasks:
       - export DEPLOYPATH=/home/emediam/public_html/universite/paiement/Model/
-      - /bin/cp -f Model/{ComptableManagerCheque.class.php,ComptableManagerMobileMoney.class.php,ComptableManagerVersement.class.php,ComptableManagerVirement.class.php,ComptableManagerWestern.class.php} $DEPLOYPATH
+      - /bin/cp -f Model/ComptableManagerCheque.class.php $DEPLOYPATH
