@@ -1,4 +1,5 @@
 ---
   deployment:
     tasks:
-      - export DEPLOYPATH=/home/emediam/public_html/universite/paiement/
+      - export DEPLOYPATH=/home/emediam/public_html/universite/paiement/Vue/JS/
+      - /bin/cp -f Vue/JS/affichage.js $DEPLOYPATH
