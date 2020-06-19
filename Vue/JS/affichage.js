@@ -1,3 +1,4 @@
+//UPLOADMYELANE
 $(document).ready(function () {
     var ajourpromo=0;
     $('#user_data').DataTable();
