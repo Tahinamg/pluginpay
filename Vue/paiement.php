@@ -175,7 +175,7 @@ include "../Controller/AccesPaiement.php";
                             echo '<div class="p-absolute">
                             <div class="toast mt-3 bg-primary">
                                 <div class="toast-header text-success font-weight-bolder">
-                                <i class="fas fa-check"></i>  Paiement reussi
+                                <i class="fas fa-check"></i>  Paiement r&eacute;ussi
                                 </div>
                                 <div class="toast-body text-light font-weight-bolder">
                                     La validation de votre paiement se fera au plus tard dans les 24 heures qui suivent.
@@ -186,10 +186,11 @@ include "../Controller/AccesPaiement.php";
                             echo '<div class="p-absolute">
                             <div class="toast mt-3 bg-warning">
                                 <div class="toast-header font-weight-bolder">
-                                Erreur de paiement
+                                Erreur du paiement
                                 </div>
                                 <div class="toast-body text-light font-weight-bolder">
-                                    veuillez bien remplir les formulaires
+                                <strong>Une erreur est survenue lors de votre paiement</strong>
+                                    veuillez bien remplir les formulaires et de r&eacute;essayer &agrave; nouveau. Si les probl&egrave;mes p&eacute;rsistent, appeler les services techniques +261348472828
                                 </div>
                             </div>
                         </div>';
