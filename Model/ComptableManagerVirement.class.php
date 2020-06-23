@@ -1,5 +1,5 @@
 <?php
-
+//UPLOAD
 class ComptableManagerVirement{
 protected $db;
 
@@ -14,7 +14,7 @@ protected $db;
 
 
     public function VoirVirement(){
-        $sql=$this->db->query("SELECT `MATRICULE`,`NOM`,`PRENOM`,`ETUDIANTS`.`IDETUDIANTS`,`MOTIF`,`SEMESTRE`,`VIREMENT`.`MONTANT`,`DATEVIREMENT`,`IDVIREMENT`,`ETAT`,`DECISION`,`DATESERVER`,`TITUCOMPTE`,`NCOMPTE` FROM `VIREMENT` NATURAL JOIN `SUIVRE`,`ETUDIANTS` WHERE `ETUDIANTS`.`IDETUDIANTS`=`VIREMENT`.`IDETUDIANTS` AND `VIREMENT`.`ETAT`='non lu' ORDER BY `IDVIREMENT` ASC");
+        $sql=$this->db->query("SELECT `MATRICULE`,`NOM`,`PRENOM`,`ETUDIANTS`.`IDETUDIANTS`,`MOTIF`,`SEMESTRE`,`VIREMENT`.`MONTANT`,`DATEVIREMENT`,`IDVIREMENT`,`ETAT`,`DECISION`,`DATESERVER`,`TITUCOMPTE`,`NCOMPTE`,`OBSERVATION` FROM `VIREMENT` NATURAL JOIN `SUIVRE`,`ETUDIANTS` WHERE `ETUDIANTS`.`IDETUDIANTS`=`VIREMENT`.`IDETUDIANTS` AND `VIREMENT`.`ETAT`='non lu' ORDER BY `IDVIREMENT` ASC");
         return $sql->fetchAll(PDO::FETCH_ASSOC);
         $sql->closeCursor();
 
@@ -24,8 +24,9 @@ protected $db;
         return $sql->fetch();
         $sql->closeCursor();
     }
-    public function ValiderEcolageViaVirement($qte,$matricule,$idvirement){
-        $sql1=$this->db->prepare("UPDATE `VIREMENT` SET `ETAT`='lu',`DECISION`='valide' WHERE `IDVIREMENT`=:idvirement");
+    public function ValiderEcolageViaVirement($qte,$matricule,$idvirement,$observation){
+        $sql1=$this->db->prepare("UPDATE `VIREMENT` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDVIREMENT`=:idvirement");
+        $sql1->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql1->bindValue(":idvirement",$idvirement,PDO::PARAM_INT);
         $sql1->execute();
         $sql1->closeCursor();
@@ -38,8 +39,9 @@ protected $db;
 
     }
 
-    Public function ValiderInscriptionViaVirement($matricule,$idvirement){
-        $sql=$this->db->prepare("UPDATE `VIREMENT` SET `ETAT`='lu',`DECISION`='valide' WHERE `IDVIREMENT`=:idvirement");
+    Public function ValiderInscriptionViaVirement($matricule,$idvirement,$observation){
+        $sql=$this->db->prepare("UPDATE `VIREMENT` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDVIREMENT`=:idvirement");
+        $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idvirement",$idvirement,PDO::PARAM_INT);
         $sql->execute();
         $sql->closeCursor();
@@ -52,8 +54,9 @@ protected $db;
 
     }
     
-    public function ValiderRepechageViaVirement($idetudiant,$idvirement){
-        $sql=$this->db->prepare("UPDATE `VIREMENT` SET `ETAT`='lu',`DECISION`='valide' WHERE `IDVIREMENT`=:idvirement");
+    public function ValiderRepechageViaVirement($idetudiant,$idvirement,$observation){
+        $sql=$this->db->prepare("UPDATE `VIREMENT` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDVIREMENT`=:idvirement");
+        $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idvirement",$idvirement,PDO::PARAM_INT);
         $sql->execute();
         $sql->closeCursor();
@@ -62,8 +65,9 @@ protected $db;
         $sql->bindValue(":id",$idetudiant,PDO::PARAM_INT);
         $sql->execute();
     }
-    public function ValiderDroitExamenViaVirement($matricule,$idvirement){
-        $sql=$this->db->prepare("UPDATE `VIREMENT` SET `ETAT`='lu',`DECISION`='valide' WHERE `IDVIREMENT`=:idvirement");
+    public function ValiderDroitExamenViaVirement($matricule,$idvirement,$observation){
+        $sql=$this->db->prepare("UPDATE `VIREMENT` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDVIREMENT`=:idvirement");
+        $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idvirement",$idvirement,PDO::PARAM_INT);
         $sql->execute();
         $sql->closeCursor();
@@ -77,8 +81,9 @@ protected $db;
     }
 
 
-    public function ValiderSoutenanceViaVirement($matricule,$idvirement){
-        $sql=$this->db->prepare("UPDATE `VIREMENT` SET `ETAT`='lu',`DECISION`='valide' WHERE `IDVIREMENT`=:idvirement");
+    public function ValiderSoutenanceViaVirement($matricule,$idvirement,$observation){
+        $sql=$this->db->prepare("UPDATE `VIREMENT` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDVIREMENT`=:idvirement");
+        $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idvirement",$idvirement,PDO::PARAM_INT);
         $sql->execute();
         $sql->closeCursor();
@@ -90,8 +95,9 @@ protected $db;
        
 
     }
-    public function ValiderCertificat($matricule,$idvirement){
-        $sql=$this->db->prepare("UPDATE `VIREMENT` SET `ETAT`='lu',`DECISION`='valide' WHERE `IDVIREMENT`=:idvirement");
+    public function ValiderCertificat($matricule,$idvirement,$observation){
+        $sql=$this->db->prepare("UPDATE `VIREMENT` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDVIREMENT`=:idvirement");
+        $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idvirement",$idvirement,PDO::PARAM_INT);
         $sql->execute();
         $sql->closeCursor();

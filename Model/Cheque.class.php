@@ -1,5 +1,7 @@
 <?php
+//UPLOAD
 class Cheque{
+    //UPLOAD
     protected $idcheque;
     protected $tireur;
     protected $etablissement;
@@ -10,7 +12,7 @@ class Cheque{
     protected $decision;
     protected $dateserver;
     protected $montant;
-
+    protected $observation; 
 
     public function __construct($donnes)
     {
@@ -58,7 +60,9 @@ class Cheque{
         $this->dateserver=$dateserver;
     }
 
-    
+    public function setObservation($observation){
+        $this->observation=$observation;
+    }
 
 
 
@@ -95,7 +99,9 @@ class Cheque{
     public function getDateserver(){
         return $this->dateserver;
     }
-
+    public function getObservation(){
+        return $this->observation;
+    }
 
 
 

@@ -1,7 +1,8 @@
 <?php
+//UPLOAD
 class Virement{
 
-    protected $ncompte ,$titucompte ,$idvirement,$idetudiants,$motif,$decision,$etat,$dateserver,$montant,$datevirement;
+    protected $ncompte ,$titucompte ,$idvirement,$idetudiants,$motif,$decision,$etat,$dateserver,$montant,$datevirement,$observation;
 
 
     public function __construct($donnes)
@@ -52,8 +53,11 @@ class Virement{
     public function getDatevirement(){
         return $this->datevirement;
     }
-
+    public function getObservation(){
+        return $this->observation;
+    }
     
+
     public function setNcompte($ncompte)
     {
         $this->ncompte=$ncompte;
@@ -82,7 +86,9 @@ class Virement{
     public function setDatevirement($datevirement){
         $this->datevirement=$datevirement;
     }
-
+    public function setObservation($observation){
+        $this->observation=$observation;
+    }
 
 
 }

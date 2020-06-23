@@ -1,5 +1,5 @@
 <?php
-
+//UPLOAD
 class Versement{
     protected $nbordereaux;	
     protected $daty;
@@ -10,6 +10,7 @@ class Versement{
     protected $decision;
     protected $dateserver;
     protected $montant;
+    protected $observation;
 
 
     public function __construct($donnes)
@@ -54,6 +55,9 @@ class Versement{
     public function setDateserver($dateserver){
         $this->dateserver=$dateserver;
     }
+    public function setObservation($observation){
+        $this->observation=$observation;
+    }
 
 
 
@@ -84,7 +88,9 @@ class Versement{
     public function getMontant(){
         return $this->montant;
     }
-
+    public function getObservation(){
+        return $this->observation;
+    }
 
 
 
