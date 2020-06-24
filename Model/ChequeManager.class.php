@@ -1,6 +1,5 @@
 <?php
 class ChequeManager{
-    //TODO PUT A field for observation on table cheque
 protected $db;
     public function __construct(PDO $db)
     {

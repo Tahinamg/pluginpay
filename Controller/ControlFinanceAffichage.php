@@ -1,5 +1,4 @@
 <?php
-//UPLOAD
 ob_start();
 header('Content-type: application/json; charset=utf-8"');
 function loadclass($class){

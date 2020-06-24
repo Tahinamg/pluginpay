@@ -1,5 +1,4 @@
 <?php
-//UPLOAD
 class ComptableManagerVersement{
 protected $db;
 

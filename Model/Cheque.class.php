@@ -1,7 +1,5 @@
 <?php
-//UPLOAD
 class Cheque{
-    //UPLOAD
     protected $idcheque;
     protected $tireur;
     protected $etablissement;

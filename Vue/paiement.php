@@ -1,5 +1,4 @@
 <?php
-//UPLOAD
 //CDN Change the local  to CDN before upload
 ob_start();
 

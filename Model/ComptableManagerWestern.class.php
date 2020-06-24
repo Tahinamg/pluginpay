@@ -1,5 +1,4 @@
 <?php
-//UPLOAD
 class ComptableManagerWestern{
 
 protected $db;
