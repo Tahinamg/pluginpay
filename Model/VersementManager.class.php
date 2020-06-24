@@ -1,5 +1,4 @@
 <?php
-//TODO add field observation
 class VersementManager{
   
     protected $db;

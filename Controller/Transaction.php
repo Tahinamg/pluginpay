@@ -1,6 +1,5 @@
 <?php
 ob_start();
-//UPLOAD
 session_start();
 
 function loadclass($class){

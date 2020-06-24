@@ -1,5 +1,4 @@
 <?php
-//UPLOAD
 class ComptableManagerMobileMoney{
 protected $db;
 

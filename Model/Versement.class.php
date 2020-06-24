@@ -1,5 +1,4 @@
 <?php
-//UPLOAD
 class Versement{
     protected $nbordereaux;	
     protected $daty;

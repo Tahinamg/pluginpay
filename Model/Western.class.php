@@ -1,5 +1,4 @@
 <?php
-//UPLOAD
 class Western{
     protected $idwestern;
     protected $nsuivi;

@@ -1,4 +1,3 @@
-//UPLOADMYELANE
 $("document").ready(function(){
     var ajourlistvirement=0;
     var ajourlistcheque=0;

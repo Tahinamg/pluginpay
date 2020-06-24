@@ -1,5 +1,4 @@
 <?php 
-//TODO add a field observation on the western union table
 class VirementManager{
     protected $db;
     public function __construct(PDO $db)
