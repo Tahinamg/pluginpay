@@ -230,7 +230,7 @@ $("document").ready(function(){
                                  
                             $(".table").empty();
                             $(".table").append(
-                             "<thead> <tr> <th>Matricule</th><th>Nom</th><th>Prenom</th><th>Semestre</th><th>Motif</th><th>Nbordereaux</th><th>Agence</th><th>Montant</th><th>IdVersement</th><th>Etat</th><th>Decision</th><th>DateServer</th><th>DateVersement</th><th>Observation</th><th>Action</th></tr></thead>"   
+                             "<thead> <tr> <th>Matricule</th><th>Nom</th><th>Prenom</th><th>Semestre</th><th>Motif</th><th>Nbordereaux</th><th>Agence</th><th>Montant</th><th>IdVersement</th><th>Etat</th><th>Decision</th><th>DateServer</th><th>DateDeVersement</th><th>Observation</th><th>Action</th></tr></thead>"   
                             );
                             $(".table").append(
                                 "<tbody></tbody>"
@@ -283,7 +283,7 @@ $("document").ready(function(){
                              var jsonformat=response3;
                           for (nombretd; nombretd<jsonformat.length; nombretd++) {
                               $("tbody").append(
-                                "<tr><td>"+jsonformat[nombretd]['MATRICULE']+"</td><td>"+jsonformat[nombretd]['NOM']+"</td><td>"+jsonformat[nombretd]['PRENOM']+"</td><td>"+jsonformat[nombretd]['SEMESTRE']+"</td><td>"+jsonformat[nombretd]['MOTIF']+"</td><td>"+jsonformat[nombretd]['NBORDEREAUX']+"</td><td>"+jsonformat[nombretd]['AGENCE']+"</td><td>"+jsonformat[nombretd]['MONTANT']+"</td><td>"+jsonformat[nombretd]['IDVERSEMENT']+"</td><td>"+jsonformat[nombretd]['ETAT']+"</td><td>"+jsonformat[nombretd]['DECISION']+"</td><td>"+jsonformat[nombretd]['DATESERVER']+"</td><td>"+jsonformat[nombretd]['observation']+"</td><td><a href='#' data-toggle='modal' data-target='#myModal"+nombretd+"' ><i class='mx-1 fas fa-check text-success'></i></a> <a href='#'data-toggle='modal' data-target='#refuModal"+nombretd+"'><i class='mx-1 fas fa-window-close text-danger'></i></a>\
+                                "<tr><td>"+jsonformat[nombretd]['MATRICULE']+"</td><td>"+jsonformat[nombretd]['NOM']+"</td><td>"+jsonformat[nombretd]['PRENOM']+"</td><td>"+jsonformat[nombretd]['SEMESTRE']+"</td><td>"+jsonformat[nombretd]['MOTIF']+"</td><td>"+jsonformat[nombretd]['NBORDEREAUX']+"</td><td>"+jsonformat[nombretd]['AGENCE']+"</td><td>"+jsonformat[nombretd]['MONTANT']+"</td><td>"+jsonformat[nombretd]['IDVERSEMENT']+"</td><td>"+jsonformat[nombretd]['ETAT']+"</td><td>"+jsonformat[nombretd]['DECISION']+"</td><td>"+jsonformat[nombretd]['DATESERVER']+"</td><td></td><td>"+jsonformat[nombretd]['observation']+"</td><td><a href='#' data-toggle='modal' data-target='#myModal"+nombretd+"' ><i class='mx-1 fas fa-check text-success'></i></a> <a href='#'data-toggle='modal' data-target='#refuModal"+nombretd+"'><i class='mx-1 fas fa-window-close text-danger'></i></a>\
                                 <div class='modal fade' id='myModal"+nombretd+"'>\
                                 <div class='modal-dialog modal-sm'><div class='modal-content'>\
                                 <div class='modal-header'><h4 class='modal-title text-success'>VALIDER?</h4><button type='button' class='close' data-dismiss='modal'>×</button></div>\
