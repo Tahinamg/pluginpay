@@ -2,7 +2,7 @@
 class MobileMoney{
 
     
-
+    protected $observation;
     protected $reference;//clé primaire
     protected $daty;//
     protected $idetudiants;
@@ -57,7 +57,9 @@ class MobileMoney{
     public function setDateserver($dateserver){
         $this->dateserver=$dateserver;
     }
-
+    public function setObservation($observation){
+        $this->observation=$observation;
+    }
 
     public function getReference(){
         return $this->reference;
@@ -85,6 +87,9 @@ class MobileMoney{
     }
     public function getIdmobilemoney(){
         return $this->idmobilemoney;
+    }
+    public function getObservation(){
+        return $this->observation;
     }
 
 

@@ -10,6 +10,7 @@ class Western{
     protected $motif;
     protected $dateserver;
     protected $idetudiants;
+    protected $observation;
 
     public function __construct($data)
     {
@@ -56,7 +57,9 @@ class Western{
     public function getIdetudiants(){
         return $this->idetudiants;
     }
-
+    public function getObservation(){
+        return $this->observation;
+    }
 
 
     public function setIdwestern($idwestern){
@@ -88,6 +91,9 @@ class Western{
     }
     public function setIdetudiants($idetudiants){
         $this->idetudiants=$idetudiants;
+    }
+    public function setObservation($observation){
+        $this->observation=$observation;
     }
 
 }

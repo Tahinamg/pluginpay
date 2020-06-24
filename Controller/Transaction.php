@@ -1,6 +1,5 @@
 <?php
 ob_start();
-//UPLOAD
 session_start();
 
 function loadclass($class){
@@ -43,7 +42,8 @@ switch ($formatpaiement) {
                 "motif"=>(string) $_POST['motif'],
                 "etat"=>"non lu",
                 "decision"=>"non prise",
-                "montant"=>(string) $_POST['montant']
+                "montant"=>(string) $_POST['montant'],
+                "observation"=>"aucun"
             );
             $mvola = new MobileMoney($data);
             $mvolamanager= new MobileMoneyManager($db);
@@ -75,7 +75,8 @@ switch ($formatpaiement) {
                     'motif'=>(string) $_POST['motif'],
                     'etat'=>"non lu",
                     'decision'=>"non prise",
-                    'idetudiants'=>(int) $mpianatra['id']
+                    'idetudiants'=>(int) $mpianatra['id'],
+                    'observation'=>"aucun"
                 );
                 $western=new Western($data3);
                 $westernmanager=new WesternManager($db);
@@ -110,7 +111,8 @@ switch ($formatpaiement) {
             "etat"=>"non lu",
             "decision"=>"non prise",
             "montant"=>(string) $_POST['montant'],
-            "idetudiants"=>(int) $mpianatra['id']
+            "idetudiants"=>(int) $mpianatra['id'],
+            "observation"=>"aucun"
         );
         $versement= new Versement($data);
         $versementmanager=new VersementManager($db);
@@ -147,7 +149,8 @@ switch ($formatpaiement) {
                     "motif"=>(string) $_POST['motif'],
                     "etat"=>"non lu",
                     "decision"=>"non prise",
-                    "montant"=>(string) $_POST['montant']
+                    "montant"=>(string) $_POST['montant'],
+                    "observation"=>"aucun"
                 );
                 $cheque=new Cheque($data);
                 $chequemanager = new ChequeManager($db);
@@ -179,7 +182,8 @@ switch ($formatpaiement) {
                 "etat"=>"non lu",
                 "decision"=>"non prise",
                 "montant"=>(string) $_POST['montant'],
-                "datevirement"=>(string) $_POST['datevirement']
+                "datevirement"=>(string) $_POST['datevirement'],
+                "observation"=>"aucun"
 
             );
             $virement=new Virement($data);

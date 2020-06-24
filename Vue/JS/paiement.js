@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function() {//UPLOAD
     (function() {
             $("[name='motif']").change(function(e) {
                 /*Mise a jour du panier*/
@@ -235,7 +235,7 @@ $(document).ready(function() {
                     $("#refwestern").remove();
                 })
 
-                var element = '<div id="refbordereaux" style="position:relative;opacity:1" class="form-group"><label for="Nrecu">Numero du bordereaux</label><input type="number" class="form-control" id="Nrecu" placeholder="Exemple: 01234567 " name="nrecu" required><div class="valid-feedback">Valide</div><div class="invalid-feedback">Non valide</div><div class="form-group"><label for="date">date :</label><input type="date" class="form-control" required name="date" id="date"></div><div class="form-group"><label for="agence" > Agence</label><input placeholder="Exemple: Ambanidia" name="agence" type="text" required class="form-control" id="agence"/></div></div> ';
+                var element = '<div id="refbordereaux" style="position:relative;opacity:1" class="form-group"><label for="Nrecu">Numero du bordereaux</label><input type="number" class="form-control" id="Nrecu" placeholder="Exemple: 01234567 " name="nrecu" required><div class="valid-feedback">Valide</div><div class="invalid-feedback">Non valide</div><div class="form-group"><label for="date">date du versement : </label><input type="date" class="form-control" required name="dateversement" placeholder="Inserer ici votre date de versement &agrave la banque" id="date"></div><div class="form-group"><label for="agence" > Agence</label><input placeholder="Exemple: Ambanidia" name="agence" type="text" required class="form-control" id="agence"/></div></div> ';
 
 
 
