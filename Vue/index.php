@@ -39,7 +39,7 @@ if($etudiant->getIdetudiants()==0){
     <title>Validation d'inscription</title>
     <link rel="icon" href="Image/logo E-media.png" type="image/png" sizes="16x16"> 
     <link rel="stylesheet" href="CSS/bootstrap.min.css"/>
-    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>-->
+   <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>-->
     <link rel="stylesheet" href="CSS/fontawesome.min.css"/>
     <link rel="stylesheet" href="CSS/main.css" />
 </head>
