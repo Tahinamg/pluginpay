@@ -80,7 +80,7 @@ $(document).ready(function() {//UPLOAD
                           }
 
                         $('#codepromo').keyup(function(e) { 
-                            $(".validation").attr("disabled","disabled");
+                            
                             if(e.key=="Enter"||e.key=="Control"){
                                 e.preventDefault();
                             }else{
@@ -88,12 +88,13 @@ $(document).ready(function() {//UPLOAD
                           
                             $.post("../Controller/ControlPromotion.php",{ codepromo : codepromovalue,Origin : getCookie("Origin") , Semestre : getCookie("Semestre") , Inscription : getCookie("Inscription") },function(data){
                                 if(data==0){
+                                    $(".validation").attr("disabled","disabled");
                                     $(".validation").removeAttr("disabled");
                                    $("strong.text-danger.invalidpromo").show();
                                    $("strong.text-success.validpromo").hide();
                                                     
                                 }else if(data!=0){
-                                   
+                                    $(".validation").attr("disabled","disabled");
                                     $(".validation").removeAttr("disabled");
                                    $('[name="montant"]').val(data);
                                    $('#Panier').text(data);
@@ -202,7 +203,7 @@ $(document).ready(function() {//UPLOAD
                     $("#refmvola").remove();
                     $(".refcompte").remove();
                     $("#refwestern").remove();
-                })
+                });
 
 
                 var element = '<div id="refcheque" style="position:relative;opacity:1" class="form-group"><label for="etablissement">Etablissement du payeur</label><input type="text" id="etablissement" class="form-control" placeholder="Exemple: BOA" required name="etablissement"/><div class="form-group"><label for="tireur">Tireur</label><input type="text" class="form-control" id="tireur" placeholder="Exemple:Marie Cecile" name="tireur" required/></div><label for="Ncheque">Numero de cheque</label><input type="text" class="form-control" id="Ncheque" placeholder="Exemple: 1120120454 " name="ncheque" required><div class="valid-feedback">Valide</div><div class="invalid-feedback">Non valide</div></div> ';
@@ -233,9 +234,9 @@ $(document).ready(function() {//UPLOAD
                     $("#refmvola").remove();
                     $(".refcompte").remove();
                     $("#refwestern").remove();
-                })
+                });
 
-                var element = '<div id="refbordereaux" style="position:relative;opacity:1" class="form-group"><label for="Nrecu">Numero du bordereaux</label><input type="number" class="form-control" id="Nrecu" placeholder="Exemple: 01234567 " name="nrecu" required><div class="valid-feedback">Valide</div><div class="invalid-feedback">Non valide</div><div class="form-group"><label for="date">date du versement : </label><input type="date" class="form-control" required name="dateversement" placeholder="Inserer ici votre date de versement &agrave la banque" id="date"></div><div class="form-group"><label for="agence" > Agence</label><input placeholder="Exemple: Ambanidia" name="agence" type="text" required class="form-control" id="agence"/></div></div> ';
+                var element = '<div id="refbordereaux" style="position:relative;opacity:1" class="form-group"><label for="Nrecu">Numero du bordereaux</label><input type="number" class="form-control" id="Nrecu" placeholder="Exemple: 01234567 " name="nrecu" required><div class="valid-feedback">Valide</div><div class="invalid-feedback">Non valide</div><div class="form-group"><label for="date">date du versement : </label><input type="date" class="form-control" required name="dateversement" id="date"/></div><div class="form-group"><label for="agence" > Agence</label><input placeholder="Exemple: Ambanidia" name="agence" type="text" required class="form-control" id="agence"/></div></div> ';
 
 
 
@@ -273,7 +274,7 @@ $(document).ready(function() {//UPLOAD
                     $("#refmvola").remove();
                     $("#refbordereaux").remove();
                     $("#refwestern").remove();
-                })
+                });
 
 
                 var element1 = '<div  class="form-group refcompte" style="position:relative;opacity:1"><label for="Ncompte">Votre numero de compte</label><input type="text" class="form-control" id="Ncompte" placeholder="Exemple: 00008 00019 04506001603 39" name="ncompte" required><div class="valid-feedback">Valide</div><div class="invalid-feedback">Non valide</div></div>';
