@@ -10,6 +10,7 @@ class Versement{
     protected $dateserver;
     protected $montant;
     protected $observation;
+    protected $dateversement;
 
 
     public function __construct($donnes)
@@ -57,6 +58,9 @@ class Versement{
     public function setObservation($observation){
         $this->observation=$observation;
     }
+    public function setDateversement($dateversement){
+        $this->dateversement=$dateversement;
+    }
 
 
 
@@ -90,7 +94,9 @@ class Versement{
     public function getObservation(){
         return $this->observation;
     }
-
+    public function getDateversement(){
+        return $this->dateversement;
+    }
 
 
 

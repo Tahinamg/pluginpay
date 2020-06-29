@@ -95,14 +95,14 @@ switch ($formatpaiement) {
 
     case 'cash':
 
+        if(isset($_POST['nrecu'],$_POST['agence'],$_POST['motif'],$_POST['montant'],$_POST['dateversement'])){
         $regcash='/[0-9]{1,9}/';        
         $regmotif='/inscription|ecolage|droit examen semestriel|Droit de soutenance|repechage|certificat/';
         $regmontant = '/[0-9]{1,8}/';
         $regagence='/[A-Za-z]{2,20}/';
-
         if(preg_match($regcash,$_POST['nrecu'])&&preg_match($regmotif,$_POST['motif'])&&preg_match($regmontant,$_POST['montant'])&&preg_match($regagence,$_POST['agence'])){
        
-        if(isset($_POST['nrecu'],$_POST['date'],$_POST['agence'],$_POST['motif'],$_POST['montant'])){
+        
         $data = array(
             "nbordereaux"=>(string) $_POST['nrecu'],
             "daty"=>(string) $_POST['date'],
@@ -112,7 +112,8 @@ switch ($formatpaiement) {
             "decision"=>"non prise",
             "montant"=>(string) $_POST['montant'],
             "idetudiants"=>(int) $mpianatra['id'],
-            "observation"=>"aucun"
+            "observation"=>"aucun",
+            "dateversement"=>(string) $_POST['dateversement']
         );
         $versement= new Versement($data);
         $versementmanager=new VersementManager($db);
@@ -203,7 +204,6 @@ switch ($formatpaiement) {
 }else{
     header('location:../Vue/paiement.php?error=1&errtype=formatpaiement');
 }
-
 
 ob_end_flush();
 
