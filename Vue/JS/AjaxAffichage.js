@@ -1,3 +1,4 @@
+//UPLOADMYELANE
 $("document").ready(function(){
     var ajourlistvirement=0;
     var ajourlistcheque=0;
@@ -32,13 +33,19 @@ $("document").ready(function(){
                                     "<tr><td>"+jsonformat[index]['MATRICULE']+"</td><td>"+jsonformat[index]['NOM']+"</td><td>"+jsonformat[index]['PRENOM']+"</td><td>"+jsonformat[index]['SEMESTRE']+"</td><td>"+jsonformat[index]['MOTIF']+"</td><td>"+jsonformat[index]['REFERENCE']+"</td><td>"+jsonformat[index]['DATY']+"</td><td>"+jsonformat[index]['MONTANT']+"</td><td>"+jsonformat[index]['IDMOBILEMONEY']+"</td><td>"+jsonformat[index]['ETAT']+"</td><td>"+jsonformat[index]['DECISION']+"</td><td>"+jsonformat[index]['DATESERVER']+"</td><td>"+jsonformat[index]['OBSERVATION']+"</td><td><a href='#' data-toggle='modal' data-target='#myModal"+index+"' ><i class='mx-1 fas fa-check text-success'></i></a> <a href='#' data-toggle='modal' data-target='#refuModal"+index+"'><i class='mx-1 fas fa-window-close text-danger'></i></a>\
                                     <div class='modal fade' id='myModal"+index+"'>\
                                     <div class='modal-dialog modal-sm'><div class='modal-content'>\
-                                    <div class='modal-header'><h4 class='modal-title text-success'>VALIDER?</h4><button type='button' class='close' data-dismiss='modal'>×</button></div>\
+                                    <div class='modal-header'><h5 class='modal-title text-success'>Êtes-vous sur de valider?</h5><button type='button' class='close' data-dismiss='modal'>×</button></div>\
                                     <div class='modal-body'>\
                                     <form action='../Controller/ControlFinanceValidationMobileMoney.php' method='POST'>\
-                                    <textarea name=\"observation\" cols=\"20\" rows=\"2\" placeholder='"+jsonformat[index]['OBSERVATION']+"' value=\""+jsonformat[index]['OBSERVATION']+"\"></textarea><input type='hidden' value='"+jsonformat[index]['MOTIF']+"' name='motif' />\<input type='hidden' value='"+jsonformat[index]['MATRICULE']+"' name='matricule' />\
+                                    <div class=\"form-group\">\
+                                    <label>Observation :</label>\
+                                    <textarea class=\"form-control\" name=\"observation\" cols=\"25\" rows=\"3\" placeholder='"+jsonformat[index]['OBSERVATION']+"' value=\""+jsonformat[index]['OBSERVATION']+"\"></textarea></div>\
+                                    <div class=\"form-group\">\
+                                    <label>Motif :</label>\
+                                    <input type='hidden' value='"+jsonformat[index]['MOTIF']+"' name='motif' />\
+                                    <input type='hidden' value='"+jsonformat[index]['MATRICULE']+"' name='matricule' />\
                                     <input type='hidden' value='"+jsonformat[index]['IDETUDIANTS']+"' name='idetudiants' />\
                                     <input type='hidden' value='"+jsonformat[index]['IDMOBILEMONEY']+"'name='idmobilemoney'/>\
-                                    <input type='number' placeholder='0' name='quantite'/>\
+                                    <input type='number' class=\"form-control\" placeholder='0' name='quantite'/></div>\
                                     <input type='submit' class='btn btn-success' value='validation'/>\
                                     </form>\
                                     </div></div></div></div>\
@@ -81,13 +88,19 @@ $("document").ready(function(){
                                 "<tr><td>"+jsonformat[nombretd]['MATRICULE']+"</td><td>"+jsonformat[nombretd]['NOM']+"</td><td>"+jsonformat[nombretd]['PRENOM']+"</td><td>"+jsonformat[nombretd]['SEMESTRE']+"</td><td>"+jsonformat[nombretd]['MOTIF']+"</td><td>"+jsonformat[nombretd]['REFERENCE']+"</td><td>"+jsonformat[nombretd]['DATY']+"</td><td>"+jsonformat[nombretd]['MONTANT']+"</td><td>"+jsonformat[nombretd]['IDMOBILEMONEY']+"</td><td>"+jsonformat[nombretd]['ETAT']+"</td><td>"+jsonformat[nombretd]['DECISION']+"</td><td>"+jsonformat[nombretd]['DATESERVER']+"</td><td>"+jsonformat[nombretd]['OBSERVATION']+"</td><td><a href='#' data-toggle='modal' data-target='#myModal"+nombretd+"'><i class='mx-1 fas fa-check text-success'></i></a> <a href='#' data-toggle='modal' data-target='#refuModal"+nombretd+"'><i class='mx-1 fas fa-window-close text-danger'></i></a>\
                                 <div class='modal fade' id='myModal"+nombretd+"'>\
                                 <div class='modal-dialog modal-sm'><div class='modal-content'>\
-                                <div class='modal-header'><h4 class='modal-title text-success'>VALIDER?</h4><button type='button' class='close' data-dismiss='modal'>×</button></div>\
+                                <div class='modal-header'><h5 class='modal-title text-success'>VALIDER?</h5><button type='button' class='close' data-dismiss='modal'>×</button></div>\
                                 <div class='modal-body'>\
-                                <form action='../Controller/ControlFinanceValidationMobileMoney.php' method='POST'><textarea name=\"observation\" cols=\"20\" rows=\"2\" placeholder='"+jsonformat[nombretd]['OBSERVATION']+"' value=\""+jsonformat[nombretd]['OBSERVATION']+"\"></textarea><input type='hidden' value='"+jsonformat[nombretd]['MOTIF']+"' name='motif' />\
+                                <form action='../Controller/ControlFinanceValidationMobileMoney.php' method='POST'>\
+                                <div class=\"form-group\">\
+                                <label>Observation :</label>\
+                                <textarea class=\"form-control\" name=\"observation\" cols=\"25\" rows=\"3\" placeholder='"+jsonformat[nombretd]['OBSERVATION']+"' value=\""+jsonformat[nombretd]['OBSERVATION']+"\"></textarea></div>\
+                                <div class=\"form-group\">\
+                                <label>Motif :</label>\
+                                <input type='hidden' value='"+jsonformat[nombretd]['MOTIF']+"' name='motif' />\
                                 <input type='hidden' value='"+jsonformat[nombretd]['MATRICULE']+"' name='matricule' />\
                                 <input type='hidden' value='"+jsonformat[nombretd]['IDETUDIANTS']+"' name='idetudiants' />\
                                 <input type='hidden' value='"+jsonformat[nombretd]['IDMOBILEMONEY']+"'name='idmobilemoney'/>\
-                                <input type='number' placeholder='0' name='quantite'/>\
+                                <input type='number' class=\"form-control\" placeholder='0' name='quantite'/></div>\
                                 <input type='submit' class='btn btn-success' value='validation'/>\
                                 </form>\
                                 </div></div></div></div>\
@@ -136,14 +149,19 @@ $("document").ready(function(){
                                 "<tr><td>"+jsonformat[index]['MATRICULE']+"</td><td>"+jsonformat[index]['NOM']+"</td><td>"+jsonformat[index]['PRENOM']+"</td><td>"+jsonformat[index]['SEMESTRE']+"</td><td>"+jsonformat[index]['MOTIF']+"</td><td>"+jsonformat[index]['TIREUR']+"</td><td>"+jsonformat[index]['ETABLISSEMENT']+"</td><td>"+jsonformat[index]['MONTANT']+"</td><td>"+jsonformat[index]['NCHEQUE']+"</td><td>"+jsonformat[index]['ETAT']+"</td><td>"+jsonformat[index]['DECISION']+"</td><td>"+jsonformat[index]['DATESERVER']+"</td><td>"+jsonformat[index]['IDCHEQUE']+"</td><td>"+jsonformat[index]['OBSERVATION']+"</td><td><a href='#' data-toggle='modal' data-target='#myModal"+index+"' ><i class='mx-1 fas fa-check text-success'></i></a> <a href='#' data-toggle='modal' data-target='#refuModal"+index+"' ><i class='mx-1 fas fa-window-close text-danger'></i></a>\
                                 <div class='modal fade' id='myModal"+index+"'>\
                                 <div class='modal-dialog modal-sm'><div class='modal-content'>\
-                                <div class='modal-header'><h4 class='modal-title text-success'>VALIDER?</h4><button type='button' class='close' data-dismiss='modal'>×</button></div>\
+                                <div class='modal-header'><h5 class='modal-title text-success'>Êtes-vous sur de valider?</h5><button type='button' class='close' data-dismiss='modal'>×</button></div>\
                                 <div class='modal-body'>\
                                 <form action='../Controller/ControlFinanceValidationCheque.php' method='POST'>\
-                                <textarea name=\"observation\" cols=\"20\" rows=\"2\" placeholder='"+jsonformat[index]['OBSERVATION']+"' value=\""+jsonformat[index]['OBSERVATION']+"\"></textarea><input type='hidden' value='"+jsonformat[index]['MOTIF']+"' name='motif' />\
+                                <div class=\"form-group\">\
+                                <label>Observation :</label>\
+                                <textarea class=\"form-control\" name=\"observation\" cols=\"25\" rows=\"3\" placeholder='"+jsonformat[index]['OBSERVATION']+"' value=\""+jsonformat[index]['OBSERVATION']+"\"></textarea></div>\
+                                <div class=\"form-group\">\
+                                <label>Motif :</label>\
+                                <input type='hidden' value='"+jsonformat[index]['MOTIF']+"' name='motif' />\
                                 <input type='hidden' value='"+jsonformat[index]['MATRICULE']+"' name='matricule' />\
                                 <input type='hidden' value='"+jsonformat[index]['IDETUDIANTS']+"' name='idetudiants' />\
                                 <input type='hidden' value='"+jsonformat[index]['IDCHEQUE']+"'name='idcheque'/>\
-                                <input type='number' placeholder='0' name='quantite'/>\
+                                <input type='number' class=\"form-control\" placeholder='0' name='quantite'/></div>\
                                 <input type='submit' class='btn btn-success' value='validation'/>\
                                 </form>\
                                 </div></div></div></div>\
@@ -179,14 +197,19 @@ $("document").ready(function(){
                             "<tr><td>"+jsonformat[nombretd]['MATRICULE']+"</td><td>"+jsonformat[nombretd]['NOM']+"</td><td>"+jsonformat[nombretd]['PRENOM']+"</td><td>"+jsonformat[nombretd]['SEMESTRE']+"</td><td>"+jsonformat[nombretd]['MOTIF']+"</td><td>"+jsonformat[nombretd]['TIREUR']+"</td><td>"+jsonformat[nombretd]['ETABLISSEMENT']+"</td><td>"+jsonformat[nombretd]['MONTANT']+"</td><td>"+jsonformat[nombretd]['NCHEQUE']+"</td><td>"+jsonformat[nombretd]['ETAT']+"</td><td>"+jsonformat[nombretd]['DECISION']+"</td><td>"+jsonformat[nombretd]['DATESERVER']+"</td><td>"+jsonformat[nombretd]['IDCHEQUE']+"</td><td>"+jsonformat[nombretd]['OBSERVATION']+"</td><td><a href='#' data-toggle='modal' data-target='#myModal"+nombretd+"'><i class='mx-1 fas fa-check text-success'></i></a> <a href='#' data-toggle='modal' data-target='#refuModal"+nombretd+"'><i class='mx-1 fas fa-window-close text-danger'></i></a>\
                             <div class='modal fade' id='myModal"+nombretd+"'>\
                             <div class='modal-dialog modal-sm'><div class='modal-content'>\
-                            <div class='modal-header'><h4 class='modal-title text-success'>VALIDER?</h4><button type='button' class='close' data-dismiss='modal'>×</button></div>\
+                            <div class='modal-header'><h5 class='modal-title text-success'>Êtes-vous sur de valider?</h5><button type='button' class='close' data-dismiss='modal'>×</button></div>\
                             <div class='modal-body'>\
                             <form action='../Controller/ControlFinanceValidationCheque.php' method='POST'>\
-                            <textarea name=\"observation\" cols=\"20\" rows=\"2\" placeholder='"+jsonformat[nombretd]['OBSERVATION']+"' value=\""+jsonformat[nombretd]['OBSERVATION']+"\"></textarea><input type='hidden' value='"+jsonformat[nombretd]['MOTIF']+"' name='motif' />\
+                            <div class=\"form-group\">\
+                            <label>Observation :</label>\
+                            <textarea class=\"form-control\" name=\"observation\" cols=\"25\" rows=\"3\" placeholder='"+jsonformat[nombretd]['OBSERVATION']+"' value=\""+jsonformat[nombretd]['OBSERVATION']+"\"></textarea></div>\
+                            <div class=\"form-group\">\
+                            <label>Motif :</label>\
+                            <input type='hidden' value='"+jsonformat[nombretd]['MOTIF']+"' name='motif' />\
                             <input type='hidden' value='"+jsonformat[nombretd]['MATRICULE']+"' name='matricule' />\
                             <input type='hidden' value='"+jsonformat[nombretd]['IDETUDIANTS']+"' name='idetudiants' />\
                             <input type='hidden' value='"+jsonformat[nombretd]['IDCHEQUE']+"'name='idcheque'/>\
-                            <input type='number' placeholder='0' name='quantite'/>\
+                            <input type='number' class=\"form-control\" placeholder='0' name='quantite'/></div>\
                             <input type='submit' class='btn btn-success' value='validation'/>\
                             </form>\
                             </div></div></div></div>\
@@ -230,7 +253,7 @@ $("document").ready(function(){
                                  
                             $(".table").empty();
                             $(".table").append(
-                             "<thead> <tr> <th>Matricule</th><th>Nom</th><th>Prenom</th><th>Semestre</th><th>Motif</th><th>Nbordereaux</th><th>Agence</th><th>Montant</th><th>IdVersement</th><th>Etat</th><th>Decision</th><th>DateServer</th><th>Dateversement</th><th>Observation</th><th>Action</th></tr></thead>"   
+                             "<thead> <tr> <th>Matricule</th><th>Nom</th><th>Prenom</th><th>Semestre</th><th>Motif</th><th>Nbordereaux</th><th>Agence</th><th>Montant</th><th>IdVersement</th><th>Etat</th><th>Decision</th><th>DateServer</th><th>DateDeVersement</th><th>Observation</th><th>Action</th></tr></thead>"   
                             );
                             $(".table").append(
                                 "<tbody></tbody>"
@@ -241,14 +264,19 @@ $("document").ready(function(){
                                 "<tr><td>"+jsonformat[index]['MATRICULE']+"</td><td>"+jsonformat[index]['NOM']+"</td><td>"+jsonformat[index]['PRENOM']+"</td><td>"+jsonformat[index]['SEMESTRE']+"</td><td>"+jsonformat[index]['MOTIF']+"</td><td>"+jsonformat[index]['NBORDEREAUX']+"</td><td>"+jsonformat[index]['AGENCE']+"</td><td>"+jsonformat[index]['MONTANT']+"</td><td>"+jsonformat[index]['IDVERSEMENT']+"</td><td>"+jsonformat[index]['ETAT']+"</td><td>"+jsonformat[index]['DECISION']+"</td><td>"+jsonformat[index]['DATESERVER']+"</td><td>"+jsonformat[index]['DATEVERSEMENT']+"</td><td>"+jsonformat[index]['OBSERVATION']+"</td><td><a href='#' data-toggle='modal' data-target='#myModal"+index+"' ><i class='mx-1 fas fa-check text-success'></i></a> <a href='#' data-toggle='modal' data-target='#refuModal"+index+"'><i class='mx-1 fas fa-window-close text-danger'></i></a>\
                                 <div class='modal fade' id='myModal"+index+"'>\
                                 <div class='modal-dialog modal-sm'><div class='modal-content'>\
-                                <div class='modal-header'><h4 class='modal-title text-success'>VALIDER?</h4><button type='button' class='close' data-dismiss='modal'>×</button></div>\
+                                <div class='modal-header'><h5 class='modal-title text-success'>Êtes-vous sur de valider?</h5><button type='button' class='close' data-dismiss='modal'>×</button></div>\
                                 <div class='modal-body'>\
                                 <form action='../Controller/ControlFinanceValidationVersement.php' method='POST'>\
-                                <textarea name=\"observation\" cols=\"20\" rows=\"2\" placeholder='"+jsonformat[index]['OBSERVATION']+"' value=\""+jsonformat[index]['OBSERVATION']+"\"></textarea><input type='hidden' value='"+jsonformat[index]['MOTIF']+"' name='motif' />\
+                                <div class=\"form-group\">\
+                                <label>Observation :</label>\
+                                <textarea class=\"form-control\" name=\"observation\" cols=\"25\" rows=\"3\" placeholder='"+jsonformat[index]['OBSERVATION']+"' value=\""+jsonformat[index]['OBSERVATION']+"\"></textarea></div>\
+                                <div class=\"form-group\">\
+                                <label>Motif :</label>\
+                                <input type='hidden' value='"+jsonformat[index]['MOTIF']+"' name='motif' />\
                                 <input type='hidden' value='"+jsonformat[index]['MATRICULE']+"' name='matricule' />\
                                 <input type='hidden' value='"+jsonformat[index]['IDETUDIANTS']+"' name='idetudiants' />\
                                 <input type='hidden' value='"+jsonformat[index]['IDVERSEMENT']+"'name='idversement'/>\
-                                <input type='number' placeholder='0' name='quantite'/>\
+                                <input class=\"form-control\" type='number' placeholder='0' name='quantite'/></div>\
                                 <input type='submit' class='btn btn-success' value='validation'/>\
                                 </form>\
                                 </div></div></div></div>\
@@ -283,17 +311,22 @@ $("document").ready(function(){
                              var jsonformat=response3;
                           for (nombretd; nombretd<jsonformat.length; nombretd++) {
                               $("tbody").append(
-                                "<tr><td>"+jsonformat[nombretd]['MATRICULE']+"</td><td>"+jsonformat[nombretd]['NOM']+"</td><td>"+jsonformat[nombretd]['PRENOM']+"</td><td>"+jsonformat[nombretd]['SEMESTRE']+"</td><td>"+jsonformat[nombretd]['MOTIF']+"</td><td>"+jsonformat[nombretd]['NBORDEREAUX']+"</td><td>"+jsonformat[nombretd]['AGENCE']+"</td><td>"+jsonformat[nombretd]['MONTANT']+"</td><td>"+jsonformat[nombretd]['IDVERSEMENT']+"</td><td>"+jsonformat[nombretd]['ETAT']+"</td><td>"+jsonformat[nombretd]['DECISION']+"</td><td>"+jsonformat[nombretd]['DATESERVER']+"</td><td>"+jsonformat[nombretd]['DATEVERSEMENT']+"</td><td>"+jsonformat[nombretd]['observation']+"</td><td><a href='#' data-toggle='modal' data-target='#myModal"+nombretd+"' ><i class='mx-1 fas fa-check text-success'></i></a> <a href='#'data-toggle='modal' data-target='#refuModal"+nombretd+"'><i class='mx-1 fas fa-window-close text-danger'></i></a>\
+                                "<tr><td>"+jsonformat[nombretd]['MATRICULE']+"</td><td>"+jsonformat[nombretd]['NOM']+"</td><td>"+jsonformat[nombretd]['PRENOM']+"</td><td>"+jsonformat[nombretd]['SEMESTRE']+"</td><td>"+jsonformat[nombretd]['MOTIF']+"</td><td>"+jsonformat[nombretd]['NBORDEREAUX']+"</td><td>"+jsonformat[nombretd]['AGENCE']+"</td><td>"+jsonformat[nombretd]['MONTANT']+"</td><td>"+jsonformat[nombretd]['IDVERSEMENT']+"</td><td>"+jsonformat[nombretd]['ETAT']+"</td><td>"+jsonformat[nombretd]['DECISION']+"</td><td>"+jsonformat[nombretd]['DATESERVER']+"</td><td></td><td>"+jsonformat[nombretd]['observation']+"</td><td><a href='#' data-toggle='modal' data-target='#myModal"+nombretd+"' ><i class='mx-1 fas fa-check text-success'></i></a> <a href='#'data-toggle='modal' data-target='#refuModal"+nombretd+"'><i class='mx-1 fas fa-window-close text-danger'></i></a>\
                                 <div class='modal fade' id='myModal"+nombretd+"'>\
                                 <div class='modal-dialog modal-sm'><div class='modal-content'>\
-                                <div class='modal-header'><h4 class='modal-title text-success'>VALIDER?</h4><button type='button' class='close' data-dismiss='modal'>×</button></div>\
+                                <div class='modal-header'><h5 class='modal-title text-success'>Êtes-vous sur de valider?</h5><button type='button' class='close' data-dismiss='modal'>×</button></div>\
                                 <div class='modal-body'>\
                                 <form action='../Controller/ControlFinanceValidationVersement.php' method='POST'>\
-                                <textarea name=\"observation\" cols=\"20\" rows=\"2\" placeholder='"+jsonformat[nombretd]['OBSERVATION']+"' value=\""+jsonformat[nombretd]['OBSERVATION']+"\"></textarea><input type='hidden' value='"+jsonformat[nombretd]['MOTIF']+"' name='motif' />\
+                                <div class=\"form-group\">\
+                                <label>Observation :</label>\
+                                <textarea class=\"form-control\" name=\"observation\" cols=\"25\" rows=\"3\" placeholder='"+jsonformat[nombretd]['OBSERVATION']+"' value=\""+jsonformat[nombretd]['OBSERVATION']+"\"></textarea></div>\
+                                <div class=\"form-group\">\
+                                <label>Motif :</label>\
+                                <input type='hidden' value='"+jsonformat[nombretd]['MOTIF']+"' name='motif' />\
                                 <input type='hidden' value='"+jsonformat[nombretd]['MATRICULE']+"' name='matricule' />\
                                 <input type='hidden' value='"+jsonformat[nombretd]['IDETUDIANTS']+"' name='idetudiants' />\
                                 <input type='hidden' value='"+jsonformat[nombretd]['IDVERSEMENT']+"'name='idversement'/>\
-                                <input type='number' placeholder='0' name='quantite'/>\
+                                <input class=\"form-control\" type='number' placeholder='0' name='quantite'/></div>\
                                 <input type='submit' class='btn btn-success' value='validation'/>\
                                 </form>\
                                 </div></div></div></div>\
@@ -348,14 +381,19 @@ $("document").ready(function(){
                             "<tr><td>"+jsonformat[index]['MATRICULE']+"</td><td>"+jsonformat[index]['NOM']+"</td><td>"+jsonformat[index]['PRENOM']+"</td><td>"+jsonformat[index]['SEMESTRE']+"</td><td>"+jsonformat[index]['MOTIF']+"</td><td>"+jsonformat[index]['NCOMPTE']+"</td><td>"+jsonformat[index]['TITUCOMPTE']+"</td><td>"+jsonformat[index]['DATEVIREMENT']+"</td><td>"+jsonformat[index]['MONTANT']+"</td><td>"+jsonformat[index]['IDVIREMENT']+"</td><td>"+jsonformat[index]['ETAT']+"</td><td>"+jsonformat[index]['DECISION']+"</td><td>"+jsonformat[index]['DATESERVER']+"</td><td>"+jsonformat[index]['OBSERVATION']+"</td><td><a href='#' data-toggle='modal' data-target='#myModal"+index+"' ><i class='mx-1 fas fa-check text-success'></i></a> <a href='#' data-toggle='modal' data-target='#refuModal"+index+"'><i class='mx-1 fas fa-window-close text-danger'></i></a>\
                             <div class='modal fade' id='myModal"+index+"'>\
                             <div class='modal-dialog modal-sm'><div class='modal-content'>\
-                            <div class='modal-header'><h4 class='modal-title text-success'>VALIDER?</h4><button type='button' class='close' data-dismiss='modal'>×</button></div>\
+                            <div class='modal-header'><h5 class='modal-title text-success'>Êtes-vous sur de valider?</h5><button type='button' class='close' data-dismiss='modal'>×</button></div>\
                             <div class='modal-body'>\
                             <form action='../Controller/ControlFinanceValidationVirement.php' method='POST'>\
-                            <textarea name=\"observation\" cols=\"20\" rows=\"2\" placeholder='"+jsonformat[index]['OBSERVATION']+"' value=\""+jsonformat[index]['OBSERVATION']+"\"></textarea><input type='hidden' value='"+jsonformat[index]['MOTIF']+"' name='motif' />\
+                            <div class=\"form-group\">\
+                            <label>Observation :</label>\
+                            <textarea class=\"form-control\" name=\"observation\" cols=\"25\" rows=\"3\" placeholder='"+jsonformat[index]['OBSERVATION']+"' value=\""+jsonformat[index]['OBSERVATION']+"\"></textarea></div>\
+                            <div class=\"form-group\">\
+                            <label>Motif :</label>\
+                            <input type='hidden' value='"+jsonformat[index]['MOTIF']+"' name='motif' />\
                             <input type='hidden' value='"+jsonformat[index]['MATRICULE']+"' name='matricule' />\
                             <input type='hidden' value='"+jsonformat[index]['IDETUDIANTS']+"' name='idetudiants' />\
                             <input type='hidden' value='"+jsonformat[index]['IDVIREMENT']+"'name='idvirement'/>\
-                            <input type='number' placeholder='0' name='quantite'/>\
+                            <input class=\"form-control\" type='number' placeholder='0' name='quantite'/></div>\
                             <input type='submit' class='btn btn-success' value='validation'/>\
                             </form>\
                             </div></div></div></div>\
@@ -392,14 +430,19 @@ $("document").ready(function(){
                             "<tr><td>"+jsonformat[nombretd]['MATRICULE']+"</td><td>"+jsonformat[nombretd]['NOM']+"</td><td>"+jsonformat[nombretd]['PRENOM']+"</td><td>"+jsonformat[nombretd]['SEMESTRE']+"</td><td>"+jsonformat[nombretd]['MOTIF']+"</td><td>"+jsonformat[nombretd]['NCOMPTE']+"</td><td>"+jsonformat[nombretd]['TITUCOMPTE']+"</td><td>"+jsonformat[nombretd]['DATEVIREMENT']+"</td><td>"+jsonformat[nombretd]['MONTANT']+"</td><td>"+jsonformat[nombretd]['IDVIREMENT']+"</td><td>"+jsonformat[nombretd]['ETAT']+"</td><td>"+jsonformat[nombretd]['DECISION']+"</td><td>"+jsonformat[nombretd]['DATESERVER']+"</td><td>"+jsonformat[nombretd]['OBSERVATION']+"</td><td><a href='#' data-toggle='modal' data-target='#myModal"+nombretd+"' ><i class='mx-1 fas fa-check text-success'></i></a> <a href='#' data-toggle='modal' data-target='#refuModal"+nombretd+"' ><i class='mx-1 fas fa-window-close text-danger'></i></a>\
                             <div class='modal fade' id='myModal"+nombretd+"'>\
                             <div class='modal-dialog modal-sm'><div class='modal-content'>\
-                            <div class='modal-header'><h4 class='modal-title text-success'>VALIDER?</h4><button type='button' class='close' data-dismiss='modal'>×</button></div>\
+                            <div class='modal-header'><h5 class='modal-title text-success'>Êtes-vous sur de valider?</h5><button type='button' class='close' data-dismiss='modal'>×</button></div>\
                             <div class='modal-body'>\
                             <form action='../Controller/ControlFinanceValidationVirement.php' method='POST'>\
-                            <textarea name=\"observation\" cols=\"20\" rows=\"2\" placeholder='"+jsonformat[nombretd]['OBSERVATION']+"' value=\""+jsonformat[nombretd]['OBSERVATION']+"\"></textarea><input type='hidden' value='"+jsonformat[nombretd]['MOTIF']+"' name='motif' />\
+                            <div class=\"form-group\">\
+                            <label>Observation :</label>\
+                            <textarea class=\"form-control\" name=\"observation\" cols=\"25\" rows=\"3\" placeholder='"+jsonformat[nombretd]['OBSERVATION']+"' value=\""+jsonformat[nombretd]['OBSERVATION']+"\"></textarea></div>\
+                            <div class=\"form-group\">\
+                            <label>Motif :</label>\
+                            <input type='hidden' value='"+jsonformat[nombretd]['MOTIF']+"' name='motif' />\
                             <input type='hidden' value='"+jsonformat[nombretd]['MATRICULE']+"' name='matricule' />\
                             <input type='hidden' value='"+jsonformat[nombretd]['IDETUDIANTS']+"' name='idetudiants' />\
                             <input type='hidden' value='"+jsonformat[nombretd]['IDVIREMENT']+"'name='idvirement'/>\
-                            <input type='number' placeholder='0' name='quantite'/>\
+                            <input class=\"form-control\" type='number' placeholder='0' name='quantite'/></div>\
                             <input type='submit' class='btn btn-success' value='validation'/>\
                             </form>\
                             </div></div></div></div>\
@@ -458,14 +501,19 @@ $("document").ready(function(){
                                     "<tr><td>"+jsonformat[index]['NSUIVI']+"</td><td>"+jsonformat[index]['NOMEXP']+"</td><td>"+jsonformat[index]['MONTANTWESTERN']+"</td><td>"+jsonformat[index]['MONTANT']+"</td><td>"+jsonformat[index]['MOTIF']+"</td><td>"+jsonformat[index]['MATRICULE']+"</td><td>"+jsonformat[index]['NOM']+"</td><td>"+jsonformat[index]['PRENOM']+"</td><td>"+jsonformat[index]['SEMESTRE']+"</td><td>"+jsonformat[index]['DATESERVER']+"</td><td>"+jsonformat[index]['ETAT']+"</td><td>"+jsonformat[index]['DECISION']+"</td><td>"+jsonformat[index]['OBSERVATION']+"</td><td><a href='#' data-toggle='modal' data-target='#myModal"+index+"' ><i class='mx-1 fas fa-check text-success'></i></a> <a href='#' data-toggle='modal' data-target='#refuModal"+index+"'><i class='mx-1 fas fa-window-close text-danger'></i></a>\
                                     <div class='modal fade' id='myModal"+index+"'>\
                                     <div class='modal-dialog modal-sm'><div class='modal-content'>\
-                                    <div class='modal-header'><h4 class='modal-title text-success'>VALIDER?</h4><button type='button' class='close' data-dismiss='modal'>×</button></div>\
+                                    <div class='modal-header'><h5 class='modal-title text-success'>Êtes-vous sur de valider?</h5><button type='button' class='close' data-dismiss='modal'>×</button></div>\
                                     <div class='modal-body'>\
                                     <form action='../Controller/ControlFinanceValidationWestern.php' method='POST'>\
-                                    <textarea name=\"observation\" cols=\"20\" rows=\"2\" placeholder='"+jsonformat[index]['OBSERVATION']+"' value=\""+jsonformat[index]['OBSERVATION']+"\"></textarea><input type='hidden' value='"+jsonformat[index]['MOTIF']+"' name='motif' />\
+                                    <div class=\"form-group\">\
+                                    <label>Observation :</label>\
+                                    <textarea class=\"form-control\" name=\"observation\" cols=\"25\" rows=\"3\" placeholder='"+jsonformat[index]['OBSERVATION']+"' value=\""+jsonformat[index]['OBSERVATION']+"\"></textarea></div>\
+                                    <div class=\"form-group\">\
+                                    <label>Motif :</label>\
+                                    <input type='hidden' value='"+jsonformat[index]['MOTIF']+"' name='motif' />\
                                     <input type='hidden' value='"+jsonformat[index]['MATRICULE']+"' name='matricule' />\
                                     <input type='hidden' value='"+jsonformat[index]['IDETUDIANTS']+"' name='idetudiants' />\
                                     <input type='hidden' value='"+jsonformat[index]['IDWESTERN']+"'name='idwestern'/>\
-                                    <input type='number' placeholder='0' name='quantite'/>\
+                                    <input class=\"form-control\" type='number' placeholder='0' name='quantite'/></div>\
                                     <input type='submit' class='btn btn-success' value='validation'/>\
                                     </form>\
                                     </div></div></div></div>\
@@ -511,11 +559,16 @@ $("document").ready(function(){
                             <div class='modal-header'><h4 class='modal-title text-success'>VALIDER?</h4><button type='button' class='close' data-dismiss='modal'>×</button></div>\
                             <div class='modal-body'>\
                             <form action='../Controller/ControlFinanceValidationWestern.php' method='POST'>\
-                            <textarea name=\"observation\" cols=\"20\" rows=\"2\" placeholder='"+jsonformat[nombretd]['OBSERVATION']+"' value=\""+jsonformat[nombretd]['OBSERVATION']+"\"></textarea><input type='hidden' value='"+jsonformat[nombretd]['MOTIF']+"' name='motif' />\
+                            <div class=\"form-group\">\
+                            <label>Observation :</label>\
+                            <textarea class=\"form-control\" name=\"observation\" cols=\"25\" rows=\"3\" placeholder='"+jsonformat[nombretd]['OBSERVATION']+"' value=\""+jsonformat[nombretd]['OBSERVATION']+"\"></textarea></div>\
+                            <div class=\"form-group\">\
+                            <label>Motif :</label>\
+                            <input type='hidden' value='"+jsonformat[nombretd]['MOTIF']+"' name='motif' />\
                             <input type='hidden' value='"+jsonformat[nombretd]['MATRICULE']+"' name='matricule' />\
                             <input type='hidden' value='"+jsonformat[nombretd]['IDETUDIANTS']+"' name='idetudiants' />\
                             <input type='hidden' value='"+jsonformat[nombretd]['IDWESTERN']+"'name='idwestern'/>\
-                            <input type='number' placeholder='0' name='quantite'/>\
+                            <input class=\"form-control\" type='number' placeholder='0' name='quantite'/></div>\
                             <input type='submit' class='btn btn-success' value='validation'/>\
                             </form>\
                             </div></div></div></div>\
