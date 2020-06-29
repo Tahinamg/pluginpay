@@ -55,6 +55,8 @@ if(!isset($_SESSION['finance'])){
             class="fas fa-clipboard-list lead mr-2"></i> Classification</a>
         <a href="" id="stat" class="list-group-item list-group-item-action bg-light p-3 border-0"><i
             class="fas fa-chart-bar lead mr-2"></i> Statistique</a>
+        <a href="" id="recouvrement" class="list-group-item list-group-item-action bg-light p-3 border-0"><i
+            class="fas fa-calculator lead mr-2"></i> Recouvrement</a>
         <a href="#" id="promo" class="list-group-item list-group-item-action bg-light p-3 border-0"><i
             class="fas fa-wallet lead mr-2"></i> Code Promo</a>
         <a href="../Controller/DeconnexionFinance.php"
