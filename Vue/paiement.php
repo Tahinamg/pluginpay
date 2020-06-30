@@ -1,5 +1,7 @@
+
 <?php
 //CDN Change the local  to CDN before upload
+//UPLOADMYELANE
 ob_start();
 
 header('Content-Type:text/html ; charset=utf-8');
@@ -252,6 +254,11 @@ include "../Controller/AccesPaiement.php";
                     </div>
                     </div>
                     <!--Fin Modal -->
+                </div>
+                <div >
+                    <button id="MoneyGram" class="BouttonPaiement btn btn-info hvr-bounce-in align-items-center">
+                        Payer Par MoneyGram
+                    </button> 
                 </div>
                 <br>
                 <h5 class="text-primary text-center" style="border-bottom-style:ridge;">
