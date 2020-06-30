@@ -1,7 +1,74 @@
+//UPLOADMYELANE
 $(document).ready(function () {
     var ajourpromo=0;
     $('#user_data').DataTable();
-$("#classification").click(function () {
+    $('#recouvrement').click(function (){
+        $("#welcoming").empty();
+        $(".table").empty();
+        $("#welcoming").append(
+            "    <form class=\"mt-5 ml-5\" >\
+                    <div class=\"form-group justify-content-center\">\
+                        <label>Mois d'entrer :</label><select class=\"p-2\">\
+                    <option selected>Janvier</option>\
+                    <option>Février</option>\
+                    <option>Mars</option>\
+                    <option>Avril</option>\
+                    <option>Mai</option>\
+                    <option>Juin</option>\
+                    <option>Juillet</option>\
+                    <option>Août</option>\
+                    <option>Septembre</option>\
+                    <option>Octobre</option>\
+                    <option>Novembre</option>\
+                    <option>Décembre</option>\
+                </select>\
+                <label class=\"ml-5\">Mois en cours  :</label>\
+                <select id=\"month\" name=\"month\" class=\"p-2\">\
+                    <option selected>Janvier</option>\
+                    <option>Février</option>\
+                    <option>Mars</option>\
+                    <option>Avril</option>\
+                    <option>Mai</option>\
+                    <option>Juin</option>\
+                    <option>Juillet</option>\
+                    <option>Août</option>\
+                    <option>Septembre</option>\
+                    <option>Octobre</option>\
+                    <option>Novembre</option>\
+                    <option>Décembre</option>\
+                  </select>\
+                <select name=\"\" id=\"\" class=\"ml-5 p-2\">\
+                    <option value=\"\">PAYER</option>\
+                    <option value=\"\">NON PAYER</option>\
+                </select>\
+            </div><div class=\"container\">\
+                <table class=\"table table-hover\">\
+                    <thead>\
+                        <tr>\
+                            <th>Matricule</th>\
+                            <th>Nom</th>\
+                            <th>EtatEcolage</th>\
+                            <th>Semestre</th>\
+                            <th>Tel</th>\
+                            <th>Etat inscription</th>\
+                            <th>Filière</th>\
+                            <th>Vague</th>\
+                        </tr>\
+                    </thead>\
+                    <tbody>\
+                        <td>test</td>\
+                        <td>test</td>\
+                        <td>test</td>\
+                        <td>test</td>\
+                        <td>test</td>\
+                        <td>test</td>\
+                        <td>test</td>\
+                        <td>test</td>\
+                    </tbody></table>\
+            </div>\
+        </form>");
+    });
+    $("#classification").click(function () {
     $("#welcoming").empty();
     $(".table").empty();
     $("#welcoming").append(
