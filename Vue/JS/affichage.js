@@ -6,12 +6,12 @@ $(document).ready(function () {
         $("#welcoming").empty();
         $(".table").empty();
         $("#welcoming").append(
-            "    <form class=\"mt-5 ml-5\" >\
-                    <div class=\"form-group justify-content-center\">\
-                    <label class=\"ml-5\">Mois d'entrer :</label>\
-                    <input type=\"date\" class=\"p-2\">\
-                <label class=\"ml-5\">Mois en cours  :</label>\
-                <select id=\"month\" name=\"month\" class=\"p-2\">\
+            "    <form class=\"mt-3 form-inline\" >\
+                    <div class=\"form-group\"  align=\"center\">\
+                    <label class=\"ml-3\">Mois d'entrer :</label>\
+                    <input type=\"date\" class=\"p-2 ml-1 form-control\">\
+                <label class=\"ml-3\">Mois en cours  :</label>\
+                <select id=\"month\" name=\"month\" class=\"p-2 ml-1 form-control\">\
                 <option selected value=\"1\">1 mois</option>\
                 <option value=\"2\">2 mois</option>\
                 <option value=\"3\">3 mois</option>\
@@ -21,13 +21,21 @@ $(document).ready(function () {
                 <option value=\"7\">7 mois</option>\
                 <option value=\"8\">8 mois</option>\
                 </select>\
-                <label class=\"ml-5\">Etat de paiement :</label>\
-                <select name=\"\" id=\"\" class=\"p-2\">\
+                <label class=\"ml-3\">Etat de paiement :</label>\
+                <select name=\"\" id=\"\" class=\"p-2 ml-1 form-control\">\
                     <option value=\"OUI\">PAYER</option>\
                     <option value=\"NON\">NON PAYER</option>\
                 </select>\
+                <label class=\"ml-3\">Motif  :</label>\
+                <select id=\"month\" name=\"month\" class=\"p-2 ml-1 form-control\">\
+                <option selected value=\"ecolage\">Ecolage</option>\
+                <option value=\"inscription\">Inscription</option>\
+                <option value=\"soutenance\">Soutenance</option>\
+                <option value=\"examen\">Examen</option>\
+                <option value=\"certificat\">Certificat</option>\
+                </select>\
             </div></form>\
-            <div>\
+            <div class=\"mt-3\">\
                 <table class=\"table table-hover\">\
                     <thead>\
                         <tr>\

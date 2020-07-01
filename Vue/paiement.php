@@ -448,7 +448,7 @@ include "../Controller/AccesPaiement.php";
                                         }
                                      
                                     }?> 
-                                </label>
+                                (montant réservé aux étudiants ayant choisi 2 filières)</label>
                             </div>
 
                             <div class="custom-control flex-fill form-check-inline custom-radio">
