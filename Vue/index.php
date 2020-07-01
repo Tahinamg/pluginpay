@@ -1,5 +1,5 @@
 <?php 
-
+//UPLOADMYELANE
 ob_start();
 
 session_start();
@@ -90,6 +90,20 @@ if($etudiant->getIdetudiants()==0){
                         <img width="80px" height="50px" src="Image/arrow-right.svg" alt="Virement"/>
                         <em class="text-success text-center">Virement bancaire</em>
                     </div>  
+
+                </div>
+                <br>
+                <div class="d-flex flex-column flex-md-row justify-content-center col-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: -7%;">
+                    
+                    <div class=" d-flex flex-column paiementitem mx-1 embed-responsive-item">
+                        <img width="80px" height="50px" src="Image/WesternUnion.png" alt="Virement"/>
+                        <em class="text-center">Western Union</em>
+                    </div>  
+
+                    <div class=" d-flex flex-column paiementitem mx-1 embed-responsive-item">
+                        <img width="80px" height="50px" src="Image/MoneyGram.jpg" alt="Virement"/>
+                        <em class="text-danger text-center">MoneyGram</em>
+                    </div> 
                 </div>
                 <br>
                 <div align="center">

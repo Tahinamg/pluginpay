@@ -6,53 +6,50 @@ $(document).ready(function () {
         $("#welcoming").empty();
         $(".table").empty();
         $("#welcoming").append(
-            "    <form class=\"mt-5 ml-5\" >\
-                    <div class=\"form-group justify-content-center\">\
-                        <label>Mois d'entrer :</label><select class=\"p-2\">\
-                    <option selected>Janvier</option>\
-                    <option>Février</option>\
-                    <option>Mars</option>\
-                    <option>Avril</option>\
-                    <option>Mai</option>\
-                    <option>Juin</option>\
-                    <option>Juillet</option>\
-                    <option>Août</option>\
-                    <option>Septembre</option>\
-                    <option>Octobre</option>\
-                    <option>Novembre</option>\
-                    <option>Décembre</option>\
+            "    <form class=\"mt-3 form-inline\" >\
+                    <div class=\"form-group\"  align=\"center\">\
+                    <label class=\"ml-3\">Mois d'entrer :</label>\
+                    <input type=\"date\" class=\"p-2 ml-1 form-control\">\
+                <label class=\"ml-3\">Mois en cours  :</label>\
+                <select id=\"month\" name=\"month\" class=\"p-2 ml-1 form-control\">\
+                <option selected value=\"1\">1 mois</option>\
+                <option value=\"2\">2 mois</option>\
+                <option value=\"3\">3 mois</option>\
+                <option value=\"4\">4 mois</option>\
+                <option value=\"5\">5 mois</option>\
+                <option value=\"6\">6 mois</option>\
+                <option value=\"7\">7 mois</option>\
+                <option value=\"8\">8 mois</option>\
                 </select>\
-                <label class=\"ml-5\">Mois en cours  :</label>\
-                <select id=\"month\" name=\"month\" class=\"p-2\">\
-                    <option selected>Janvier</option>\
-                    <option>Février</option>\
-                    <option>Mars</option>\
-                    <option>Avril</option>\
-                    <option>Mai</option>\
-                    <option>Juin</option>\
-                    <option>Juillet</option>\
-                    <option>Août</option>\
-                    <option>Septembre</option>\
-                    <option>Octobre</option>\
-                    <option>Novembre</option>\
-                    <option>Décembre</option>\
-                  </select>\
-                <select name=\"\" id=\"\" class=\"ml-5 p-2\">\
-                    <option value=\"\">PAYER</option>\
-                    <option value=\"\">NON PAYER</option>\
+                <label class=\"ml-3\">Etat de paiement :</label>\
+                <select name=\"\" id=\"\" class=\"p-2 ml-1 form-control\">\
+                    <option value=\"OUI\">PAYER</option>\
+                    <option value=\"NON\">NON PAYER</option>\
                 </select>\
-            </div><div class=\"container\">\
+                <label class=\"ml-3\">Motif  :</label>\
+                <select id=\"month\" name=\"month\" class=\"p-2 ml-1 form-control\">\
+                <option selected value=\"ecolage\">Ecolage</option>\
+                <option value=\"inscription\">Inscription</option>\
+                <option value=\"soutenance\">Soutenance</option>\
+                <option value=\"examen\">Examen</option>\
+                <option value=\"certificat\">Certificat</option>\
+                </select>\
+            </div></form>\
+            <div class=\"mt-3\">\
                 <table class=\"table table-hover\">\
                     <thead>\
                         <tr>\
                             <th>Matricule</th>\
                             <th>Nom</th>\
+                            <th>Prénom</th>\
                             <th>EtatEcolage</th>\
                             <th>Semestre</th>\
                             <th>Tel</th>\
-                            <th>Etat inscription</th>\
+                            <th>Inscription</th>\
                             <th>Filière</th>\
                             <th>Vague</th>\
+                            <th>Soutenance</th>\
+                            <th>Examen</th>\
                         </tr>\
                     </thead>\
                     <tbody>\
@@ -64,9 +61,12 @@ $(document).ready(function () {
                         <td>test</td>\
                         <td>test</td>\
                         <td>test</td>\
+                        <td>test</td>\
+                        <td>test</td>\
+                        <td>test</td>\
                     </tbody></table>\
             </div>\
-        </form>");
+        ");
     });
     $("#classification").click(function () {
     $("#welcoming").empty();
@@ -175,7 +175,7 @@ $("#promo").click(function(){
                         "<div class=\"card border-0 shadow-md shadow-hover w-auto col-8 sup\">\
                             <div class=\"card-body d-flex text-right align-items-center w-auto vue\">\
                                 <button class=\"btn btn-danger text-white te\"><strong>X</strong></button>\
-                                <p id="+data[i]['codepromo']+" class=\"mb-0 ml-2 w-auto im\">"+data[i]['codepromo']+"</p>\
+                                <p id="+data[i]['codepromo']+" class=\"mb-0 ml-2 w-auto col-12 im\">"+data[i]['codepromo']+"</p>\
                             </div>\
                         </div>\
                         <br>");
@@ -221,7 +221,7 @@ $("#promo").click(function(){
                             "<div class=\"card border-0 shadow-md shadow-hover w-auto col-8 sup\">\
                                 <div class=\"card-body d-flex text-right align-items-center w-auto vue\">\
                                     <button class=\"btn btn-danger text-white te\"><strong>X</strong></button>\
-                                    <p id="+data[i]['codepromo']+" class=\"mb-0 ml-2 w-auto im\">"+data[i]['codepromo']+"</p>\
+                                    <p id="+data[i]['codepromo']+" class=\"mb-0 ml-2 w-auto col-12 im\">"+data[i]['codepromo']+"</p>\
                                 </div>\
                             </div>\
                             <br>");
