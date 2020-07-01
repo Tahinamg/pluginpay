@@ -13,7 +13,7 @@ protected $db;
 
 
     public function VoirMobileMoney(){
-        $sql=$this->db->query("SELECT `SUIVRE`.`MATRICULE`,`ETUDIANTS`.`NOM`,`ETUDIANTS`.`PRENOM`,`ETUDIANTS`.`IDETUDIANTS`,`MOTIF`,`SEMESTRE`,`MOBILEMONEY`.`REFERENCE`,`DATY`,`MOBILEMONEY`.`MONTANT`,`IDMOBILEMONEY`,`MOBILEMONEY`.`ETAT`,`MOBILEMONEY`.`DECISION`,`DATESERVER`  FROM `MOBILEMONEY` NATURAL JOIN `SUIVRE`,`ETUDIANTS` WHERE `ETUDIANTS`.`IDETUDIANTS`=`MOBILEMONEY`.`IDETUDIANTS` AND `MOBILEMONEY`.`ETAT`='non lu' ");
+        $sql=$this->db->query("SELECT `SUIVRE`.`MATRICULE`,`ETUDIANTS`.`NOM`,`ETUDIANTS`.`PRENOM`,`ETUDIANTS`.`IDETUDIANTS`,`MOTIF`,`SEMESTRE`,`MOBILEMONEY`.`REFERENCE`,`DATY`,`MOBILEMONEY`.`MONTANT`,`IDMOBILEMONEY`,`MOBILEMONEY`.`ETAT`,`MOBILEMONEY`.`DECISION`,`DATESERVER`,`OBSERVATION` FROM `MOBILEMONEY` NATURAL JOIN `SUIVRE`,`ETUDIANTS` WHERE `ETUDIANTS`.`IDETUDIANTS`=`MOBILEMONEY`.`IDETUDIANTS` AND `MOBILEMONEY`.`ETAT`='non lu' ORDER BY `IDMOBILEMONEY` ASC ");
         return $sql->fetchAll(PDO::FETCH_ASSOC);
         $sql->closeCursor();
 
@@ -23,8 +23,9 @@ protected $db;
         return $sql->fetch();
         $sql->closeCursor();
     }
-    public function ValiderEcolageViaMobileMoney($qte,$matricule,$idmobilemoney){
-        $sql1=$this->db->prepare("UPDATE `MOBILEMONEY` SET `ETAT`='lu',`DECISION`='valide' WHERE `IDMOBILEMONEY`=:idmobilemoney");
+    public function ValiderEcolageViaMobileMoney($qte,$matricule,$idmobilemoney,$observation){
+        $sql1=$this->db->prepare("UPDATE `MOBILEMONEY` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDMOBILEMONEY`=:idmobilemoney");
+        $sql1->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql1->bindValue(":idmobilemoney",$idmobilemoney,PDO::PARAM_INT);
         $sql1->execute();
         $sql1->closeCursor();
@@ -35,8 +36,9 @@ protected $db;
         $sql2->closeCursor();
 
     }
-    Public function ValiderInscriptionViaMobileMoney($matricule,$idmobilemoney){
-        $sql=$this->db->prepare("UPDATE `MOBILEMONEY` SET `ETAT`='lu',`DECISION`='valide' WHERE `IDMOBILEMONEY`=:idmobilemoney");
+    Public function ValiderInscriptionViaMobileMoney($matricule,$idmobilemoney,$observation){
+        $sql=$this->db->prepare("UPDATE `MOBILEMONEY` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDMOBILEMONEY`=:idmobilemoney");
+        $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idmobilemoney",$idmobilemoney,PDO::PARAM_INT);
         $sql->execute();
         $sql->closeCursor();
@@ -49,8 +51,9 @@ protected $db;
 
     }
     
-    public function ValiderRepechage($idetudiant,$idmobilemoney){
-        $sql=$this->db->prepare("UPDATE `MOBILEMONEY` SET `ETAT`='lu',`DECISION`='valide' WHERE `IDMOBILEMONEY`=:idmobilemoney");
+    public function ValiderRepechage($idetudiant,$idmobilemoney,$observation){
+        $sql=$this->db->prepare("UPDATE `MOBILEMONEY` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDMOBILEMONEY`=:idmobilemoney");
+        $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idmobilemoney",$idmobilemoney,PDO::PARAM_INT);
         $sql->execute();
         $sql->closeCursor();
@@ -61,8 +64,9 @@ protected $db;
     }
 
 
-    public function ValiderDroitExamen($matricule,$idmobilemoney){
-        $sql=$this->db->prepare("UPDATE `MOBILEMONEY` SET `ETAT`='lu',`DECISION`='valide' WHERE `IDMOBILEMONEY`=:idmobilemoney");
+    public function ValiderDroitExamen($matricule,$idmobilemoney,$observation){
+        $sql=$this->db->prepare("UPDATE `MOBILEMONEY` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDMOBILEMONEY`=:idmobilemoney");
+        $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idmobilemoney",$idmobilemoney,PDO::PARAM_INT);
         $sql->execute();
         $sql->closeCursor();
@@ -76,8 +80,9 @@ protected $db;
     }
 
 
-    public function ValiderSoutenance($matricule,$idmobilemoney){
-        $sql=$this->db->prepare("UPDATE `MOBILEMONEY` SET `ETAT`='lu',`DECISION`='valide' WHERE `IDMOBILEMONEY`=:idmobilemoney");
+    public function ValiderSoutenance($matricule,$idmobilemoney,$observation){
+        $sql=$this->db->prepare("UPDATE `MOBILEMONEY` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDMOBILEMONEY`=:idmobilemoney");
+        $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idmobilemoney",$idmobilemoney,PDO::PARAM_INT);
         $sql->execute();
         $sql->closeCursor();
@@ -89,8 +94,9 @@ protected $db;
        
 
     }
-    public function ValiderCertificat($matricule,$idmobilemoney){
-        $sql=$this->db->prepare("UPDATE `MOBILEMONEY` SET `ETAT`='lu',`DECISION`='valide' WHERE `IDMOBILEMONEY`=:idmobilemoney");
+    public function ValiderCertificat($matricule,$idmobilemoney,$observation){
+        $sql=$this->db->prepare("UPDATE `MOBILEMONEY` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDMOBILEMONEY`=:idmobilemoney");
+        $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idmobilemoney",$idmobilemoney,PDO::PARAM_INT);
         $sql->execute();
         $sql->closeCursor();

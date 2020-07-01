@@ -1,5 +1,6 @@
-<?php
 
+<?php
+//UPLOADMYELANE
     ob_start();
 ?>
 
@@ -59,7 +60,7 @@
 <script type="text/javascript" src="node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
 <script type="text/javascript" src="JS/all.min.js"></script>
 <script type="text/javascript" src="JS/bootstrap.min.js"></script>
-<script type="text/javascript" src="JS/paiement.js"></script> -->
+<script type="text/javascript" src="JS/paiement.js"></script>-->
 </html>
 <?php
 

@@ -8,7 +8,7 @@ protected $db;
 
     public function setCheque(Cheque $cheque){
 //MISY OLANA
-        $sql=$this->db->prepare("INSERT INTO CHEQUE VALUES(NULL,:tireur,:etablissement,:ncheque,:idetudiants,:motif,:etat,:decision,:dateserver,:montant)");
+        $sql=$this->db->prepare("INSERT INTO CHEQUE VALUES(NULL,:tireur,:etablissement,:ncheque,:idetudiants,:motif,:etat,:decision,:dateserver,:montant,:observation)");
 
         $sql->bindValue(":tireur",$cheque->getTireur(),PDO::PARAM_STR);
         $sql->bindValue(":etablissement",$cheque->getEtablissement(),PDO::PARAM_STR);
@@ -19,7 +19,7 @@ protected $db;
         $sql->bindValue(":decision",$cheque->getDecision(),PDO::PARAM_STR);
         $sql->bindValue(":dateserver",date('Y-m-d H:i:s'),PDO::PARAM_STR);
         $sql->bindValue(":montant",$cheque->getMontant(),PDO::PARAM_STR);
-
+        $sql->bindValue(":observation",$cheque->getObservation(),PDO::PARAM_STR);
 
         $sql->execute();
         $sql->closeCursor();

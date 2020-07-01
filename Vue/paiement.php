@@ -1,6 +1,7 @@
+
 <?php
-//UPLOAD
 //CDN Change the local  to CDN before upload
+//UPLOADMYELANE
 ob_start();
 
 header('Content-Type:text/html ; charset=utf-8');
@@ -21,9 +22,9 @@ include "../Controller/AccesPaiement.php";
     <link rel="icon" href="Image/logo E-media.png" type="image/png" sizes="16x16"> 
 
     <title>Paiement</title>
-<link rel="stylesheet" href="CSS/loading.css" type="text/css"/>
-    <!--  <link rel="stylesheet" href="CSS/bootstrap.min.css"/>-->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="CSS/loading.css" type="text/css"/>
+   <!-- <link rel="stylesheet" href="CSS/bootstrap.min.css"/>-->
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="CSS/fontawesome.min.css"/>
     <link rel="stylesheet" href="CSS/main.css" />
 </head>
@@ -254,6 +255,11 @@ include "../Controller/AccesPaiement.php";
                     </div>
                     <!--Fin Modal -->
                 </div>
+                <div >
+                    <button id="MoneyGram" class="BouttonPaiement btn btn-info hvr-bounce-in align-items-center">
+                        Payer Par MoneyGram
+                    </button> 
+                </div>
                 <br>
                 <h5 class="text-primary text-center" style="border-bottom-style:ridge;">
                         NUMERO DU COMPTE POUR CHAQUE MODE DE PAIEMENT :
@@ -442,7 +448,7 @@ include "../Controller/AccesPaiement.php";
                                         }
                                      
                                     }?> 
-                                </label>
+                                (montant réservé aux étudiants ayant choisi 2 filières)</label>
                             </div>
 
                             <div class="custom-control flex-fill form-check-inline custom-radio">
@@ -688,7 +694,9 @@ include "../Controller/AccesPaiement.php";
     </div>
 </div>    
 </body>
- <script src="JS/loading.js" type="text/javascript" ></script>
+ <script src="JS/loading.js" type="text/javascript" ></script> 
+
+
 <script
 	src="https://code.jquery.com/jquery-3.5.1.min.js"
 	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
@@ -697,12 +705,11 @@ include "../Controller/AccesPaiement.php";
 <script type="text/javascript" src="JS/all.min.js"></script>
 <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="JS/paiement.js" defer></script>
-       
-      <!-- <script type="text/javascript" src="JS/jquery 3.5.1.js" ></script>
+<!--<script type="text/javascript" src="JS/jquery 3.5.1.js" ></script>
 <script type="text/javascript" src="node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
 <script type="text/javascript" src="JS/all.min.js"></script>
 <script type="text/javascript" src="JS/bootstrap.min.js"></script>
-<script type="text/javascript" src="JS/paiement.js"></script> -->
+<script type="text/javascript" src="JS/paiement.js" defer></script> -->
 <script type="text/javascript" src="JS/AjaxPromotion.js"></script>
 
 </html>

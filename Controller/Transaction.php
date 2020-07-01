@@ -1,6 +1,5 @@
 <?php
 ob_start();
-//UPLOAD
 session_start();
 
 function loadclass($class){
@@ -43,7 +42,8 @@ switch ($formatpaiement) {
                 "motif"=>(string) $_POST['motif'],
                 "etat"=>"non lu",
                 "decision"=>"non prise",
-                "montant"=>(string) $_POST['montant']
+                "montant"=>(string) $_POST['montant'],
+                "observation"=>"aucun"
             );
             $mvola = new MobileMoney($data);
             $mvolamanager= new MobileMoneyManager($db);
@@ -75,7 +75,8 @@ switch ($formatpaiement) {
                     'motif'=>(string) $_POST['motif'],
                     'etat'=>"non lu",
                     'decision'=>"non prise",
-                    'idetudiants'=>(int) $mpianatra['id']
+                    'idetudiants'=>(int) $mpianatra['id'],
+                    'observation'=>"aucun"
                 );
                 $western=new Western($data3);
                 $westernmanager=new WesternManager($db);
@@ -94,14 +95,14 @@ switch ($formatpaiement) {
 
     case 'cash':
 
+        if(isset($_POST['nrecu'],$_POST['agence'],$_POST['motif'],$_POST['montant'],$_POST['dateversement'])){
         $regcash='/[0-9]{1,9}/';        
         $regmotif='/inscription|ecolage|droit examen semestriel|Droit de soutenance|repechage|certificat/';
         $regmontant = '/[0-9]{1,8}/';
         $regagence='/[A-Za-z]{2,20}/';
-
         if(preg_match($regcash,$_POST['nrecu'])&&preg_match($regmotif,$_POST['motif'])&&preg_match($regmontant,$_POST['montant'])&&preg_match($regagence,$_POST['agence'])){
        
-        if(isset($_POST['nrecu'],$_POST['date'],$_POST['agence'],$_POST['motif'],$_POST['montant'])){
+        
         $data = array(
             "nbordereaux"=>(string) $_POST['nrecu'],
             "daty"=>(string) $_POST['date'],
@@ -110,7 +111,9 @@ switch ($formatpaiement) {
             "etat"=>"non lu",
             "decision"=>"non prise",
             "montant"=>(string) $_POST['montant'],
-            "idetudiants"=>(int) $mpianatra['id']
+            "idetudiants"=>(int) $mpianatra['id'],
+            "observation"=>"aucun",
+            "dateversement"=>(string) $_POST['dateversement']
         );
         $versement= new Versement($data);
         $versementmanager=new VersementManager($db);
@@ -147,7 +150,8 @@ switch ($formatpaiement) {
                     "motif"=>(string) $_POST['motif'],
                     "etat"=>"non lu",
                     "decision"=>"non prise",
-                    "montant"=>(string) $_POST['montant']
+                    "montant"=>(string) $_POST['montant'],
+                    "observation"=>"aucun"
                 );
                 $cheque=new Cheque($data);
                 $chequemanager = new ChequeManager($db);
@@ -179,7 +183,8 @@ switch ($formatpaiement) {
                 "etat"=>"non lu",
                 "decision"=>"non prise",
                 "montant"=>(string) $_POST['montant'],
-                "datevirement"=>(string) $_POST['datevirement']
+                "datevirement"=>(string) $_POST['datevirement'],
+                "observation"=>"aucun"
 
             );
             $virement=new Virement($data);
@@ -199,7 +204,6 @@ switch ($formatpaiement) {
 }else{
     header('location:../Vue/paiement.php?error=1&errtype=formatpaiement');
 }
-
 
 ob_end_flush();
 

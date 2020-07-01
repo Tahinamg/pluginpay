@@ -1,9 +1,10 @@
+
 <?php
 header('Content-Type:text/html ; charset=utf-8');
 ob_start();
 //CDN  change the local to CDN before upload
 //TODO ASIVO NOTIFICATION KELY
-
+//UPLOADMYELANE
 session_start();
 
 if(!isset($_SESSION['finance'])){
@@ -55,6 +56,8 @@ if(!isset($_SESSION['finance'])){
             class="fas fa-clipboard-list lead mr-2"></i> Classification</a>
         <a href="" id="stat" class="list-group-item list-group-item-action bg-light p-3 border-0"><i
             class="fas fa-chart-bar lead mr-2"></i> Statistique</a>
+        <a href="#" id="recouvrement" class="list-group-item list-group-item-action bg-light p-3 border-0"><i
+            class="fas fa-calculator lead mr-2"></i> Recouvrement</a>
         <a href="#" id="promo" class="list-group-item list-group-item-action bg-light p-3 border-0"><i
             class="fas fa-wallet lead mr-2"></i> Code Promo</a>
         <a href="../Controller/DeconnexionFinance.php"
@@ -105,19 +108,19 @@ if(!isset($_SESSION['finance'])){
  
   
 </body>
-<!--
+
 <script
 	src="https://code.jquery.com/jquery-3.5.1.min.js"
 	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 	crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://unpkg.com/@popperjs/core@2" async="false"></script>
 <script type="text/javascript" src="JS/all.min.js"></script>
-<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>-->
-
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<!--
 <script type="text/javascript" src="JS/jquery 3.5.1.js" ></script>
 <script type="text/javascript" src="node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
 <script type="text/javascript" src="JS/all.min.js"></script>
-<script type="text/javascript" src="JS/bootstrap.min.js"></script>
+<script type="text/javascript" src="JS/bootstrap.min.js"></script>-->
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="JS/AjaxNotification.js"></script>
 <script type="text/javascript" src="JS/AjaxAffichage.js"></script>

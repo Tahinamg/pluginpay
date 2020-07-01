@@ -1,4 +1,0 @@
----
-  deployment:
-    tasks:
-      - export DEPLOYPATH=/home/emediam/public_html/universite/paiement/
