@@ -1,5 +1,7 @@
+
 <?php
 //CDN Change the local  to CDN before upload
+//UPLOADMYELANE
 ob_start();
 
 header('Content-Type:text/html ; charset=utf-8');
@@ -253,6 +255,11 @@ include "../Controller/AccesPaiement.php";
                     </div>
                     <!--Fin Modal -->
                 </div>
+                <div >
+                    <button id="MoneyGram" class="BouttonPaiement btn btn-info hvr-bounce-in align-items-center">
+                        Payer Par MoneyGram
+                    </button> 
+                </div>
                 <br>
                 <h5 class="text-primary text-center" style="border-bottom-style:ridge;">
                         NUMERO DU COMPTE POUR CHAQUE MODE DE PAIEMENT :
@@ -441,7 +448,7 @@ include "../Controller/AccesPaiement.php";
                                         }
                                      
                                     }?> 
-                                </label>
+                                (montant réservé aux étudiants ayant choisi 2 filières)</label>
                             </div>
 
                             <div class="custom-control flex-fill form-check-inline custom-radio">

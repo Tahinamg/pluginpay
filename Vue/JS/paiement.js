@@ -1,3 +1,4 @@
+//UPLOADMYELANE
 $(document).ready(function() {//UPLOAD
     (function() {
             $("[name='motif']").change(function(e) {
@@ -145,7 +146,7 @@ $(document).ready(function() {//UPLOAD
 
         /*choix du solution du paiement selon boutton*/
 
-        $("#mvolacash,#cheque,#cash,#virement,#western").click(function() {
+        $("#mvolacash,#cheque,#cash,#virement,#western,#MoneyGram").click(function() {
             $(".validation").removeAttr("disabled");$(".validation").removeAttr("disabled");
             $(".validation").animate({
                 
@@ -161,7 +162,7 @@ $(document).ready(function() {//UPLOAD
 
             if ($("#refmvola").attr("data-visibility") !== "true") { //faire en sorte que le meme input ne se repete paset verifier à ce que le payement n'existe pas pour Le certificat
 
-                $("#refbordereaux,#refcheque,.refcompte,#refwestern").animate({
+                $("#refbordereaux,#refcheque,.refcompte,#refwestern,#RefMoneyGram").animate({
                     left: '10px',
                     opacity: '0'
                         //on met une transition lors de leurs transition
@@ -171,6 +172,7 @@ $(document).ready(function() {//UPLOAD
                     $("#refcheque").remove();
                     $("#refwestern").remove();
                     $(".refcompte").remove();
+                    $("#RefMoneyGram").remove();
                 })
 
                     var element = '<div id="refmvola" style="position:relative" class="form-group"><div class="form-group"><label for="date">date</label><input type="date" class="form-control" name="date" required id="dateheure"/></div><label for="NBR">Numero de Reference</label><input type="text" class="form-control" id="NBR" placeholder="Exemple : 14589654521357" name="reference" required></div>';
@@ -193,7 +195,7 @@ $(document).ready(function() {//UPLOAD
 
             if ($("#refcheque").attr("data-visibility") !== "true") {
 
-                $("#refbordereaux,#refmvola,.refcompte,#refwestern").animate({
+                $("#refbordereaux,#refmvola,.refcompte,#refwestern,#RefMoneyGram").animate({
                     left: '10px',
                     opacity: '0'
                         //on met une transition lors de leurs transition
@@ -203,6 +205,7 @@ $(document).ready(function() {//UPLOAD
                     $("#refmvola").remove();
                     $(".refcompte").remove();
                     $("#refwestern").remove();
+                    $("#RefMoneyGram").remove();
                 });
 
 
@@ -224,7 +227,7 @@ $(document).ready(function() {//UPLOAD
         $("#cash").click(function() {
             if ($("#refbordereaux").attr("data-visibility") !== "true") {
 
-                $("#refcheque,#refmvola,.refcompte,#refwestern").animate({
+                $("#refcheque,#refmvola,.refcompte,#refwestern,#RefMoneyGram").animate({
                     left: '10px',
                     opacity: '0'
                         //on met une transition lors de leurs transition
@@ -234,6 +237,7 @@ $(document).ready(function() {//UPLOAD
                     $("#refmvola").remove();
                     $(".refcompte").remove();
                     $("#refwestern").remove();
+                    $("#RefMoneyGram").remove();
                 });
 
                 var element = '<div id="refbordereaux" style="position:relative;opacity:1" class="form-group"><label for="Nrecu">Numero du bordereaux</label><input type="number" class="form-control" id="Nrecu" placeholder="Exemple: 01234567 " name="nrecu" required><div class="valid-feedback">Valide</div><div class="invalid-feedback">Non valide</div><div class="form-group"><label for="date">date du versement : </label><input type="date" class="form-control" required name="dateversement" id="date"/></div><div class="form-group"><label for="agence" > Agence</label><input placeholder="Exemple: Ambanidia" name="agence" type="text" required class="form-control" id="agence"/></div></div> ';
@@ -264,7 +268,7 @@ $(document).ready(function() {//UPLOAD
 
             if ($(".refcompte").attr("data-visibility") !== "true") {
 
-                $("#refcheque,#refmvola,#refbordereaux,#refwestern").animate({
+                $("#refcheque,#refmvola,#refbordereaux,#refwestern,#RefMoneyGram").animate({
                     left: '10px',
                     opacity: '0'
                         //on met une transition lors de leurs transition
@@ -274,6 +278,7 @@ $(document).ready(function() {//UPLOAD
                     $("#refmvola").remove();
                     $("#refbordereaux").remove();
                     $("#refwestern").remove();
+                    $("#RefMoneyGram").remove();
                 });
 
 
@@ -300,7 +305,7 @@ $(document).ready(function() {//UPLOAD
 
             if ($("#refwestern").attr("data-visibility") !== "true") {
 
-                $("#refcheque,#refmvola,#refbordereaux,.refcompte").animate({
+                $("#refcheque,#refmvola,#refbordereaux,.refcompte,#RefMoneyGram").animate({
                     left: '10px',
                     opacity: '0'
                         //on met une transition lors de leurs transition
@@ -310,6 +315,7 @@ $(document).ready(function() {//UPLOAD
                     $("#refmvola").remove();
                     $("#refbordereaux").remove();
                     $(".refcompte").remove();
+                    $("#RefMoneyGram").remove();
                 });
 
 
@@ -328,6 +334,37 @@ $(document).ready(function() {//UPLOAD
 
             }
 
+        });
+        $('#MoneyGram').click(function(){
+            if ($("#RefMoneyGram").attr("data-visibility") !== "true") {
+
+                $("#refcheque,#refmvola,#refbordereaux,.refcompte,#refwestern").animate({
+                    left: '10px',
+                    opacity: '0'
+                        //on met une transition lors de leurs transition
+                }, "fast", function() {
+                    //on detruit tous les inputs lors du choix du paiement
+                    $("#refcheque").remove();
+                    $("#refmvola").remove();
+                    $("#refbordereaux").remove();
+                    $(".refcompte").remove();
+                    $("#refwestern").remove();
+                });
+
+
+                var element = '<div id="RefMoneyGram" style="position:relative;opacity:1" class="form-group"><label for="ExpediteurMoney">Nom de l\'expediteur</label><input type="text" class="form-control" id="ExpediteurMoney" placeholder="exemple : Jean Dupon" name="ExpediteurMoney" required><div class="form-group"><label for="RefMoney">Référence :</label><input type="text" class="form-control" placeholder="Exemple : 60708005" required name="RefMoney" id="RefMoney"></div><div class="form-group"><label for="date">date</label><input type="date" class="form-control" name="date" required id="dateheure"/></div><div class="form-group"><label for="montanMoney" >Montant :</label><input placeholder="0" name="montanMoney" type="text" required class="form-control" id="montanMoney"/></div></div> ';
+
+                var parent = $("#formatpaiement").parent();
+                $("#formatpaiement").val("MoneyGram");
+                parent.after(element);
+                $("#RefMoneyGram").attr("data-visibility", "true");
+
+                $("#RefMoneyGram").animate({
+                    right: "10px",
+                    right: "-10px",
+                }, "fast");
+
+            }
         });
 
         // enable form promotion
