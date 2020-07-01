@@ -3,7 +3,7 @@
 
 session_start();
 //TODO asio session matricule rehefa locale
-
+$_SESSION['matricule']="DRTM-V1/001/FR";
 if(!isset($_SESSION['matricule'])){
     header("location: ../index.html");
 }
