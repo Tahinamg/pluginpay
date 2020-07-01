@@ -11,23 +11,37 @@ $(document).ready(function () {
                     <label class=\"ml-5\">Mois d'entrer :</label>\
                     <input type=\"date\" class=\"p-2\">\
                 <label class=\"ml-5\">Mois en cours  :</label>\
-                <input type=\"date\" class=\"p-2\">\
-                <select name=\"\" id=\"\" class=\"ml-5 p-2\">\
-                    <option value=\"\">PAYER</option>\
-                    <option value=\"\">NON PAYER</option>\
+                <select id=\"month\" name=\"month\" class=\"p-2\">\
+                <option selected value=\"1\">1 mois</option>\
+                <option value=\"2\">2 mois</option>\
+                <option value=\"3\">3 mois</option>\
+                <option value=\"4\">4 mois</option>\
+                <option value=\"5\">5 mois</option>\
+                <option value=\"6\">6 mois</option>\
+                <option value=\"7\">7 mois</option>\
+                <option value=\"8\">8 mois</option>\
                 </select>\
-            </div><div>\
+                <label class=\"ml-5\">Etat de paiement :</label>\
+                <select name=\"\" id=\"\" class=\"p-2\">\
+                    <option value=\"OUI\">PAYER</option>\
+                    <option value=\"NON\">NON PAYER</option>\
+                </select>\
+            </div></form>\
+            <div>\
                 <table class=\"table table-hover\">\
                     <thead>\
                         <tr>\
                             <th>Matricule</th>\
                             <th>Nom</th>\
+                            <th>Prénom</th>\
                             <th>EtatEcolage</th>\
                             <th>Semestre</th>\
                             <th>Tel</th>\
-                            <th>Etat inscription</th>\
+                            <th>Inscription</th>\
                             <th>Filière</th>\
                             <th>Vague</th>\
+                            <th>Soutenance</th>\
+                            <th>Examen</th>\
                         </tr>\
                     </thead>\
                     <tbody>\
@@ -39,9 +53,12 @@ $(document).ready(function () {
                         <td>test</td>\
                         <td>test</td>\
                         <td>test</td>\
+                        <td>test</td>\
+                        <td>test</td>\
+                        <td>test</td>\
                     </tbody></table>\
             </div>\
-        </form>");
+        ");
     });
     $("#classification").click(function () {
     $("#welcoming").empty();
@@ -150,7 +167,7 @@ $("#promo").click(function(){
                         "<div class=\"card border-0 shadow-md shadow-hover w-auto col-8 sup\">\
                             <div class=\"card-body d-flex text-right align-items-center w-auto vue\">\
                                 <button class=\"btn btn-danger text-white te\"><strong>X</strong></button>\
-                                <p id="+data[i]['codepromo']+" class=\"mb-0 ml-2 w-auto im\">"+data[i]['codepromo']+"</p>\
+                                <p id="+data[i]['codepromo']+" class=\"mb-0 ml-2 w-auto col-12 im\">"+data[i]['codepromo']+"</p>\
                             </div>\
                         </div>\
                         <br>");
@@ -196,7 +213,7 @@ $("#promo").click(function(){
                             "<div class=\"card border-0 shadow-md shadow-hover w-auto col-8 sup\">\
                                 <div class=\"card-body d-flex text-right align-items-center w-auto vue\">\
                                     <button class=\"btn btn-danger text-white te\"><strong>X</strong></button>\
-                                    <p id="+data[i]['codepromo']+" class=\"mb-0 ml-2 w-auto im\">"+data[i]['codepromo']+"</p>\
+                                    <p id="+data[i]['codepromo']+" class=\"mb-0 ml-2 w-auto col-12 im\">"+data[i]['codepromo']+"</p>\
                                 </div>\
                             </div>\
                             <br>");
