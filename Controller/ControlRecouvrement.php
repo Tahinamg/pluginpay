@@ -7,7 +7,7 @@ function loadclass($class){
 spl_autoload_register("loadclass");
 
 if(isset($_POST['inputdate'],$_POST['paiementstate'],$_POST['motif'],$_POST['mounth'])){
-    $data=array("inputdate"=>"2020-07-06","paiementstate"=>"OUI","motif"=>"ecolage","mounth"=>$_POST['mounth']);
+    $data=array("inputdate"=>$_POST['inputdate'],"paiementstate"=>$_POST['paiementstate'],"motif"=>$_POST['motif'],"mounth"=>$_POST['mounth']);
     $comptable=new ComptableManager(MyPDO::getMysqlConnexion());
     $datarecouvrement=$comptable->doRecovery($data);
     echo json_encode($datarecouvrement);
