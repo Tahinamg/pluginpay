@@ -6,67 +6,82 @@ $(document).ready(function () {
         $("#welcoming").empty();
         $(".table").empty();
         $("#welcoming").append(
-            "    <form class=\"mt-3 form-inline\" >\
-                    <div class=\"form-group\"  align=\"center\">\
-                    <label class=\"ml-3\">Mois d'entrer :</label>\
-                    <input type=\"date\" class=\"p-2 ml-1 form-control\">\
-                <label class=\"ml-3\">Mois en cours  :</label>\
-                <select id=\"month\" name=\"month\" class=\"p-2 ml-1 form-control\">\
-                <option selected value=\"1\">1 mois</option>\
-                <option value=\"2\">2 mois</option>\
-                <option value=\"3\">3 mois</option>\
-                <option value=\"4\">4 mois</option>\
-                <option value=\"5\">5 mois</option>\
-                <option value=\"6\">6 mois</option>\
-                <option value=\"7\">7 mois</option>\
-                <option value=\"8\">8 mois</option>\
-                </select>\
-                <label class=\"ml-3\">Etat de paiement :</label>\
-                <select name=\"\" id=\"\" class=\"p-2 ml-1 form-control\">\
-                    <option value=\"OUI\">PAYER</option>\
-                    <option value=\"NON\">NON PAYER</option>\
-                </select>\
-                <label class=\"ml-3\">Motif  :</label>\
-                <select id=\"month\" name=\"month\" class=\"p-2 ml-1 form-control\">\
-                <option selected value=\"ecolage\">Ecolage</option>\
-                <option value=\"inscription\">Inscription</option>\
-                <option value=\"soutenance\">Soutenance</option>\
-                <option value=\"examen\">Examen</option>\
-                <option value=\"certificat\">Certificat</option>\
-                </select>\
-            </div></form>\
-            <div class=\"mt-3\">\
-                <table class=\"table table-hover\">\
-                    <thead>\
-                        <tr>\
-                            <th>Matricule</th>\
-                            <th>Nom</th>\
-                            <th>Prénom</th>\
-                            <th>EtatEcolage</th>\
-                            <th>Semestre</th>\
-                            <th>Tel</th>\
-                            <th>Inscription</th>\
-                            <th>Filière</th>\
-                            <th>Vague</th>\
-                            <th>Soutenance</th>\
-                            <th>Examen</th>\
-                        </tr>\
-                    </thead>\
-                    <tbody>\
-                        <td>test</td>\
-                        <td>test</td>\
-                        <td>test</td>\
-                        <td>test</td>\
-                        <td>test</td>\
-                        <td>test</td>\
-                        <td>test</td>\
-                        <td>test</td>\
-                        <td>test</td>\
-                        <td>test</td>\
-                        <td>test</td>\
-                    </tbody></table>\
-            </div>\
-        ");
+            "<form class=\"mt-3 form-inline\" >\
+            <div class=\"form-group\"  align=\"center\">\
+            <label class=\"ml-3\">Mois d'entrer :</label>\
+            <input type=\"date\" id=\"bo\" class=\"p-2 ml-1 form-control\">\
+        <label class=\"ml-3\">Mois en cours  :</label>\
+        <select id=\"month\" name=\"month\" class=\"p-2 ml-1 form-control\">\
+        <option value=\"1\">1 mois</option>\
+        <option value=\"2\">2 mois</option>\
+        <option value=\"3\">3 mois</option>\
+        <option value=\"4\">4 mois</option>\
+        <option value=\"5\">5 mois</option>\
+        <option value=\"6\">6 mois</option>\
+        <option value=\"7\">7 mois</option>\
+        <option value=\"8\">8 mois</option>\
+        </select>\
+        <label class=\"ml-3\">Etat de paiement :</label>\
+        <select name=\"etat\" id=\"etat\" class=\"p-2 ml-1 form-control\">\
+            <option value=\"OUI\">PAYER</option>\
+            <option value=\"NON\">NON PAYER</option>\
+        </select>\
+        <label class=\"ml-3\">Motif  :</label>\
+        <select id=\"motif\" name=\"motif\" class=\"p-2 ml-1 form-control\">\
+        <option value=\"ecolage\">Ecolage</option>\
+        <option value=\"inscription\">Inscription</option>\
+        <option value=\"soutenance\">Soutenance</option>\
+        <option value=\"examen\">Examen</option>\
+        <option value=\"certificat\">Certificat</option>\
+        </select>\
+        <button class=\"btn btn-success ml-2\" id=\"te\">test</button>\
+    </div></form>\
+    ");
+    
+            var dateD = document.getElementById("bo").value;
+            var month=$('#month').find('option:selected').val();
+            var etat=$('#etat').find('option:selected').val();
+            var motif=$('#motif').find('option:selected').val();
+            var dataR = 'inputdate='+ dateD + '&paiementstate='+ etat + '&motif='+ motif + '&mounth='+ month;
+            $.ajax({
+                type: "POST",
+                url: "../Controller/ControlRecouvrement.php",
+                data: dataR,
+                dataType: "json",
+                success: function (dataa){
+                    $(".table").empty();
+                    $(".table").append("<thead><tr><th>Matricule</th><th>Nom</th><th>Prénom</th><th>EtatEcolage</th><th>Semestre</th><th>Tel</th><th>Inscription</th><th>Filière</th><th>Vague</th><th>Soutenance</th><th>Examen</th><th>Certificat</th></tr></thead>");
+                    $(".table").append(
+                        "<tbody></tbody>"
+                    );
+                    alert(dataa);
+                  /* $('#te').click(function(){
+                   // var motif=$('#motif').find('option:selected').val();
+                   // alert(motif);
+                   var format = dataa;
+                   alert(format.length);
+                    });*/
+                    var format = dataa;
+                    //alert(format);
+                    for(var i = 0; i<format.length; i++){
+                        $("tbody").append(
+                            "<td>"+format[i]['MATRICULE']+"</td>\
+                            <td>"+format[i]['NOM']+"</td>\
+                            <td>"+format[i]['PRENOM']+"</td>\
+                            <td>"+format[i]['ECOLAGE']+"</td>\
+                            <td>"+format[i]['SEMESTRE']+"</td>\
+                            <td>"+format[i]['NUMERO']+"</td>\
+                            <td>"+format[i]['INSCRIPTION']+"</td>\
+                            <td>"+format[i]['FILIERE']+"</td>\
+                            <td>"+format[i]['CODE']+"</td>\
+                            <td>"+format[i]['SOUTENANCE']+"</td>\
+                            <td>"+format[i]['EXAMEN']+"</td>\
+                            <td>"+format[i]['CERTIFICAT']+"</td>\
+                        ");
+                    }
+                }
+            });
+
     });
     $("#classification").click(function () {
     $("#welcoming").empty();
