@@ -50,6 +50,8 @@ if(!isset($_SESSION['finance'])){
               class="badge badge-pill badge-light float-right mr-5" id="VirementNotif"></span></a>
           <a href="#" id="WesternVoir" class="list-group-item list-group-item-action bg-light p-1 pl-5 border-0">WESTERN
             <span class="badge badge-pill badge-light float-right mr-5" id="WesternNotif"></span></a>
+          <a href="#" id="MoneyGram" class="list-group-item list-group-item-action bg-light p-1 pl-5 border-0">MONEYGRAM
+            <span class="badge badge-pill badge-light float-right mr-5" id="MoneyGramNotif"></span></a>
         </div>
 
         <a href="#" id="classification" class="list-group-item list-group-item-action bg-light p-3 border-0"><i
