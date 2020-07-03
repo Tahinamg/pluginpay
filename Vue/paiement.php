@@ -1,7 +1,7 @@
 
 <?php
 //CDN Change the local  to CDN before upload
-//UPLOADMYELANE
+//UPLOAD
 ob_start();
 
 header('Content-Type:text/html ; charset=utf-8');
@@ -694,7 +694,7 @@ include "../Controller/AccesPaiement.php";
     </div>
 </div>    
 </body>
- <script src="JS/loading.js" type="text/javascript" ></script> 
+ <script src="JS/loading.js" type="text/javascript" defer></script> 
 
 <!--
 <script
@@ -704,7 +704,8 @@ include "../Controller/AccesPaiement.php";
 <script type="text/javascript" src="https://unpkg.com/@popperjs/core@2" async="false"></script>
 <script type="text/javascript" src="JS/all.min.js"></script>
 <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
-<script type="text/javascript" src="JS/paiement.js" defer></script>
+
+<!--<script type="text/javascript" src="JS/paiement.js" ></script>-->
 <script type="text/javascript" src="JS/jquery 3.5.1.js" ></script>
 <script type="text/javascript" src="node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
 <script type="text/javascript" src="JS/all.min.js"></script>
