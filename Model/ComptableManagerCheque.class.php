@@ -1,5 +1,6 @@
 <?php
 class ComptableManagerCheque{
+    //UPLOAD
 protected $db;
 
     public function __construct($db)
@@ -113,6 +114,15 @@ protected $db;
         $sql=$this->db->prepare("DELETE FROM `CHEQUE` WHERE `CHEQUE`.`IDCHEQUE`=:idcheque");
         $sql->bindValue(":idcheque",$idCheque,PDO::PARAM_INT);
         $sql->execute();
+    }
+    public function ListPaiementCheque($date,$motif,$vague){
+        $sql=$this->db->prepare("SELECT `IDCHEQUE`,`SUIVRE`.`MATRICULE`,`CODE`,`NOM`,`PRENOM`,`NUMERO`,`ETABLISSEMENT`,`TIREUR`,`NCHEQUE`,`MOTIF`,`DATESERVER`,`MONTANT`,`OBSERVATION` FROM `SUIVRE` NATURAL JOIN `ETUDIANTS` NATURAL JOIN `CHEQUE` WHERE `SUIVRE`.`IDETUDIANTS`=`CHEQUE`.`IDETUDIANTS` AND `CHEQUE`.`DATESERVER` LIKE :datevalidation AND `CODE`=:vague AND `CHEQUE`.`ETAT`='lu' AND `CHEQUE`.`DECISION`='valide' AND `MOTIF`=:motif AND ORDER BY DATESERVER ASC");
+        $date.="%";
+        $sql->bindValue(":datevalidation",$date,PDO::PARAM_STR);
+        $sql->bindValue(":vague",$vague,PDO::PARAM_STR);
+        $sql->bindValue(":motif",$motif,PDO::PARAM_STR);
+        $sql->execute();
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
     
 }

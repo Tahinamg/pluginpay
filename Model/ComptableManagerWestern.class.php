@@ -1,6 +1,6 @@
 <?php
 class ComptableManagerWestern{
-
+//UPLOAD
 protected $db;
 
     public function __construct($db)
@@ -115,5 +115,14 @@ protected $db;
         $sql->execute();
     }
     
+    public function ListPaiementWestern($date,$motif,$vague){
+        $sql=$this->db->prepare("SELECT `IDWESTERN`,`SUIVRE`.`MATRICULE`,`CODE`,`NOM`,`PRENOM`,`NUMERO`,`NSUIVI`,`NOMEXP`,`MONTANTWESTERN`,`MOTIF`,`DATESERVER`,`MONTANT`,`OBSERVATION` FROM `SUIVRE` NATURAL JOIN `ETUDIANTS` NATURAL JOIN `WESTERN` WHERE `SUIVRE`.`IDETUDIANTS`=`WESTERN`.`IDETUDIANTS` AND `WESTERN`.`DATESERVER` LIKE :datevalidation AND `CODE`=:vague AND `WESTERN`.`ETAT`='lu' AND `WESTERN`.`DECISION`='valide' AND `MOTIF`=:motif AND ORDER BY DATESERVER ASC");
+        $date.="%";
+        $sql->bindValue(":datevalidation",$date,PDO::PARAM_STR);
+        $sql->bindValue(":vague",$vague,PDO::PARAM_STR);
+        $sql->bindValue(":motif",$motif,PDO::PARAM_STR);
+        $sql->execute();
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>

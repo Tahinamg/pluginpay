@@ -114,6 +114,15 @@ class ComptableManagerMoneyGram{
         $sql->execute();
     }
     
+    public function ListPaiementMoneyGram($date,$motif,$vague){
+        $sql=$this->db->prepare("SELECT `IDMONEYGRAM`,`SUIVRE`.`MATRICULE`,`CODE`,`NOM`,`PRENOM`,`NUMERO`,`DATYMONEYGRAM`,`REFERENCE`,`EXPEDITEUR`,`MONTANTMONEYGRAM`,`MOTIF`,`DATESERVER`,`MONTANT`,`OBSERVATION` FROM `SUIVRE` NATURAL JOIN `ETUDIANTS` NATURAL JOIN `MONEYGRAM` WHERE `SUIVRE`.`IDETUDIANTS`=`MONEYGRAM`.`IDETUDIANTS` AND `MONEYGRAM`.`DATESERVER` LIKE :datevalidation AND `CODE`=:vague AND `MONEYGRAM`.`ETAT`='lu' AND `MONEYGRAM`.`DECISION`='valide' AND `MOTIF`=:motif AND ORDER BY DATESERVER ASC");
+        $date.="%";
+        $sql->bindValue(":datevalidation",$date,PDO::PARAM_STR);
+        $sql->bindValue(":vague",$vague,PDO::PARAM_STR);
+        $sql->bindValue(":motif",$motif,PDO::PARAM_STR);
+        $sql->execute();
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
 
 }
 ?>

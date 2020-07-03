@@ -1,5 +1,6 @@
 <?php
 class ComptableManagerVirement{
+    //UPLOAD
 protected $db;
 
     public function __construct($db)
@@ -112,6 +113,16 @@ protected $db;
         $sql=$this->db->prepare("DELETE FROM `VIREMENT` WHERE `VIREMENT`.`IDVIREMENT` =:idvirement");
         $sql->bindValue(":idvirement",$idvirement,PDO::PARAM_INT);
         $sql->execute();
+    }
+
+    public function ListPaiementVirement($date,$motif,$vague){
+        $sql=$this->db->prepare("SELECT `IDVIREMENT`,`SUIVRE`.`MATRICULE`,`CODE`,`NOM`,`PRENOM`,`NUMERO`,`TITUCOMPTE`,`NCOMPTE`,`DATEVIREMENT`,`MOTIF`,`DATESERVER`,`MONTANT`,`OBSERVATION` FROM `SUIVRE` NATURAL JOIN `ETUDIANTS` NATURAL JOIN `VIREMENT` WHERE `SUIVRE`.`IDETUDIANTS`=`VIREMENT`.`IDETUDIANTS` AND `VIREMENT`.`DATESERVER` LIKE :datevalidation AND `CODE`=:vague AND `VIREMENT`.`ETAT`='lu' AND `VIREMENT`.`DECISION`='valide' AND `MOTIF`=:motif AND ORDER BY DATESERVER ASC");
+        $date.="%";
+        $sql->bindValue(":datevalidation",$date,PDO::PARAM_STR);
+        $sql->bindValue(":vague",$vague,PDO::PARAM_STR);
+        $sql->bindValue(":motif",$motif,PDO::PARAM_STR);
+        $sql->execute();
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
     
 }
