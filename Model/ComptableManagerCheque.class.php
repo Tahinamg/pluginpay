@@ -116,7 +116,7 @@ protected $db;
         $sql->execute();
     }
     public function ListPaiementCheque($date,$motif,$vague){
-        $sql=$this->db->prepare("SELECT `IDCHEQUE`,`SUIVRE`.`MATRICULE`,`CODE`,`NOM`,`PRENOM`,`NUMERO`,`ETABLISSEMENT`,`TIREUR`,`NCHEQUE`,`MOTIF`,`DATESERVER`,`MONTANT`,`OBSERVATION` FROM `SUIVRE` NATURAL JOIN `ETUDIANTS` NATURAL JOIN `CHEQUE` WHERE `SUIVRE`.`IDETUDIANTS`=`CHEQUE`.`IDETUDIANTS` AND `CHEQUE`.`DATESERVER` LIKE :datevalidation AND `CODE`=:vague AND `CHEQUE`.`ETAT`='lu' AND `CHEQUE`.`DECISION`='valide' AND `MOTIF`=:motif AND ORDER BY DATESERVER ASC");
+        $sql=$this->db->prepare("SELECT `IDCHEQUE`,`SUIVRE`.`MATRICULE`,`CODE`,`NOM`,`PRENOM`,`NUMERO`,`ETABLISSEMENT`,`TIREUR`,`NCHEQUE`,`MOTIF`,`DATESERVER`,`MONTANT`,`OBSERVATION` FROM `SUIVRE` NATURAL JOIN `ETUDIANTS` NATURAL JOIN `CHEQUE` WHERE `SUIVRE`.`IDETUDIANTS`=`CHEQUE`.`IDETUDIANTS` AND `CHEQUE`.`DATESERVER` LIKE :datevalidation AND `CODE`=:vague AND `CHEQUE`.`ETAT`='lu' AND `CHEQUE`.`DECISION`='valide' AND `MOTIF`=:motif ORDER BY DATESERVER ASC");
         $date.="%";
         $sql->bindValue(":datevalidation",$date,PDO::PARAM_STR);
         $sql->bindValue(":vague",$vague,PDO::PARAM_STR);
