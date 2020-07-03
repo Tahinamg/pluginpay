@@ -1,4 +1,5 @@
 <?php
+//UPLOAD
 ob_start();
 session_start();
 
@@ -198,6 +199,27 @@ switch ($formatpaiement) {
         header('location:../Vue/paiement.php?error=1&errtype=virement');
     }
     
+    break;
+    case "MoneyGram" :
+        if(isset($_POST['ExpediteurMoney'],$_POST['RefMoney'],$_POST['DateMoney'],$_POST['MontantMoney'],$_POST['montant'],$_POST['motif'])){
+            $regmotif='/inscription|ecolage|droit examen semestriel|Droit de soutenance|repechage|certificat/';
+            $regmontantmoneygram='/[0-9]{1,9}/';
+            $regexpediteur='/[A-Za-z\s]{2,30}/';
+            $regrefmoney='/[0-9]{4,12}/';
+            $regmontant='/[0-9]{1,9}/';
+            if(preg_match($regexpediteur,$_POST['ExpediteurMoney'])&&preg_match($regrefmoney,$_POST['RefMoney'])&&preg_match($regmontant,$_POST['montant'])&&preg_match($regmontantmoneygram,$_POST['MontantMoney'])&&preg_match($regmotif,$_POST['motif'])){
+                $datamoneygram=array("expediteur"=>(string) $_POST['ExpediteurMoney'],"reference"=>(string) $_POST['RefMoney'],"datymoneygram"=>(string) $_POST['DateMoney'],"montantmoneygram"=>(string) $_POST['MontantMoney'],"montant"=>$_POST['montant'],"observation"=>"aucun","motif"=>$_POST["motif"],"idetudiants"=>$mpianatra["id"],"decision"=>"non prise","etat"=>"non lu");
+                $moneygram=new MoneyGram($datamoneygram);
+                $moneygrammanager=new MoneyGramManager($db);
+                $moneygrammanager->setMoneyGram($moneygram);
+                header('location:../Vue/paiement.php?error=0');
+            }else{
+                header('location:../Vue/paiement.php?error=1');
+            }
+        
+        }else{
+            header('location:../Vue/paiement.php?error=1&errtype=moneygram');
+        }
     break;
   
 }
