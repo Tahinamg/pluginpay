@@ -201,6 +201,8 @@ switch ($formatpaiement) {
     
     break;
     case "MoneyGram" :
+        echo implode(",",$_POST);
+        var_dump($_POST);
         if(isset($_POST['ExpediteurMoney'],$_POST['RefMoney'],$_POST['DateMoney'],$_POST['MontantMoney'],$_POST['montant'],$_POST['motif'])){
             $regmotif='/inscription|ecolage|droit examen semestriel|Droit de soutenance|repechage|certificat/';
             $regmontantmoneygram='/[0-9]{1,9}/';
