@@ -20,9 +20,9 @@ if(isset($_POST['motif'])){
             $comptable->ValiderInscriptionViaMoneyGram($data[0],$data[1],$data[2]);
             $headers= "MIME-version : 1.0"."\r\n";
             $headers.= "Content-type: text/html; charset=utf-8"."\r\n";
-            $headers.= "From: Service Finance E-media <servicefinance@e-media.mg>";
-            $headers.= "Reply-To : Ravelojaonatanaela8@gmail.com";
-            //$headers.= "Bcc: Gaelle"
+            $headers.= "From: Service Finance E-media <servicefinance@e-media.mg>"."\r\n";
+            $headers.= "Reply-To : anjaranirinagael@gmail.com"."\r\n";
+            $headers.= "Bcc: anjaranirinagael@gmail.com";
 
             mail($etudiant->getMail(),"E-media paiement inscription par MoneyGram",'<html><body><div style="flex-direction:row;display:flex;margin:0;padding:0;height: 100px; background:linear-gradient(90deg,rgb(4, 94, 110) 26%,#a5010147 150%);">
             <h1 style="width:100%;color: white; opacity: 0.8; text-align:center;font-size:40px;word-wrap: break-word;">E-media D&eacute;partement finance</h1>
@@ -44,9 +44,9 @@ if(isset($_POST['motif'])){
             $comptable->ValiderEcolageViaMoneyGram($data[0],$data[1],$data[2],$data[3]);
             $headers= "MIME-version : 1.0"."\r\n";
             $headers.= "Content-type: text/html; charset=utf-8"."\r\n";
-            $headers.= "From: Service Finance E-media <servicefinance@e-media.mg>";
-            $headers.= "Reply-To : Ravelojaonatanaela8@gmail.com";
-            //$headers.= "Bcc: Gaelle"
+            $headers.= "From: Service Finance E-media <servicefinance@e-media.mg>"."\r\n";
+            $headers.= "Reply-To : anjaranirinagael@gmail.com"."\r\n";
+            $headers.= "Bcc: anjaranirinagael@gmail.com";
 
             mail($etudiant->getMail(),"E-media paiement frais de scolarité par MoneyGram",'<html><body>
             <div style="flex-direction:row;display:flex;margin:0;padding:0;height: 100px; background:linear-gradient(90deg,rgb(4, 94, 110) 26%,#a5010147 150%);">
@@ -70,8 +70,9 @@ if(isset($_POST['motif'])){
             $comptable->ValiderDroitExamenViaMoneyGram($data[0],$data[1],$data[2]);
             $headers= "MIME-version : 1.0"."\r\n";
             $headers.= "Content-type: text/html; charset=utf-8"."\r\n";
-            $headers.= "From: Service Finance E-media <servicefinance@e-media.mg>";
-            $headers.= "Reply-To : Ravelojaonatanaela8@gmail.com";
+            $headers.= "From: Service Finance E-media <servicefinance@e-media.mg>"."\r\n";
+            $headers.= "Reply-To : anjaranirinagael@gmail.com"."\r\n";
+            $headers.= "Bcc: anjaranirinagael@gmail.com";
             mail($etudiant->getMail(),"E-media paiement droit d'examen par MoneyGram",'<html><body><div style="flex-direction:row;display:flex;margin:0;padding:0;height: 100px; background:linear-gradient(90deg,rgb(4, 94, 110) 26%,#a5010147 150%);">
     <h1 style="width:100%;color: white; opacity: 0.8; text-align:center;font-size:40px;word-wrap: break-word;">E-media D&eacute;partement finance</h1>
    
@@ -94,8 +95,9 @@ if(isset($_POST['motif'])){
             $comptable->ValiderSoutenanceViaMoneyGram($data[0],$data[1],$data[2]);
             $headers= "MIME-version : 1.0"."\r\n";
             $headers.= "Content-type: text/html; charset=utf-8"."\r\n";
-            $headers.= "From: Service Finance E-media <servicefinance@e-media.mg>";
-            $headers.= "Reply-To : Ravelojaonatanaela8@gmail.com";
+            $headers.= "From: Service Finance E-media <servicefinance@e-media.mg>"."\r\n";
+            $headers.= "Reply-To : anjaranirinagael@gmail.com"."\r\n";
+            $headers.= "Bcc: anjaranirinagael@gmail.com";
 
             mail($etudiant->getMail(),"E-media paiement droit de soutenance par MoneyGram",'<html><body><div style="flex-direction:row;display:flex;margin:0;padding:0;height: 100px; background:linear-gradient(90deg,rgb(4, 94, 110) 26%,#a5010147 150%);">
     <h1 style="width:100%;color: white; opacity: 0.8; text-align:center;font-size:40px;word-wrap: break-word;">E-media D&eacute;partement finance</h1>
@@ -117,8 +119,9 @@ if(isset($_POST['motif'])){
             $comptable->ValiderRepechageViaMoneyGram($data[0],$data[1],$data[2]);
             $headers= "MIME-version : 1.0"."\r\n";
             $headers.= "Content-type: text/html; charset=utf-8"."\r\n";
-            $headers.= "From: Service Finance E-media <servicefinance@e-media.mg>";
-            $headers.= "Reply-To : Ravelojaonatanaela8@gmail.com";
+            $headers.= "From: Service Finance E-media <servicefinance@e-media.mg>"."\r\n";
+            $headers.= "Reply-To : anjaranirinagael@gmail.com"."\r\n";
+            $headers.= "Bcc: anjaranirinagael@gmail.com";
             mail($etudiant->getMail(),"E-media paiement du droit de repêchage par MoneyGram",'<html><body><div style="flex-direction:row;display:flex;margin:0;padding:0;height: 100px; background:linear-gradient(90deg,rgb(4, 94, 110) 26%,#a5010147 150%);">
     <h1 style="width:100%;color: white; opacity: 0.8; text-align:center;font-size:40px;word-wrap: break-word;">E-media D&eacute;partement finance</h1>
    
@@ -140,8 +143,9 @@ if(isset($_POST['motif'])){
             $comptable->ValiderCertificat($data[0],$data[1],$data[2]);
             $headers= "MIME-version : 1.0"."\r\n";
             $headers.= "Content-type: text/html; charset=utf-8"."\r\n";
-            $headers.= "From: Service Finance E-media <servicefinance@e-media.mg>";
-            $headers.= "Reply-To : Ravelojaonatanaela8@gmail.com";
+            $headers.= "From: Service Finance E-media <servicefinance@e-media.mg>"."\r\n";
+            $headers.= "Reply-To : anjaranirinagael@gmail.com"."\r\n";
+            $headers.= "Bcc: anjaranirinagael@gmail.com";
 
 
             mail($etudiant->getMail(),"E-media paiement certificat par MoneyGram",'<html><body><div style="flex-direction:row;display:flex;margin:0;padding:0;height: 100px; background:linear-gradient(90deg,rgb(4, 94, 110) 26%,#a5010147 150%);">
