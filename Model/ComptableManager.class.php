@@ -19,7 +19,7 @@ public function getAccess($data){
     return $statement->fetch();
 }
 public function listDateEntreeParVague(){
-    $statement=$this->db->query("SELECT * FROM `CODECLASSE`");
+    $statement=$this->db->query("SELECT * FROM `CODECLASSE` WHERE `DATEDENTER`!='NULL'");
     return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 

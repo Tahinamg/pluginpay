@@ -10,6 +10,12 @@ function loadclass($class){
 
 spl_autoload_register("loadclass");
 
+if(isset($_GET['recouvrement'])){
+    //LIST LES VAGUES POUR LES SELECTS RECOUVREMENTS
+    $compta=new ComptableManager(MyPDO::getMysqlConnexion());
+    $datalistvague=$compta->listDateEntreeParVague();
+    echo json_encode($datalistvague);
+}
 if(isset($_GET['notification']) && $_GET['notification']=="mvola"){
     $ComptableManagerMobileMoney= new ComptableManagerMobileMoney(MyPDO::getMysqlConnexion());
     $dataMvola=$ComptableManagerMobileMoney->VoirMobileMoney();
