@@ -15,14 +15,16 @@ protected $db;
 
     public function VoirWestern(){
         $sql=$this->db->query("SELECT `MATRICULE`,`NOM`,`PRENOM`,`ETUDIANTS`.`IDETUDIANTS`,`MOTIF`,`SEMESTRE`,`WESTERN`.`MONTANT`,`IDWESTERN`,`ETAT`,`DECISION`,`DATESERVER`,`NSUIVI`,`NOMEXP`,`MONTANTWESTERN`,`OBSERVATION` FROM `WESTERN` NATURAL JOIN `SUIVRE`,`ETUDIANTS` WHERE `ETUDIANTS`.`IDETUDIANTS`=`WESTERN`.`IDETUDIANTS` AND `WESTERN`.`ETAT`='non lu' ORDER BY `IDWESTERN` ASC");
-        return $sql->fetchAll(PDO::FETCH_ASSOC);
+        $data=$sql->fetchAll(PDO::FETCH_ASSOC);
         $sql->closeCursor();
+        return $data;
 
     }
     public function NotifWestern(){
         $sql=$this->db->query("SELECT COUNT(*) FROM `WESTERN` WHERE `ETAT`='non lu'");
-        return $sql->fetch();
+        $data=$sql->fetch();
         $sql->closeCursor();
+        return $data;
     }
     public function ValiderEcolageViaWestern($qte,$matricule,$idwestern,$observation){
         $sql1=$this->db->prepare("UPDATE `WESTERN` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDWESTERN`=:idwestern");
@@ -64,6 +66,7 @@ protected $db;
         $sql=$this->db->prepare("DELETE FROM `REPECHER` WHERE `IDETUDIANTS`=:id");
         $sql->bindValue(":id",$idetudiant,PDO::PARAM_INT);
         $sql->execute();
+        $sql->closeCursor();
     }
     public function ValiderDroitExamenViaWestern($matricule,$idwestern,$observation){
         $sql=$this->db->prepare("UPDATE `WESTERN` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDWESTERN`=:idwestern");
@@ -113,6 +116,7 @@ protected $db;
         $sql=$this->db->prepare("DELETE FROM `WESTERN` WHERE `IDWESTERN` =:idwestern");
         $sql->bindValue(":idwestern",$idwestern,PDO::PARAM_INT);
         $sql->execute();
+        $sql->closeCursor();
     }
     
     public function ListPaiementWestern($date,$motif,$vague){
@@ -122,7 +126,9 @@ protected $db;
         $sql->bindValue(":vague",$vague,PDO::PARAM_STR);
         $sql->bindValue(":motif",$motif,PDO::PARAM_STR);
         $sql->execute();
-        return $sql->fetchAll(PDO::FETCH_ASSOC);
+        $data= $sql->fetchAll(PDO::FETCH_ASSOC);
+        $sql->closeCursor();
+        return $data;
     }
 }
 ?>
