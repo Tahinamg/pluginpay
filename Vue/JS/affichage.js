@@ -9,10 +9,12 @@ $(document).ready(function () {
         $("#welcoming").empty();
         $(".table").empty();
         $("#welcoming").append(
-            "<form class=\"mt-3 form-inline\" >\
+            "\
+            <form class=\"mt-3 form-inline\" >\
             <div class=\"form-group\"  align=\"center\">\
             <label class=\"ml-3\">Mois d'entrer :</label>\
-            <input type=\"date\" id=\"bo\" class=\"p-2 ml-1 form-control\">\
+            <select name=\"bo\" id=\"bo\" class=\"p-2 ml-1 form-control\">\
+            </select>\
         <label class=\"ml-3\">Mois en cours  :</label>\
         <select id=\"month\" name=\"month\" class=\"p-2 ml-1 form-control\">\
         <option value=\"1\">1 mois</option>\
@@ -39,6 +41,21 @@ $(document).ready(function () {
         </select>\
     </div></form>\
     ");
+                //alert("hello");
+
+                $.ajax({
+                    type: "GET",
+                    url: "../Controller/ControlFinanceAffichage.php",
+                    data: "recouvrement",
+                    dataType: "json",
+                    success: function (data){
+                    var select= data;
+                    for(var i = 0; i<select.length; i++){
+                        $("#bo").append("<option value = '"+select[i]['DATEDENTER']+"'>"+select[i]['DATEDENTER']+"</option>");
+                        }
+                    }
+                })
+    
             var ajour = 0;
             var dateD = document.getElementById("bo").value;
             var month=$('#month').find('option:selected').val();
@@ -128,7 +145,7 @@ $(document).ready(function () {
                        
                     }
                 });
-            },2000);
+            },1000);
 
     });
     $("#classification").click(function () {
