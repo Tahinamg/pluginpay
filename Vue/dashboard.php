@@ -19,12 +19,14 @@ if(!isset($_SESSION['finance'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tableau du bord ecolage</title>
+    <title>Tableau du bord</title>
     <link rel="stylesheet" href="CSS/bootstrap.min.css"/>
    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>-->
     <link rel="stylesheet" href="CSS/fontawesome.min.css"/>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="CSS/dash.css"/>
+    <link rel="icon" href="Image/logo E-media.png" type="image/png" sizes="16x16"> 
+
     
 </head>
 <body>

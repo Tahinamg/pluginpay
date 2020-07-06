@@ -3,9 +3,9 @@
 
 session_start();
 //TODO asio session matricule rehefa locale
-$_SESSION['matricule']="DRT-V1/000/MG";
+
 if(!isset($_SESSION['matricule'])){
-    header("location: ../index.html");
+    header("location:Connecter");
 }
 
 $db=MyPDO::getMysqlConnexion();
@@ -34,7 +34,7 @@ $mpianatra = array("nationalite" =>$nationalite,
                     "repechage"=>$repechage[0]
                 );
 if($mpianatra["id"]==0){
-    header("location: ../../vue/login.php");
+    header("location:Connecter");
 }
 
 if($mpianatra['nationalite']=="MG"){

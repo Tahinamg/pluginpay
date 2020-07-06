@@ -1,5 +1,5 @@
 <?php 
-//UPLOADMYELANE
+//UPLOAD
 ob_start();
 
 session_start();
@@ -7,10 +7,10 @@ session_start();
 
 if(!isset($_SESSION['matricule'],$_SESSION['inscription'])){
 
-    header("location:../../index.php");
+    header("location:Connecter");
 } 
 if(isset($_SESSION['matricule'],$_SESSION['inscription'])&&($_SESSION['inscription']!=0)){
-    header("location:paiement.php");
+    header("location:Traitement");
 }
 
 function loadclass($class){
@@ -26,22 +26,23 @@ $matricule=(string)$_SESSION["matricule"];
 $data=$etudiantmanager->createEtudiant($matricule);
 $etudiant=new Etudiant($data);
 if($etudiant->getIdetudiants()==0){
-    header("location: ../../vue/login.php");
+    header("location: Connecter");
 }
 ?>
 
 
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8">
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Validation d'inscription</title>
-    <link rel="icon" href="Image/logo E-media.png" type="image/png" sizes="16x16"> 
-    <link rel="stylesheet" href="CSS/bootstrap.min.css"/>
-   <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>-->
-    <link rel="stylesheet" href="CSS/fontawesome.min.css"/>
-    <link rel="stylesheet" href="CSS/main.css" />
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Validation d'inscription</title>
+<link rel="icon" href="paiement/Vue/Image/logo E-media.png" type="image/png" sizes="16x16">
+<link rel="stylesheet" href="paiement/Vue/CSS/bootstrap.min.css" />
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>-->
+<link rel="stylesheet" href="paiement/Vue/CSS/fontawesome.min.css" />
+<link rel="stylesheet" href="paiement/Vue/CSS/main.css" />
 </head>
 
 <body>
@@ -69,25 +70,25 @@ if($etudiant->getIdetudiants()==0){
                 <div class="d-flex flex-column flex-md-row justify-content-center col-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="d-flex flex-column align-content-center justify-content-center mx-1 paiementitem embed-responsive-item">
                     
-                        <img  width="80px" height="50px" src="Image/mvola.png" alt="mvola"/>
+                        <img  width="80px" height="50px" src="paiement/Vue/Image/mvola.png" alt="mvola"/>
                             
                         <em class="text-warning text-center">via mvola</em>
                     </div>
         
                     <div class="d-flex flex-column paiementitem mx-1 embed-responsive-item">
                         
-                        <img width="80px" height="50px" src="Image/money-check.svg" alt="cheque"/>
+                        <img width="80px" height="50px" src="paiement/Vue/Image/money-check.svg" alt="cheque"/>
                         <em class="text-primary text-center">par cheque</em>
                     </div>
         
                     <div class="d-flex flex-column paiementitem mx-1 embed-responsive-item">
-                        <img width="80px" height="50px" src="Image/money-bill.svg" alt="espece"/>
+                        <img width="80px" height="50px" src="paiement/Vue/Image/money-bill.svg" alt="espece"/>
         
                         <em class="text-danger text-center">par espece</em>
                     </div>
         
                     <div class=" d-flex flex-column paiementitem mx-1 embed-responsive-item">
-                        <img width="80px" height="50px" src="Image/arrow-right.svg" alt="Virement"/>
+                        <img width="80px" height="50px" src="paiement/Vue/Image/arrow-right.svg" alt="Virement"/>
                         <em class="text-success text-center">Virement bancaire</em>
                     </div>  
 
@@ -96,19 +97,19 @@ if($etudiant->getIdetudiants()==0){
                 <div class="d-flex flex-column flex-md-row justify-content-center col-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: -7%;">
                     
                     <div class=" d-flex flex-column paiementitem mx-1 embed-responsive-item">
-                        <img width="80px" height="50px" src="Image/WesternUnion.png" alt="Virement"/>
+                        <img width="80px" height="50px" src="paiement/Vue/Image/WesternUnion.png" alt="Virement"/>
                         <em class="text-center">Western Union</em>
                     </div>  
 
                     <div class=" d-flex flex-column paiementitem mx-1 embed-responsive-item">
-                        <img width="80px" height="50px" src="Image/MoneyGram.jpg" alt="Virement"/>
+                        <img width="80px" height="50px" src="paiement/Vue/Image/MoneyGram.jpg" alt="Virement"/>
                         <em class="text-danger text-center">MoneyGram</em>
                     </div> 
                 </div>
                 <br>
                 <div align="center">
                     <!--passage vers le paiement-->
-                   <a href="paiement.php" class="btn btn-success" >Caisse <img src="Image/boutton.png" width="30%"></a> 
+                   <a href="Traitement" class="btn btn-success" >Caisse <img src="paiement/Vue/Image/boutton.png" width="30%"></a> 
                 </div>
                 <br>
                 <div class="d-flex" style="color: red;">
@@ -117,7 +118,7 @@ if($etudiant->getIdetudiants()==0){
                 </div>
             </div>
             <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                <img class="justify-content-center img-fluid" src="Image/test.jpg"/>
+                <img class="justify-content-center img-fluid" src="paiement/Vue/Image/test.jpg"/>
             </div>
         </div>
     </div>
@@ -133,20 +134,20 @@ if($etudiant->getIdetudiants()==0){
     
 </section>
 </body>
-<!--
+
 <script
 	src="https://code.jquery.com/jquery-3.5.1.min.js"
 	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 	crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://unpkg.com/@popperjs/core@2" async="false"></script>
-<script type="text/javascript" src="JS/all.min.js"></script>
+<script type="text/javascript" src="paiement/Vue/JS/all.min.js"></script>
 <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
--->
-<script type="text/javascript" src="JS/jquery 3.5.1.js" ></script>
-<script type="text/javascript" src="node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
-<script type="text/javascript" src="JS/all.min.js"></script>
-<script type="text/javascript" src="JS/bootstrap.min.js"></script>
-<script type="text/javascript" src="JS/paiement.js"></script>
+<!--
+<script type="text/javascript" src="paiement/Vue/JS/jquery 3.5.1.js"></script>
+<script type="text/javascript" src="paiement/Vue/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
+<script type="text/javascript" src="paiement/Vue/JS/all.min.js"></script>
+<script type="text/javascript" src="paiement/Vue/JS/bootstrap.min.js"></script>-->
+<script type="text/javascript" src="paiement/Vue/JS/paiement.js"></script>
 </html>
 
 <?php 

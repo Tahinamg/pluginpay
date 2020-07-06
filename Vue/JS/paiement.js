@@ -87,7 +87,7 @@ $(document).ready(function() {//UPLOAD
                             }else{
                             var codepromovalue=$(this).val();
                           
-                            $.post("../Controller/ControlPromotion.php",{ codepromo : codepromovalue,Origin : getCookie("Origin") , Semestre : getCookie("Semestre") , Inscription : getCookie("Inscription") },function(data){
+                            $.post("paiement/Controller/ControlPromotion.php",{ codepromo : codepromovalue,Origin : getCookie("Origin") , Semestre : getCookie("Semestre") , Inscription : getCookie("Inscription") },function(data){
                                 if(data==0){
                                     $(".validation").attr("disabled","disabled");
                                     $(".validation").removeAttr("disabled");
