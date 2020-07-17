@@ -62,7 +62,7 @@ if($etudiant->getIdetudiants()==0){
                 </div>
                 <div class="d-flex">
                     <h5>GB </h5>
-                    <h5><span style="color: #2A2A2A;"> :Please Confirm your registration by paying your registration free</span></h5>
+                    <h5><span style="color: #2A2A2A;"> :Please Confirm your registration by paying your registration fees</span></h5>
                 </div>
                 <br>
                 <h3 style="text-align: center; color: rgb(6, 153, 238); border-bottom:ridge; border-bottom-style:ridge;">PLUSIEURS MOYEN DE PAIEMENT</h3>

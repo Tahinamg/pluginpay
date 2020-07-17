@@ -18,7 +18,7 @@ class WesternManager{
         $statement->bindValue(':idetudiants',$union->getIdetudiants(),PDO::PARAM_INT);
         $statement->bindValue(":observation",$union->getObservation(),PDO::PARAM_STR);
         $statement->execute();      
-        
+        $statement->closeCursor();
        
     }
 }
