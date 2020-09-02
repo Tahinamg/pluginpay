@@ -1,6 +1,7 @@
 <?php
 class ComptableManagerVersement{
-protected $db;
+//UPLOAD
+    protected $db;
 
     public function __construct($db)
     {
@@ -14,14 +15,17 @@ protected $db;
 
     public function VoirVersement(){
         $sql=$this->db->query("SELECT `MATRICULE`,`NOM`,`PRENOM`,`ETUDIANTS`.`IDETUDIANTS`,`MOTIF`,`SEMESTRE`,`VERSEMENT`.`MONTANT`,`IDVERSEMENT`,`ETAT`,`DECISION`,`DATESERVER`,`NBORDEREAUX`,`DATY`,`AGENCE`,`OBSERVATION`,`DATEVERSEMENT` FROM `VERSEMENT` NATURAL JOIN `SUIVRE`,`ETUDIANTS` WHERE `ETUDIANTS`.`IDETUDIANTS`=`VERSEMENT`.`IDETUDIANTS` AND `VERSEMENT`.`ETAT`='non lu' ORDER BY `IDVERSEMENT` ASC");
-        return $sql->fetchAll(PDO::FETCH_ASSOC);
+        $data=$sql->fetchAll(PDO::FETCH_ASSOC);
+        
         $sql->closeCursor();
 
+        return $data;
     }
     public function NotifVersement(){
         $sql=$this->db->query("SELECT COUNT(*) FROM `VERSEMENT` WHERE `ETAT`='non lu' ");
-        return $sql->fetch();
+        $data=$sql->fetch();
         $sql->closeCursor();
+        return $data;
     }
     public function ValiderEcolageViaVersement($qte,$matricule,$idversement,$observation){
         $sql1=$this->db->prepare("UPDATE `VERSEMENT` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDVERSEMENT`=:idversement");
@@ -112,6 +116,18 @@ protected $db;
         $sql=$this->db->prepare("DELETE FROM `VERSEMENT` WHERE `VERSEMENT`.`IDVERSEMENT` =:idversement");
         $sql->bindValue(":idversement",$idversement,PDO::PARAM_INT);
         $sql->execute();
+        $sql->closeCursor();
+    }
+    public function ListPaiementVersement($date,$motif,$vague){
+        $sql=$this->db->prepare("SELECT `IDVERSEMENT`,`SUIVRE`.`MATRICULE`,`CODE`,`NOM`,`PRENOM`,`NUMERO`,`NBORDEREAUX`,`AGENCE`,`DATEVERSEMENT`,`MOTIF`,`DATESERVER`,`MONTANT`,`OBSERVATION` FROM `SUIVRE` NATURAL JOIN `ETUDIANTS` NATURAL JOIN `VERSEMENT` WHERE `SUIVRE`.`IDETUDIANTS`=`VERSEMENT`.`IDETUDIANTS` AND `VERSEMENT`.`DATESERVER` LIKE :datevalidation AND `CODE`=:vague AND `VERSEMENT`.`ETAT`='lu' AND `VERSEMENT`.`DECISION`='valide' AND `MOTIF`=:motif ORDER BY DATESERVER ASC");
+        $date.="%";
+        $sql->bindValue(":datevalidation",$date,PDO::PARAM_STR);
+        $sql->bindValue(":vague",$vague,PDO::PARAM_STR);
+        $sql->bindValue(":motif",$motif,PDO::PARAM_STR);
+        $sql->execute();
+        $data= $sql->fetchAll(PDO::FETCH_ASSOC);
+        $sql->closeCursor();
+        return $data;
     }
     
 }

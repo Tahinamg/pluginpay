@@ -1,127 +1,464 @@
 //UPLOADMYELANE
 $(document).ready(function () {
     var ajourpromo=0;
+    var ajourrecouvrement=0;
+    var ajourclassification = 0;
     $('#user_data').DataTable();
     $('#recouvrement').click(function (){
+        clearInterval(ajourrecouvrement);
+        clearInterval(ajourpromo);
+        clearInterval(ajourclassification);
         $("#welcoming").empty();
         $(".table").empty();
         $("#welcoming").append(
-            "    <form class=\"mt-3 form-inline\" >\
-                    <div class=\"form-group\"  align=\"center\">\
-                    <label class=\"ml-3\">Mois d'entrer :</label>\
-                    <input type=\"date\" class=\"p-2 ml-1 form-control\">\
-                <label class=\"ml-3\">Mois en cours  :</label>\
-                <select id=\"month\" name=\"month\" class=\"p-2 ml-1 form-control\">\
-                <option selected value=\"1\">1 mois</option>\
-                <option value=\"2\">2 mois</option>\
-                <option value=\"3\">3 mois</option>\
-                <option value=\"4\">4 mois</option>\
-                <option value=\"5\">5 mois</option>\
-                <option value=\"6\">6 mois</option>\
-                <option value=\"7\">7 mois</option>\
-                <option value=\"8\">8 mois</option>\
-                </select>\
-                <label class=\"ml-3\">Etat de paiement :</label>\
-                <select name=\"\" id=\"\" class=\"p-2 ml-1 form-control\">\
-                    <option value=\"OUI\">PAYER</option>\
-                    <option value=\"NON\">NON PAYER</option>\
-                </select>\
-                <label class=\"ml-3\">Motif  :</label>\
-                <select id=\"month\" name=\"month\" class=\"p-2 ml-1 form-control\">\
-                <option selected value=\"ecolage\">Ecolage</option>\
+            "\
+            <form class=\"mt-3 form-inline\" >\
+            <div class=\"form-group\"  align=\"center\">\
+            <label class=\"ml-3\">Mois d'entrer :</label>\
+            <select name=\"bo\" id=\"bo\" class=\"p-2 ml-1 form-control\">\
+            </select>\
+        <label class=\"ml-3\">Mois en cours  :</label>\
+        <select id=\"month\" name=\"month\" class=\"p-2 ml-1 form-control\">\
+        <option value=\"1\">1 mois</option>\
+        <option value=\"2\">2 mois</option>\
+        <option value=\"3\">3 mois</option>\
+        <option value=\"4\">4 mois</option>\
+        <option value=\"5\">5 mois</option>\
+        <option value=\"6\">6 mois</option>\
+        <option value=\"7\">7 mois</option>\
+        <option value=\"8\">8 mois</option>\
+        </select>\
+        <label class=\"ml-3\">Etat de paiement :</label>\
+        <select name=\"etat\" id=\"etat\" class=\"p-2 ml-1 form-control\">\
+            <option value=\"OUI\">PAYER</option>\
+            <option value=\"NON\">NON PAYER</option>\
+        </select>\
+        <label class=\"ml-3\">Motif  :</label>\
+        <select id=\"motif\" name=\"motif\" class=\"p-2 ml-1 form-control\">\
+        <option value=\"ecolage\">Ecolage</option>\
+        <option value=\"inscription\">Inscription</option>\
+        <option value=\"soutenance\">Soutenance</option>\
+        <option value=\"examen\">Examen</option>\
+        <option value=\"certificat\">Certificat</option>\
+        </select>\
+    </div></form>\
+    ");
+                //alert("hello");
+
+                $.ajax({
+                    type: "GET",
+                    url: "../Controller/ControlFinanceAffichage.php",
+                    data: "recouvrement",
+                    dataType: "json",
+                    success: function (data){
+                    var select= data;
+                    for(var i = 0; i<select.length; i++){
+                        $("#bo").append("<option value = '"+select[i]['DATEDENTER']+"'>"+select[i]['DATEDENTER']+"</option>");
+                        }
+                    }
+                })
+    
+            var ajour = 0;
+            var dateD = document.getElementById("bo").value;
+            var month=$('#month').find('option:selected').val();
+            var etat=$('#etat').find('option:selected').val();
+            var motif=$('#motif').find('option:selected').val();
+           // var dataR = 'inputdate='+ dateD + '&paiementstate='+ etat + '&motif='+ motif + '&mounth='+ month;
+            $.ajax({
+                type: "POST",
+                url: "../Controller/ControlRecouvrement.php",
+                data: {
+                    inputdate : dateD,
+                    paiementstate : etat,
+                    motif : motif,
+                    mounth : month
+                },
+                dataType: "json",
+                success: function (dataa){
+                    $(".table").empty();
+                    $(".table").append("<thead><tr><th>Matricule</th><th>Nom</th><th>Prénom</th><th>EtatEcolage</th><th>Semestre</th><th>Tel</th><th>Inscription</th><th>Filière</th><th>Vague</th><th>Soutenance</th><th>Examen</th><th>Certificat</th></tr></thead>");
+                    $(".table").append(
+                        "<tbody></tbody>"
+                    );
+                    //alert(dataa);
+                    var format = dataa;
+                    //alert(format);
+                    for(var i = 0; i<format.length; i++){
+                        $("tbody").append(
+                            "<tr><td>"+format[i]['MATRICULE']+"</td>\
+                            <td>"+format[i]['NOM']+"</td>\
+                            <td>"+format[i]['PRENOM']+"</td>\
+                            <td>"+format[i]['ECOLAGE']+"</td>\
+                            <td>"+format[i]['SEMESTRE']+"</td>\
+                            <td>"+format[i]['NUMERO']+"</td>\
+                            <td>"+format[i]['INSCRIPTION']+"</td>\
+                            <td>"+format[i]['FILIERE']+"</td>\
+                            <td>"+format[i]['CODE']+"</td>\
+                            <td>"+format[i]['SOUTENANCE']+"</td>\
+                            <td>"+format[i]['EXAMEN']+"</td>\
+                            <td>"+format[i]['CERTIFICAT']+"</tr>\
+                        ");
+                    }
+                    ajour=i;
+                }
+            });
+
+            ajourrecouvrement = setInterval(function(){
+                var ajour = 0;
+                var dateD = document.getElementById("bo").value;
+                var month=$('#month').find('option:selected').val();
+                var etat=$('#etat').find('option:selected').val();
+                var motif=$('#motif').find('option:selected').val();
+                $.ajax({
+                    type: "POST",
+                    url: "../Controller/ControlRecouvrement.php",
+                    data: {
+                        inputdate : dateD,
+                        paiementstate : etat,
+                        motif : motif,
+                        mounth : month
+                    },
+                    dataType: "json",
+                    success: function (dataa){
+                        $(".table").empty();
+                        $(".table").append("<thead><tr><th>Matricule</th><th>Nom</th><th>Prénom</th><th>EtatEcolage</th><th>Semestre</th><th>Tel</th><th>Inscription</th><th>Filière</th><th>Vague</th><th>Soutenance</th><th>Examen</th><th>Certificat</th></tr></thead>");
+                        $(".table").append(
+                            "<tbody></tbody>"
+                        );
+                       // alert(dataa);
+                        var format = dataa;
+                        //alert(format);
+                        for(var ajour = 0; ajour<format.length; ajour++){
+                            $("tbody").append(
+                                "<tr><td>"+format[ajour]['MATRICULE']+"</td>\
+                                <td>"+format[ajour]['NOM']+"</td>\
+                                <td>"+format[ajour]['PRENOM']+"</td>\
+                                <td>"+format[ajour]['ECOLAGE']+"</td>\
+                                <td>"+format[ajour]['SEMESTRE']+"</td>\
+                                <td>"+format[ajour]['NUMERO']+"</td>\
+                                <td>"+format[ajour]['INSCRIPTION']+"</td>\
+                                <td>"+format[ajour]['FILIERE']+"</td>\
+                                <td>"+format[ajour]['CODE']+"</td>\
+                                <td>"+format[ajour]['SOUTENANCE']+"</td>\
+                                <td>"+format[ajour]['EXAMEN']+"</td>\
+                                <td>"+format[ajour]['CERTIFICAT']+"</tr>\
+                            ");
+                        }
+                       
+                    }
+                });
+            },1000);
+
+    });
+    $("#classification").click(function () {
+        clearInterval(ajourrecouvrement);
+        clearInterval(ajourpromo);
+        clearInterval(ajourclassification);
+    $("#welcoming").empty();
+    $(".table").empty();
+    $("#welcoming").append(
+        "<form class=\"mt-3 form-inline\" >\
+            <div class=\"form-group\"  align=\"center\">\
+            <label class=\"ml-3\">Date :</label>\
+            <select name=\"DateEntre\" id=\"DateEntre\" class=\"p-2 ml-1 form-control\"></select>\
+            <label class=\"ml-3\">Motif  :</label>\
+            <select id=\"MotifPaiement\" name=\"MotifPaiement\" class=\"p-2 ml-1 form-control\">\
+                <option value=\"ecolage\">Ecolage</option>\
                 <option value=\"inscription\">Inscription</option>\
                 <option value=\"soutenance\">Soutenance</option>\
                 <option value=\"examen\">Examen</option>\
                 <option value=\"certificat\">Certificat</option>\
-                </select>\
-            </div></form>\
-            <div class=\"mt-3\">\
-                <table class=\"table table-hover\">\
-                    <thead>\
-                        <tr>\
-                            <th>Matricule</th>\
-                            <th>Nom</th>\
-                            <th>Prénom</th>\
-                            <th>EtatEcolage</th>\
-                            <th>Semestre</th>\
-                            <th>Tel</th>\
-                            <th>Inscription</th>\
-                            <th>Filière</th>\
-                            <th>Vague</th>\
-                            <th>Soutenance</th>\
-                            <th>Examen</th>\
-                        </tr>\
-                    </thead>\
-                    <tbody>\
-                        <td>test</td>\
-                        <td>test</td>\
-                        <td>test</td>\
-                        <td>test</td>\
-                        <td>test</td>\
-                        <td>test</td>\
-                        <td>test</td>\
-                        <td>test</td>\
-                        <td>test</td>\
-                        <td>test</td>\
-                        <td>test</td>\
-                    </tbody></table>\
-            </div>\
-        ");
-    });
-    $("#classification").click(function () {
-    $("#welcoming").empty();
-    $(".table").empty();
-    $("#welcoming").append(
-        "<div class=\"d-flex justify-content-center\">\
-        <select name=\"option\" id=\"option\" class=\"p-2\">\
-            <option>Niveau d\'étude</option>\
-            <option value=\"LICENCE\">Licence</option>\
-            <option value=\"MASTER\">Master</option>\
-        </select>\
-        <select name=\"parcours\" id=\"parcours\" class=\"ml-4 p-2\">\
-            <option>Filière</option>\
-            <option value=\"TIC\">TIC</option>\
-            <option value=\"CAN\">CAN</option>\
-            <option value=\"MPJ\">MPJ</option>\
-            <option value=\"MGT\">MGT</option>\
-            <option value=\"DRT\">DRT</option>\
-        </select>\
-        <select name=\"vague\" id=\"vague\" class=\"ml-4 p-2\">\
-            <option>Vague</option>\
-            <option value=\"V1\">V1</option>\
-            <option value=\"V2\">V2</option>\
-            <option value=\"V3\">V3</option>\
-            <option value=\"V4\">V4</option>\
-            <option value=\"V5\">V5</option>\
-            <option value=\"V6\">V6</option>\
-            <option value=\"V7\">V7</option>\
-            <option value=\"V8\">V8</option>\
-            <option value=\"V9\">V9</option>\
-            <option value=\"V10\">V10</option>\
-        </select>\
-    </div>\
-    <br>\
-    <br>\
-    <table id=\"user_data\" class=\"table table-bordered table-striped\">\
-        <thead>\
-            <tr>\
-                <th width=\"10%\">IDetudiant</th>\
-                <th width=\"20%\">Semestre</th>\
-                <th width=\"20%\">Ecolage</th>\
-                <th width=\"10%\">Examen</th>\
-                <th width=\"10%\">Soutenance</th>\
-                <th width=\"10%\">Certificat</th>\
-                <th width=\"10%\">DateInscription</th>\
-                <th width=\"10%\">Profil</th>\
-            </tr>\
-        </thead>\
-    </table>\
-    <script>\
-      $(document).ready( function () {\
-    $('#user_data').DataTable();\
-} );\
-    </script>"
+            </select>\
+            <label class=\"ml-3\">Vague :</label>\
+            <select id=\"vague\" name=\"vague\" class=\"p-2 ml-1 form-control\"></select>\
+            <label class=\"ml-3\">Mode de paiement :</label>\
+            <select id=\"paiement\" name=\"paiement\" class=\"p-2 ml-1 form-control\">\
+            <option value=\"mvola\">Mvola</option>\
+            <option value=\"cash\">Versement</option>\
+            <option value=\"virement\">Virement</option>\
+            <option value=\"cheque\">Cheque</option>\
+            <option value=\"western\">Western</option>\
+            <option value=\"MoneyGram\">MoneyGram</option>\
+            </select>\
+    </div></form>\
+    "
     );
+    $.ajax({
+        type: "GET",
+        url: "../Controller/ControlFinanceAffichage.php",
+        data: "recouvrement",
+        dataType: "json",
+        success: function (data){
+        var select= data;
+        for(var i = 0; i<select.length; i++){
+            $("#DateEntre").append("<option value = '"+select[i]['DATEDENTER']+"'>"+select[i]['DATEDENTER']+"</option>");
+            }
+        }
+    })
+    $.ajax({
+        type: "GET",
+        url: "../Controller/ControlFinanceAffichage.php",
+        data: "recouvrement",
+        dataType: "json",
+        success: function (data){
+        var select= data;
+        for(var i = 0; i<select.length; i++){
+            $("#vague").append("<option value = '"+select[i]['CODE']+"'>"+select[i]['CODE']+"</option>");
+            }
+        }
+    })
+
+    ajourclassification = setInterval(function(){
+    var i = 0;
+    var DateEntrer = document.getElementById("DateEntre").value;
+    var MotifDePaiement=$('#MotifPaiement').find('option:selected').val();
+    var Vague = document.getElementById("vague").value;
+    var Paiement=$('#paiement').find('option:selected').val();
+    if(Paiement === "mvola"){
+        $.ajax({
+            type: "POST",
+                url: "../Controller/ControlFinanceAffichage.php",
+                data: {
+                    classification : Paiement,
+                    date : DateEntrer,
+                    motif : MotifDePaiement,
+                    vague : Vague
+                },
+                dataType: "json",
+                success: function  (data){
+                    $(".table").empty();
+                    $(".table").append("<thead> <tr> <th>Matricule</th> <th>Nom</th><th>Prenom</th><th>Semestre</th><th>Motif</th><th>Reference</th><th>Dateref</th><th>Montant</th><th>IdMobile</th><th>Etat</th><th>Decision</th><th>DateValidation</th><th>Observation</th></tr></thead>");
+                    $(".table").append(
+                        "<tbody></tbody>"
+                    );
+                     var format = data;
+                     for(var ajour = 0; ajour<format.length; ajour++){
+                         $("tbody").append(
+                             "<tr><td>"+format[ajour]['MATRICULE']+"</td>\
+                             <td>"+format[ajour]['NOM']+"</td>\
+                             <td>"+format[ajour]['PRENOM']+"</td>\
+                             <td>"+format[ajour]['SEMESTRE']+"</td>\
+                             <td>"+format[ajour]['MOTIF']+"</td>\
+                             <td>"+format[ajour]['REFERENCE']+"</td>\
+                             <td>"+format[ajour]['DATY']+"</td>\
+                             <td>"+format[ajour]['MONTANT']+"</td>\
+                             <td>"+format[ajour]['IDMOBILEMONEY']+"</td>\
+                             <td>"+format[ajour]['ETAT']+"</td>\
+                             <td>"+format[ajour]['DECISION']+"</td>\
+                             <td>"+format[ajour]['DATESERVER']+"</td>\
+                             <td>"+format[ajour]['OBSERVATION']+"</tr>\
+                         ");
+                     }
+                     i = ajour;
+                }
+        })
+    }
+    else if(Paiement === "cheque"){
+        $.ajax({
+            type: "POST",
+                url: "../Controller/ControlFinanceAffichage.php",
+                data: {
+                    classification : Paiement,
+                    date : DateEntrer,
+                    motif : MotifDePaiement,
+                    vague : Vague
+                },
+                dataType: "json",
+                success: function  (data){
+                    $(".table").empty();
+                    $(".table").append("<thead><tr><th>Matricule</th><th>Nom</th><th>Prenom</th><th>Semestre</th><th>Motif</th><th>Tireur</th><th>Etablissement</th><th>Montant</th><th>Ncheque</th><th>Etat</th><th>Decision</th><th>DateValidation</th> <th>IdCheque</th><th>Observation</th></tr></thead>");
+                    $(".table").append(
+                        "<tbody></tbody>"
+                    );
+                     var format = data;
+                     for(var ajour = 0; ajour<format.length; ajour++){
+                         $("tbody").append(
+                             "<tr><td>"+format[ajour]['MATRICULE']+"</td>\
+                             <td>"+format[ajour]['NOM']+"</td>\
+                             <td>"+format[ajour]['PRENOM']+"</td>\
+                             <td>"+format[ajour]['SEMESTRE']+"</td>\
+                             <td>"+format[ajour]['MOTIF']+"</td>\
+                             <td>"+format[ajour]['TIREUR']+"</td>\
+                             <td>"+format[ajour]['ETABLISSEMENT']+"</td>\
+                             <td>"+format[ajour]['MONTANT']+"</td>\
+                             <td>"+format[ajour]['NCHEQUE']+"</td>\
+                             <td>"+format[ajour]['ETAT']+"</td>\
+                             <td>"+format[ajour]['DECISION']+"</td>\
+                             <td>"+format[ajour]['DATESERVER']+"</td>\
+                             <td>"+format[ajour]['IDCHEQUE']+"</td>\
+                             <td>"+format[ajour]['OBSERVATION']+"</td></tr>\
+                         ");
+                     }
+                     i = ajour;
+                }
+        })
+    } 
+    else if(Paiement === "virement"){
+        $.ajax({
+            type: "POST",
+                url: "../Controller/ControlFinanceAffichage.php",
+                data: {
+                    classification : Paiement,
+                    date : DateEntrer,
+                    motif : MotifDePaiement,
+                    vague : Vague
+                },
+                dataType: "json",
+                success: function  (data){
+                    $(".table").empty();
+                    $(".table").append("<thead> <tr> <th>Matricule</th><th>Nom</th><th>Prenom</th><th>Semestre</th><th>Motif</th><th>NCompte</th><th>TituCompte</th><th>DateVirement</th><th>Montant</th><th>IdVirement</th><th>Etat</th><th>Decision</th><th>DateValidation</th><th>Observation</th></tr></thead>");
+                    $(".table").append(
+                        "<tbody></tbody>"
+                    );
+                     var format = data;
+                     for(var ajour = 0; ajour<format.length; ajour++){
+                         $("tbody").append(
+                             "<tr><td>"+format[ajour]['MATRICULE']+"</td>\
+                             <td>"+format[ajour]['NOM']+"</td>\
+                             <td>"+format[ajour]['PRENOM']+"</td>\
+                             <td>"+format[ajour]['SEMESTRE']+"</td>\
+                             <td>"+format[ajour]['MOTIF']+"</td>\
+                             <td>"+format[ajour]['NCOMPTE']+"</td>\
+                             <td>"+format[ajour]['TITUCOMPTE']+"</td>\
+                             <td>"+format[ajour]['DATEVIREMENT']+"</td>\
+                             <td>"+format[ajour]['MONTANT']+"</td>\
+                             <td>"+format[ajour]['IDVIREMENT']+"</td>\
+                             <td>"+format[ajour]['ETAT']+"</td>\
+                             <td>"+format[ajour]['DECISION']+"</td>\
+                             <td>"+format[ajour]['DATESERVER']+"</td>\
+                             <td>"+format[ajour]['OBSERVATION']+"</td></tr>\
+                         ");
+                     }
+                     i = ajour;
+                }
+        })
+    } 
+    else if(Paiement === "cash"){
+        $.ajax({
+            type: "POST",
+                url: "../Controller/ControlFinanceAffichage.php",
+                data: {
+                    classification : Paiement,
+                    date : DateEntrer,
+                    motif : MotifDePaiement,
+                    vague : Vague
+                },
+                dataType: "json",
+                success: function  (data){
+                    $(".table").empty();
+                    $(".table").append("<thead> <tr> <th>Matricule</th><th>Nom</th><th>Prenom</th><th>Semestre</th><th>Motif</th><th>Nbordereaux</th><th>Agence</th><th>Montant</th><th>IdVersement</th><th>Etat</th><th>Decision</th><th>DateValidation</th><th>DateDeVersement</th><th>Observation</th></tr></thead>");
+                    $(".table").append(
+                        "<tbody></tbody>"
+                    );
+                     // alert(dataa);
+                     var format = data;
+                     //alert(format);
+                     for(var ajour = 0; ajour<format.length; ajour++){
+                         $("tbody").append(
+                             "<tr><td>"+format[ajour]['MATRICULE']+"</td>\
+                             <td>"+format[ajour]['NOM']+"</td>\
+                             <td>"+format[ajour]['PRENOM']+"</td>\
+                             <td>"+format[ajour]['SEMESTRE']+"</td>\
+                             <td>"+format[ajour]['MOTIF']+"</td>\
+                             <td>"+format[ajour]['NBORDEREAUX']+"</td>\
+                             <td>"+format[ajour]['AGENCE']+"</td>\
+                             <td>"+format[ajour]['MONTANT']+"</td>\
+                             <td>"+format[ajour]['IDVERSEMENT']+"</td>\
+                             <td>"+format[ajour]['ETAT']+"</td>\
+                             <td>"+format[ajour]['DECISION']+"</td>\
+                             <td>"+format[ajour]['DATESERVER']+"</td>\
+                             <td>"+format[ajour]['DATEVERSEMENT']+"</td>\
+                             <td>"+format[ajour]['OBSERVATION']+"</td></tr>\
+                         ");
+                     }
+                     i = ajour;
+                }
+        })
+    } 
+    else if(Paiement === "western"){
+        $.ajax({
+            type: "POST",
+                url: "../Controller/ControlFinanceAffichage.php",
+                data: {
+                    classification : Paiement,
+                    date : DateEntrer,
+                    motif : MotifDePaiement,
+                    vague : Vague
+                },
+                dataType: "json",
+                success: function  (data){
+                    $(".table").empty();
+                    $(".table").append("<thead> <tr> <th>MTCN</th><th>Expediteur</th><th>MontantWestern</th><th>Devoir</th><th>Motif</th> <th>Matricule</th><th>Nom</th><th>Prenom</th><th>Semestre</th><th>DateValidation</th><th>Etat</th><th>Decision</th><th>Observation</th></tr></thead>");
+                    $(".table").append(
+                        "<tbody></tbody>"
+                    );
+                     var format = data;
+                     for(var ajour = 0; ajour<format.length; ajour++){
+                         $("tbody").append(
+                             "<tr><td>"+format[ajour]['NSUIVI']+"</td>\
+                             <td>"+format[ajour]['NOMEXP']+"</td>\
+                             <td>"+format[ajour]['MONTANTWESTERN']+"</td>\
+                             <td>"+format[ajour]['MONTANT']+"</td>\
+                             <td>"+format[ajour]['MOTIF']+"</td>\
+                             <td>"+format[ajour]['MATRICULE']+"</td>\
+                             <td>"+format[ajour]['NOM']+"</td>\
+                             <td>"+format[ajour]['PRENOM']+"</td>\
+                             <td>"+format[ajour]['SEMESTRE']+"</td>\
+                             <td>"+format[ajour]['DATESERVER']+"</td>\
+                             <td>"+format[ajour]['ETAT']+"</td>\
+                             <td>"+format[ajour]['DECISION']+"</td>\
+                             <td>"+format[ajour]['OBSERVATION']+"</td></tr>\
+                         ");
+                     }
+                     i = ajour;
+                }
+        })
+    }
+    else if(Paiement === "MoneyGram"){
+        $.ajax({
+            type: "POST",
+                url: "../Controller/ControlFinanceAffichage.php",
+                data: {
+                    classification : Paiement,
+                    date : DateEntrer,
+                    motif : MotifDePaiement,
+                    vague : Vague
+                },
+                dataType: "json",
+                success: function  (data){
+                    $(".table").empty();
+                    $(".table").append("<thead> <tr> <th>Matricule</th><th>Nom</th><th>Prenom</th><th>IdEtudiant</th><th>Semestre</th><th>IdMoneyGram</th><th>DateMoneyGram</th><th>Reference</th><th>Expediteur</th><th>DateValidation</th><th>Motif</th><th>Decision</th><th>Etat</th><th>Montant</th><th>MontantMoneyGram</th><th>Observation</th></tr></thead>");
+                    $(".table").append(
+                        "<tbody></tbody>"
+                    );
+                     var format = data;
+                     for(var ajour = 0; ajour<format.length; ajour++){
+                         $("tbody").append(
+                             "<tr><td>"+format[ajour]['MATRICULE']+"</td>\
+                             <td>"+format[ajour]['NOM']+"</td>\
+                             <td>"+format[ajour]['PRENOM']+"</td>\
+                             <td>"+format[ajour]['IDETUDIANTS']+"</td>\
+                             <td>"+format[ajour]['SEMESTRE']+"</td>\
+                             <td>"+format[ajour]['IDMONEYGRAM']+"</td>\
+                             <td>"+format[ajour]['DATYMONEYGRAM']+"</td>\
+                             <td>"+format[ajour]['REFERENCE']+"</td>\
+                             <td>"+format[ajour]['EXPEDITEUR']+"</td>\
+                             <td>"+format[ajour]['DATESERVER']+"</td>\
+                             <td>"+format[ajour]['MOTIF']+"</td>\
+                             <td>"+format[ajour]['DECISION']+"</td>\
+                             <td>"+format[ajour]['ETAT']+"</td>\
+                             <td>"+format[ajour]['MONTANT']+"</td>\
+                             <td>"+format[ajour]['MONTANTMONEYGRAM']+"</td>\
+                             <td>"+format[ajour]['OBSERVATION']+"</td></tr>\
+                         ");
+                     }
+                     i = ajour;
+                }
+        })
+    }
+},1000);
+
+      
 });
 
 $("#promo").click(function(){
@@ -161,7 +498,9 @@ $("#promo").click(function(){
           });
     });
     $("select.choix").change(function () {
+        clearInterval(ajourrecouvrement);
         clearInterval(ajourpromo);
+        clearInterval(ajourclassification);
         var choix = $(this).children("option:selected").val();
         $.ajax({
             type: "POST",

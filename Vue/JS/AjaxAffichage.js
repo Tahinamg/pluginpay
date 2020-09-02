@@ -5,6 +5,7 @@ $("document").ready(function(){
     var ajourlistmvola=0;
     var ajourlistversement=0;
     var ajourlistwestern=0;
+    var ajourlistmoneygram=0;
             $("#MvolaVoir").click(function(){
                 $(".notif,#welcoming").remove();
                 clearInterval(ajourlistvirement);
@@ -12,6 +13,7 @@ $("document").ready(function(){
                 clearInterval(ajourlistcheque);
                 clearInterval(ajourlistwestern);
                 clearInterval(ajourlistmvola);
+                clearInterval(ajourlistmoneygram);
                 var nombretd=0;
                     $.ajax({
                         type: "GET",
@@ -129,6 +131,7 @@ $("document").ready(function(){
                 clearInterval(ajourlistmvola);
                 clearInterval(ajourlistwestern);
                 clearInterval(ajourlistcheque);
+                clearInterval(ajourlistmoneygram);
                     $.ajax({
                         type: "GET",
                         url: "../Controller/ControlFinanceAffichage.php",
@@ -242,6 +245,7 @@ $("document").ready(function(){
                 clearInterval(ajourlistmvola);
                 clearInterval(ajourlistwestern);
                 clearInterval(ajourlistcheque);
+                clearInterval(ajourlistmoneygram);
 
                
                     $.ajax({
@@ -360,6 +364,7 @@ $("document").ready(function(){
                 clearInterval(ajourlistmvola);
                 clearInterval(ajourlistcheque);
                 clearInterval(ajourlistwestern);
+                clearInterval(ajourlistmoneygram);
                 $.ajax({
                         type: "GET",
                         url: "../Controller/ControlFinanceAffichage.php",
@@ -480,6 +485,7 @@ $("document").ready(function(){
                 clearInterval(ajourlistcheque);
                 clearInterval(ajourlistmvola);
                 clearInterval(ajourlistwestern);
+                clearInterval(ajourlistmoneygram);
                 var nombretd=0;
                     $.ajax({
                         type: "GET",
@@ -588,6 +594,124 @@ $("document").ready(function(){
            },3000);
         });
 
+//MoneyGram
+$("#MoneyGram").click(function(){
+    $(".notif,#welcoming").remove();
+     var nombretd=0;
+     clearInterval(ajourlistvirement);
+     clearInterval(ajourlistversement);
+     clearInterval(ajourlistmvola);
+     clearInterval(ajourlistcheque);
+     clearInterval(ajourlistwestern);
+     clearInterval(ajourlistmoneygram);
+     $.ajax({
+             type: "GET",
+             url: "../Controller/ControlFinanceAffichage.php",
+             data: "notification=MoneyGram",
+             dataType: "json",
+             success: function (response6) {
+                 
+                  
+             $(".table").empty();
+             $(".table").append(
+              "<thead> <tr> <th>Matricule</th><th>Nom</th><th>Prenom</th><th>IdEtudiant</th><th>Semestre</th><th>IdMoneyGram</th><th>DateMoneyGram</th><th>Reference</th><th>Expediteur</th><th>DateServer</th><th>Motif</th><th>Decision</th><th>Etat</th><th>Montant</th><th>MontantMoneyGram</th><th>Observation</th><th>Acion</th></tr></thead>"   
+             );
+             $(".table").append(
+                 "<tbody></tbody>"
+             );
+              var jsonformat=response6;
+           for (var index = 0; index<jsonformat.length; index++) {
+               $("tbody").append(
+                 "<tr><td>"+jsonformat[index]['MATRICULE']+"</td><td>"+jsonformat[index]['NOM']+"</td><td>"+jsonformat[index]['PRENOM']+"</td><td>"+jsonformat[index]['IDETUDIANTS']+"</td><td>"+jsonformat[index]['SEMESTRE']+"</td><td>"+jsonformat[index]['IDMONEYGRAM']+"</td><td>"+jsonformat[index]['DATYMONEYGRAM']+"</td><td>"+jsonformat[index]['REFERENCE']+"</td><td>"+jsonformat[index]['EXPEDITEUR']+"</td><td>"+jsonformat[index]['DATESERVER']+"</td><td>"+jsonformat[index]['MOTIF']+"</td><td>"+jsonformat[index]['DECISION']+"</td><td>"+jsonformat[index]['ETAT']+"</td><td>"+jsonformat[index]['MONTANT']+"</td><td>"+jsonformat[index]['MONTANTMONEYGRAM']+"</td><td>"+jsonformat[index]['OBSERVATION']+"</td><td><a href='#' data-toggle='modal' data-target='#myModal"+index+"' ><i class='mx-1 fas fa-check text-success'></i></a> <a href='#' data-toggle='modal' data-target='#refuModal"+index+"'><i class='mx-1 fas fa-window-close text-danger'></i></a>\
+                 <div class='modal fade' id='myModal"+index+"'>\
+                 <div class='modal-dialog modal-sm'><div class='modal-content'>\
+                 <div class='modal-header'><h5 class='modal-title text-success'>Êtes-vous sur de valider?</h5><button type='button' class='close' data-dismiss='modal'>×</button></div>\
+                 <div class='modal-body'>\
+                 <form action='../Controller/ControlFinanceValidationMoneyGram.php' method='POST'>\
+                 <div class=\"form-group\">\
+                 <label>Observation :</label>\
+                 <textarea class=\"form-control\" name=\"observation\" cols=\"25\" rows=\"3\" placeholder='"+jsonformat[index]['OBSERVATION']+"' value=\""+jsonformat[index]['OBSERVATION']+"\"></textarea></div>\
+                 <div class=\"form-group\">\
+                 <label>Motif :</label>\
+                 <input type='hidden' value='"+jsonformat[index]['MOTIF']+"' name='motif' />\
+                 <input type='hidden' value='"+jsonformat[index]['MATRICULE']+"' name='matricule' />\
+                 <input type='hidden' value='"+jsonformat[index]['IDETUDIANTS']+"' name='idetudiants' />\
+                 <input type='hidden' value='"+jsonformat[index]['IDMONEYGRAM']+"'name='idmoneygram'/>\
+                 <input class=\"form-control\" type='number' placeholder='0' name='quantite'/></div>\
+                 <input type='submit' class='btn btn-success' value='validation'/>\
+                 </form>\
+                 </div></div></div></div>\
+                 <div class='modal fade' id='refuModal"+index+"'><div class='modal-dialog modal-sm'><div class='modal-content'><div class='modal-header'><h4 class='modal-title text-danger'>REFUSER?</h4><button type='button' class='close' data-dismiss='modal'>×</button></div>\
+                 <div class='modal-body'>\
+                 <form method='POST' action='../Controller/ControlFinanceRefusMoneyGram.php'>\
+                 <input type='hidden' value='"+jsonformat[index]['IDMONEYGRAM']+"' name='idmoneygram'/>\
+                 <input type='submit' value='refuser' class='btn btn-danger'/>\
+                 </form>\
+                 </div></div></div></div></td></tr>"
+               );
+                                        
+           }
+
+           nombretd=index;
+             }
+
+     });
+     
+  
+
+     ajourlistmoneygram=setInterval(function(){
+
+         $.ajax({
+             type: "GET",
+             url: "../Controller/ControlFinanceAffichage.php",
+             data: "notification=MoneyGram",
+             dataType: "json",
+             success: function (response6) {
+              
+              var jsonformat=response6;
+           for (nombretd; nombretd<jsonformat.length; nombretd++) {
+               $("tbody").append(
+                 "<tr><td>"+jsonformat[nombretd]['MATRICULE']+"</td><td>"+jsonformat[nombretd]['NOM']+"</td><td>"+jsonformat[nombretd]['PRENOM']+"</td><td>"+jsonformat[nombretd]['IDETUDIANTS']+"</td><td>"+jsonformat[nombretd]['SEMESTRE']+"</td><td>"+jsonformat[nombretd]['IDMONEYGRAM']+"</td><td>"+jsonformat[nombretd]['DATYMONEYGRAM']+"</td><td>"+jsonformat[nombretd]['REFERENCE']+"</td><td>"+jsonformat[nombretd]['EXPEDITEUR']+"</td><td>"+jsonformat[nombretd]['DATESERVER']+"</td><td>"+jsonformat[nombretd]['MOTIF']+"</td><td>"+jsonformat[nombretd]['DECISION']+"</td><td>"+jsonformat[nombretd]['ETAT']+"</td><td>"+jsonformat[nombretd]['MONTANT']+"</td><td>"+jsonformat[nombretd]['MONTANTMONEYGRAM']+"</td><td>"+jsonformat[nombretd]['OBSERVATION']+"</td><td><a href='#' data-toggle='modal' data-target='#myModal"+nombretd+"' ><i class='mx-1 fas fa-check text-success'></i></a> <a href='#' data-toggle='modal' data-target='#refuModal"+nombretd+"'><i class='mx-1 fas fa-window-close text-danger'></i></a>\
+                 <div class='modal fade' id='myModal"+nombretd+"'>\
+                 <div class='modal-dialog modal-sm'><div class='modal-content'>\
+                 <div class='modal-header'><h5 class='modal-title text-success'>Êtes-vous sur de valider?</h5><button type='button' class='close' data-dismiss='modal'>×</button></div>\
+                 <div class='modal-body'>\
+                 <form action='../Controller/ControlFinanceValidationMoneyGram.php' method='POST'>\
+                 <div class=\"form-group\">\
+                 <label>Observation :</label>\
+                 <textarea class=\"form-control\" name=\"observation\" cols=\"25\" rows=\"3\" placeholder='"+jsonformat[nombretd]['OBSERVATION']+"' value=\""+jsonformat[nombretd]['OBSERVATION']+"\"></textarea></div>\
+                 <div class=\"form-group\">\
+                 <label>Motif :</label>\
+                 <input type='hidden' value='"+jsonformat[nombretd]['MOTIF']+"' name='motif' />\
+                 <input type='hidden' value='"+jsonformat[nombretd]['MATRICULE']+"' name='matricule' />\
+                 <input type='hidden' value='"+jsonformat[nombretd]['IDETUDIANTS']+"' name='idetudiants' />\
+                 <input type='hidden' value='"+jsonformat[nombretd]['IDMONEYGRAM']+"'name='idmoneygram'/>\
+                 <input class=\"form-control\" type='number' placeholder='0' name='quantite'/></div>\
+                 <input type='submit' class='btn btn-success' value='validation'/>\
+                 </form>\
+                 </div></div></div></div>\
+                 <div class='modal fade' id='refuModal"+nombretd+"'><div class='modal-dialog modal-sm'><div class='modal-content'><div class='modal-header'><h4 class='modal-title text-danger'>REFUSER?</h4><button type='button' class='close' data-dismiss='modal'>×</button></div>\
+                 <div class='modal-body'>\
+                 <form method='POST' action='../Controller/ControlFinanceRefusMoneyGram.php'>\
+                 <input type='hidden' value='"+jsonformat[nombretd]['IDMONEYGRAM']+"' name='idmoneygram'/>\
+                 <input type='submit' value='refuser' class='btn btn-danger'/>\
+                 </form>\
+                 </div></div></div></div></td></tr>"
+               );
+                                        
+           }
+
+
+             }
+
+     });
+     },3000);       
+
+
+
+
+ });
+//MoneyGram
 
 
 

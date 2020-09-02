@@ -2,6 +2,7 @@
 * AjaxNotification 1.0,
 * (c) Ravelojaona Tahina Natanaela
 */
+//UPLOADMYELANE
 $("document").ready(function(){
     setInterval(function () { 
         $.ajax({
@@ -59,6 +60,18 @@ $("document").ready(function(){
             dataType: "text",
             success: function (response) {
                 $("#WesternNotif").text(response);
+            }
+        });
+     },3000);
+
+     setInterval(function () { 
+        $.ajax({
+            type: "GET",
+            data:"paiement=MoneyGram",
+            url: "../Controller/ControlFinanceNotification.php",
+            dataType: "text",
+            success: function (response) {
+                $("#MoneyGramNotif").text(response);
             }
         });
      },3000);
