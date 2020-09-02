@@ -1,6 +1,6 @@
 <?php
 class ComptableManagerWestern{
-//UPLOAD
+
 protected $db;
 
     public function __construct($db)

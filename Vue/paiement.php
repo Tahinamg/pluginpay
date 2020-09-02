@@ -1,6 +1,5 @@
 <?php
-//CDN Change the local  to CDN before upload
-//UPLOADMYELANE
+
 ob_start();
 
 header('Content-Type:text/html ; charset=utf-8');

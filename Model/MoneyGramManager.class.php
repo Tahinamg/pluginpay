@@ -1,6 +1,5 @@
 <?php
 class MoneyGramManager{
-    //TODO //UPLOAD ADD FIELD MONEY GRAM AND 
 protected $db;
     public function __construct(PDO $db)
     {

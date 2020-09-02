@@ -1,6 +1,5 @@
 
 <?php
-//UPLOAD
     ob_start();
 ?>
 

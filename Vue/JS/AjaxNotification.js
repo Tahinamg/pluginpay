@@ -2,7 +2,6 @@
 * AjaxNotification 1.0,
 * (c) Ravelojaona Tahina Natanaela
 */
-//UPLOADMYELANE
 $("document").ready(function(){
     setInterval(function () { 
         $.ajax({

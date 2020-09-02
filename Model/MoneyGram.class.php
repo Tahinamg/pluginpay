@@ -1,5 +1,4 @@
 <?php
-//UPLOAD
 class MoneyGram{
     protected $idmoneygram;
     protected $expediteur;

@@ -2,9 +2,6 @@
 <?php
 header('Content-Type:text/html ; charset=utf-8');
 ob_start();
-//CDN  change the local to CDN before upload
-//TODO ASIVO NOTIFICATION KELY
-//UPLOADMYELANE
 session_start();
 
 if(!isset($_SESSION['finance'])){

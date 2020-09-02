@@ -44,7 +44,9 @@ switch ($formatpaiement) {
                 "etat"=>"non lu",
                 "decision"=>"non prise",
                 "montant"=>(string) $_POST['montant'],
-                "observation"=>"aucun"
+                "observation"=>"aucun",
+                "datevalidation"=>"non defini",
+                "tempsvalidation"=>"non defini"
             );
             $mvola = new MobileMoney($data);
             $mvolamanager= new MobileMoneyManager($db);
@@ -104,10 +106,10 @@ switch ($formatpaiement) {
         $regagence='/[A-Za-z]{2,20}/';
         if(preg_match($regcash,$_POST['nrecu'])&&preg_match($regmotif,$_POST['motif'])&&preg_match($regmontant,$_POST['montant'])&&preg_match($regagence,$_POST['agence'])){
        
-        
+        //UPLOAD
         $data = array(
             "nbordereaux"=>(string) $_POST['nrecu'],
-            "daty"=>(string) $_POST['date'],
+            "daty"=>(string) $_POST['dateversement'],
             "agence"=>(string) $_POST['agence'],
             "motif"=>(string) $_POST['motif'],
             "etat"=>"non lu",

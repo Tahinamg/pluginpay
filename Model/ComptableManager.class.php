@@ -1,5 +1,5 @@
 <?php
-//UPLOAD
+
 class ComptableManager{
 protected $db;
 

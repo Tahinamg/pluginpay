@@ -1,6 +1,5 @@
 <?php
 class ComptableManagerMobileMoney{
-    //UPLOAD
 protected $db;
 
     public function __construct($db)
@@ -14,7 +13,7 @@ protected $db;
 
 
     public function VoirMobileMoney(){
-        $sql=$this->db->query("SELECT `SUIVRE`.`MATRICULE`,`ETUDIANTS`.`NOM`,`ETUDIANTS`.`PRENOM`,`ETUDIANTS`.`IDETUDIANTS`,`MOTIF`,`SEMESTRE`,`MOBILEMONEY`.`REFERENCE`,`DATY`,`MOBILEMONEY`.`MONTANT`,`IDMOBILEMONEY`,`MOBILEMONEY`.`ETAT`,`MOBILEMONEY`.`DECISION`,`DATESERVER`,`OBSERVATION` FROM `MOBILEMONEY` NATURAL JOIN `SUIVRE`,`ETUDIANTS` WHERE `ETUDIANTS`.`IDETUDIANTS`=`MOBILEMONEY`.`IDETUDIANTS` AND `MOBILEMONEY`.`ETAT`='non lu' ORDER BY `IDMOBILEMONEY` ASC ");
+        $sql=$this->db->query("SELECT `SUIVRE`.`MATRICULE`,`ETUDIANTS`.`NOM`,`ETUDIANTS`.`PRENOM`,`ETUDIANTS`.`IDETUDIANTS`,`MOTIF`,`SEMESTRE`,`MOBILEMONEY`.`REFERENCE`,`DATY`,`MOBILEMONEY`.`MONTANT`,`IDMOBILEMONEY`,`MOBILEMONEY`.`ETAT`,`MOBILEMONEY`.`DECISION`,`DATESERVER`,`OBSERVATION`,`DATEVALIDATION`,`TEMPSVALIDATION` FROM `MOBILEMONEY` NATURAL JOIN `SUIVRE`,`ETUDIANTS` WHERE `ETUDIANTS`.`IDETUDIANTS`=`MOBILEMONEY`.`IDETUDIANTS` AND `MOBILEMONEY`.`ETAT`='non lu' ORDER BY `IDMOBILEMONEY` ASC ");
         $data=$sql->fetchAll(PDO::FETCH_ASSOC);
         $sql->closeCursor();
         return $data;
@@ -27,7 +26,7 @@ protected $db;
         return $data;
     }
     public function ValiderEcolageViaMobileMoney($qte,$matricule,$idmobilemoney,$observation){
-        $sql1=$this->db->prepare("UPDATE `MOBILEMONEY` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDMOBILEMONEY`=:idmobilemoney");
+        $sql1=$this->db->prepare("UPDATE `MOBILEMONEY` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation,`DATEVALIDATION`=CURRENT_DATE,`TEMPSVALIDATION`=CURRENT_TIME WHERE `IDMOBILEMONEY`=:idmobilemoney");
         $sql1->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql1->bindValue(":idmobilemoney",$idmobilemoney,PDO::PARAM_INT);
         $sql1->execute();
@@ -40,7 +39,7 @@ protected $db;
 
     }
     Public function ValiderInscriptionViaMobileMoney($matricule,$idmobilemoney,$observation){
-        $sql=$this->db->prepare("UPDATE `MOBILEMONEY` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDMOBILEMONEY`=:idmobilemoney");
+        $sql=$this->db->prepare("UPDATE `MOBILEMONEY` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDMOBILEMONEY`=:idmobilemoney,`DATEVALIDATION`=CURRENT_DATE,`TEMPSVALIDATION`=CURRENT_TIME");
         $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idmobilemoney",$idmobilemoney,PDO::PARAM_INT);
         $sql->execute();
@@ -55,7 +54,7 @@ protected $db;
     }
     
     public function ValiderRepechage($idetudiant,$idmobilemoney,$observation){
-        $sql=$this->db->prepare("UPDATE `MOBILEMONEY` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDMOBILEMONEY`=:idmobilemoney");
+        $sql=$this->db->prepare("UPDATE `MOBILEMONEY` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation,`DATEVALIDATION`=CURRENT_DATE,`TEMPSVALIDATION`=CURRENT_TIME WHERE `IDMOBILEMONEY`=:idmobilemoney");
         $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idmobilemoney",$idmobilemoney,PDO::PARAM_INT);
         $sql->execute();
@@ -69,7 +68,7 @@ protected $db;
 
 
     public function ValiderDroitExamen($matricule,$idmobilemoney,$observation){
-        $sql=$this->db->prepare("UPDATE `MOBILEMONEY` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDMOBILEMONEY`=:idmobilemoney");
+        $sql=$this->db->prepare("UPDATE `MOBILEMONEY` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation,`DATEVALIDATION`=CURRENT_DATE,`TEMPSVALIDATION`=CURRENT_TIME WHERE `IDMOBILEMONEY`=:idmobilemoney");
         $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idmobilemoney",$idmobilemoney,PDO::PARAM_INT);
         $sql->execute();
@@ -85,7 +84,7 @@ protected $db;
 
 
     public function ValiderSoutenance($matricule,$idmobilemoney,$observation){
-        $sql=$this->db->prepare("UPDATE `MOBILEMONEY` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDMOBILEMONEY`=:idmobilemoney");
+        $sql=$this->db->prepare("UPDATE `MOBILEMONEY` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation,`DATEVALIDATION`=CURRENT_DATE,`TEMPSVALIDATION`=CURRENT_TIME WHERE `IDMOBILEMONEY`=:idmobilemoney");
         $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idmobilemoney",$idmobilemoney,PDO::PARAM_INT);
         $sql->execute();
@@ -99,7 +98,7 @@ protected $db;
 
     }
     public function ValiderCertificat($matricule,$idmobilemoney,$observation){
-        $sql=$this->db->prepare("UPDATE `MOBILEMONEY` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDMOBILEMONEY`=:idmobilemoney");
+        $sql=$this->db->prepare("UPDATE `MOBILEMONEY` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation,`DATEVALIDATION`=CURRENT_DATE,`TEMPSVALIDATION`=CURRENT_TIME WHERE `IDMOBILEMONEY`=:idmobilemoney");
         $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idmobilemoney",$idmobilemoney,PDO::PARAM_INT);
         $sql->execute();
@@ -117,7 +116,7 @@ protected $db;
         $sql->closeCursor();
     }
     public function ListPaiementMobileMoney($date,$motif,$vague){
-        $sql=$this->db->prepare("SELECT `IDMOBILEMONEY`,`SUIVRE`.`MATRICULE`,`CODE`,`NOM`,`PRENOM`,`NUMERO`,`REFERENCE`,`MOTIF`,`DATY`,`DATESERVER`,`MONTANT`,`OBSERVATION` FROM `SUIVRE` NATURAL JOIN `ETUDIANTS` NATURAL JOIN `MOBILEMONEY` WHERE `SUIVRE`.`IDETUDIANTS`=`MOBILEMONEY`.`IDETUDIANTS` AND `MOBILEMONEY`.`DATESERVER` LIKE :datevalidation AND `CODE`=:vague AND `MOBILEMONEY`.`ETAT`='lu' AND `MOBILEMONEY`.`DECISION`='valide' AND `MOTIF`=:motif ORDER BY DATESERVER ASC");
+        $sql=$this->db->prepare("SELECT `IDMOBILEMONEY`,`SUIVRE`.`MATRICULE`,`CODE`,`NOM`,`PRENOM`,`NUMERO`,`REFERENCE`,`MOTIF`,`DATY`,`DATESERVER`,`MONTANT`,`OBSERVATION`,`DATEVALIDATION`,`TEMPSVALIDATION` FROM `SUIVRE` NATURAL JOIN `ETUDIANTS` NATURAL JOIN `MOBILEMONEY` WHERE `SUIVRE`.`IDETUDIANTS`=`MOBILEMONEY`.`IDETUDIANTS` AND `MOBILEMONEY`.`DATEVALIDATION` LIKE :datevalidation AND `CODE`=:vague AND `MOBILEMONEY`.`ETAT`='lu' AND `MOBILEMONEY`.`DECISION`='valide' AND `MOTIF`=:motif ORDER BY DATESERVER ASC");
         $date.="%";
         $sql->bindValue(":datevalidation",$date,PDO::PARAM_STR);
         $sql->bindValue(":vague",$vague,PDO::PARAM_STR);

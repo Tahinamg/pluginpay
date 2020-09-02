@@ -1,5 +1,5 @@
 <?php 
-//UPLOAD
+
 ob_start();
 
 session_start();

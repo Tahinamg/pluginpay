@@ -1,6 +1,6 @@
 <?php
 function loadclass($class){
-       //UPLOAD
+       
     require_once "../Model/".$class.'.class.php';
    
 }

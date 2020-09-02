@@ -1,5 +1,4 @@
 <?php
-//UPLOAD
 header('Content-type: application/json; charset=utf-8');
 function loadclass($class){
     require "../Model/".$class.'.class.php';

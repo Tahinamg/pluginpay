@@ -1,6 +1,5 @@
 <?php
 class ComptableManagerMoneyGram{
-    //UPLOAD
     protected $db;
     public function __construct(PDO $database)
     {

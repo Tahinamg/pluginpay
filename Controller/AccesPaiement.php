@@ -2,7 +2,6 @@
 
 
 session_start();
-//TODO asio session matricule rehefa locale
 
 if(!isset($_SESSION['matricule'])){
     header("location:Connecter");

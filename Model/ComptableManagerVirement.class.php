@@ -1,6 +1,5 @@
 <?php
 class ComptableManagerVirement{
-    //UPLOAD
 protected $db;
 
     public function __construct($db)

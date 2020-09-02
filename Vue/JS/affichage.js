@@ -1,4 +1,3 @@
-//UPLOADMYELANE
 $(document).ready(function () {
     var ajourpromo=0;
     var ajourrecouvrement=0;

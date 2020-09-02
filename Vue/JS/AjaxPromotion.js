@@ -1,5 +1,4 @@
 $(document).ready(function(){
-  //UPLOAD
     function getCookie(cname) {
         var name = cname + "=";
         var decodedCookie = document.cookie;

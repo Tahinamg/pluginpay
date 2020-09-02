@@ -1,6 +1,5 @@
 <?php
 class ComptableManagerCheque{
-    //UPLOAD
 protected $db;
 
     public function __construct($db)

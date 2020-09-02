@@ -1,5 +1,4 @@
-//UPLOADMYELANE
-$(document).ready(function() {//UPLOAD
+$(document).ready(function() {
     (function() {
             $("[name='motif']").change(function(e) {
                 /*Mise a jour du panier*/
