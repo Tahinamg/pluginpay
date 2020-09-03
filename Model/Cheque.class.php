@@ -1,5 +1,6 @@
 <?php
 class Cheque{
+    //UPLOAD
     protected $idcheque;
     protected $tireur;
     protected $etablissement;
@@ -11,6 +12,8 @@ class Cheque{
     protected $dateserver;
     protected $montant;
     protected $observation; 
+    protected $datevalidation;
+    protected $tempsvalidation;
 
     public function __construct($donnes)
     {
@@ -25,6 +28,12 @@ class Cheque{
                 $this->$method($value);
             }
         }
+    }
+    public function setDatevalidation($datevalidation){
+        $this->datevalidation=$datevalidation;
+    }
+    public function setTempsvalidation($tempsvalidation){
+        $this->tempsvalidation=$tempsvalidation;
     }
     public function setMontant($montant){
         $this->montant=$montant;
@@ -64,7 +73,12 @@ class Cheque{
 
 
 
-
+    public function getDatevalidation(){
+        return $this->datevalidation;
+    }
+    public function getTempsvalidation(){
+        return $this->tempsvalidation;
+    }
     public function getMontant(){
         return $this->montant;
     }

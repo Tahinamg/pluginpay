@@ -4,7 +4,7 @@ header('Content-type: application/json; charset=utf-8"');
 function loadclass($class){
    
     require "../Model/".$class.'.class.php';
-   
+   //UPLOAD
 }
 
 spl_autoload_register("loadclass");
@@ -52,32 +52,32 @@ if($_POST['classification']=="mvola"){
     
     $date=new DateTime($_POST['date']);
     $comptableManagerMoney=new ComptableManagerMobileMoney(MyPDO::getMysqlConnexion());
-    $data=$comptableManagerMoney->ListPaiementMobileMoney($date->format('Y-m'),$_POST['motif'],$_POST['vague']);
+    $data=$comptableManagerMoney->ListPaiementMobileMoneyOrderByDateValidation($date->format('Y-m-d'),$_POST['motif'],$_POST['vague']);
     echo json_encode($data);
 }elseif($_POST['classification']=="western"){
     $date=new DateTime($_POST['date']);
     $ComptableManagerWestern=new ComptableManagerWestern(MyPDO::getMysqlConnexion());
-    $data=$ComptableManagerWestern->ListPaiementWestern($date->format('Y-m'),$_POST['motif'],$_POST['vague']);
+    $data=$ComptableManagerWestern->ListPaiementWestern($date->format('Y-m-d'),$_POST['motif'],$_POST['vague']);
     echo json_encode($data);
 }elseif($_POST['classification']=="cash"){
     $date=new DateTime($_POST['date']);
     $ComptableManagerVersement=new ComptableManagerVersement(MyPDO::getMysqlConnexion());
-    $data=$ComptableManagerVersement->ListPaiementVersement($date->format('Y-m'),$_POST['motif'],$_POST['vague']);
+    $data=$ComptableManagerVersement->ListPaiementVersement($date->format('Y-m-d'),$_POST['motif'],$_POST['vague']);
     echo json_encode($data);
 }elseif($_POST['classification']=="cheque"){
     $date=new DateTime($_POST['date']);
     $ComptableManagerCheque=new ComptableManagerCheque(MyPDO::getMysqlConnexion());
-    $data=$ComptableManagerCheque->ListPaiementCheque($date->format('Y-m'),$_POST['motif'],$_POST['vague']);
+    $data=$ComptableManagerCheque->ListPaiementCheque($date->format('Y-m-d'),$_POST['motif'],$_POST['vague']);
     echo json_encode($data);
 }elseif($_POST['classification']=="virement"){
     $date=new DateTime($_POST['date']);
     $ComptableManagerVirement=new ComptableManagerVirement(MyPDO::getMysqlConnexion());
-    $data=$ComptableManagerVirement->ListPaiementVirement($date->format('Y-m'),$_POST['motif'],$_POST['vague']);
+    $data=$ComptableManagerVirement->ListPaiementVirement($date->format('Y-m-d'),$_POST['motif'],$_POST['vague']);
     echo json_encode($data);
 }elseif($_POST['classification']=="MoneyGram"){
     $date=new DateTime($_POST['date']);
     $comptableManagerMoneyGram=new ComptableManagerMoneyGram(MyPDO::getMysqlConnexion());
-    $data=$comptableManagerMoneyGram->ListPaiementMoneyGram($date->format('Y-m'),$_POST['motif'],$_POST['vague']);
+    $data=$comptableManagerMoneyGram->ListPaiementMoneyGram($date->format('Y-m-d'),$_POST['motif'],$_POST['vague']);
     echo json_encode($data);
 }
 }

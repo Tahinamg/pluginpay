@@ -1,5 +1,6 @@
 <?php
 class ComptableManagerMobileMoney{
+    //UPLOAD
 protected $db;
 
     public function __construct($db)
@@ -115,8 +116,8 @@ protected $db;
         $sql->execute();
         $sql->closeCursor();
     }
-    public function ListPaiementMobileMoney($date,$motif,$vague){
-        $sql=$this->db->prepare("SELECT `IDMOBILEMONEY`,`SUIVRE`.`MATRICULE`,`CODE`,`NOM`,`PRENOM`,`NUMERO`,`REFERENCE`,`MOTIF`,`DATY`,`DATESERVER`,`MONTANT`,`OBSERVATION`,`DATEVALIDATION`,`TEMPSVALIDATION` FROM `SUIVRE` NATURAL JOIN `ETUDIANTS` NATURAL JOIN `MOBILEMONEY` WHERE `SUIVRE`.`IDETUDIANTS`=`MOBILEMONEY`.`IDETUDIANTS` AND `MOBILEMONEY`.`DATEVALIDATION` LIKE :datevalidation AND `CODE`=:vague AND `MOBILEMONEY`.`ETAT`='lu' AND `MOBILEMONEY`.`DECISION`='valide' AND `MOTIF`=:motif ORDER BY DATESERVER ASC");
+    public function ListPaiementMobileMoneyOrderByDateValidation($date,$motif,$vague){
+        $sql=$this->db->prepare("SELECT `IDMOBILEMONEY`,`SUIVRE`.`MATRICULE`, `CODE` AS VAGUE,`NOM`,`PRENOM`,`NUMERO`,`REFERENCE`,`MOTIF`,`DATY`,`DATESERVER`,`MONTANT`,`OBSERVATION`,`DATEVALIDATION`,`TEMPSVALIDATION` FROM (`MOBILEMONEY` LEFT OUTER JOIN `SUIVRE` ON `MOBILEMONEY`.`IDETUDIANTS`=`SUIVRE`.`IDETUDIANTS`) LEFT OUTER JOIN `ETUDIANTS` ON `ETUDIANTS`.`IDETUDIANTS`=`MOBILEMONEY`.`IDETUDIANTS` AND `MOBILEMONEY`.`DATEVALIDATION` LIKE :datevalidation AND `CODE`=:vague AND `MOBILEMONEY`.`ETAT`='lu' AND `MOBILEMONEY`.`DECISION`='valide' AND `MOTIF`=:motif ORDER BY DATEVALIDATION ASC");
         $date.="%";
         $sql->bindValue(":datevalidation",$date,PDO::PARAM_STR);
         $sql->bindValue(":vague",$vague,PDO::PARAM_STR);
@@ -133,8 +134,8 @@ protected $db;
         return $data;
        
     }
-    public function ListPaiementMobileMoneyByReference($reference){
-        $sql=$this->db->prepare("SELECT `SUIVRE`.`MATRICULE`,`ETUDIANTS`.`NOM`,`ETUDIANTS`.`PRENOM`,`ETUDIANTS`.`IDETUDIANTS`,`MOTIF`,`SEMESTRE`,`MOBILEMONEY`.`REFERENCE`,`DATY`,`MOBILEMONEY`.`MONTANT`,`IDMOBILEMONEY`,`MOBILEMONEY`.`ETAT`,`MOBILEMONEY`.`DECISION`,`DATESERVER`,`OBSERVATION` FROM `MOBILEMONEY` NATURAL JOIN `SUIVRE`,`ETUDIANTS` WHERE `REFERENCE`=:reference ORDER BY `IDMOBILEMONEY` ASC");
+    public function ListPaiementMobileMoneyByReferenceOrderByDateValidation($reference){
+        $sql=$this->db->prepare("SELECT `SUIVRE`.`MATRICULE`,`ETUDIANTS`.`NOM`,`ETUDIANTS`.`PRENOM`,`ETUDIANTS`.`IDETUDIANTS`,`MOTIF`,`SEMESTRE`,`MOBILEMONEY`.`REFERENCE`,`DATY`,`MOBILEMONEY`.`MONTANT`,`IDMOBILEMONEY`,`MOBILEMONEY`.`ETAT`,`MOBILEMONEY`.`DECISION`,`DATESERVER`,`OBSERVATION`,`DATEVALIDATION`,`TEMPSVALIDATION` FROM `MOBILEMONEY` NATURAL JOIN `SUIVRE`,`ETUDIANTS` WHERE `REFERENCE`=:reference ORDER BY `DATEVALIDATION` ASC");
         $sql->bindValue(":reference",$reference,PDO::PARAM_STR);
         $sql->execute();
         $data=$sql->fetchAll();

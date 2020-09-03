@@ -1,16 +1,19 @@
 <?php
 class Versement{
+    //UPLOAD
     protected $nbordereaux;	
     protected $daty;
     protected $agence;
-    protected  $idetudiants;
-    protected   $motif ;
-    protected   $etat;
+    protected $idetudiants;
+    protected $motif ;
+    protected $etat;
     protected $decision;
     protected $dateserver;
     protected $montant;
     protected $observation;
     protected $dateversement;
+    protected $datevalidation;
+    protected $tempsvalidation;
 
 
     public function __construct($donnes)
@@ -27,7 +30,12 @@ class Versement{
             }
         }
     }
-
+    public function setDatevalidation($datevalidation){
+        $this->datevalidation=$datevalidation;
+    }
+    public function setTempsvalidation($tempsvalidation){
+        $this->tempsvalidation=$tempsvalidation;
+    }
     public function setMontant($montant){
         $this->montant=$montant;
     }
@@ -63,7 +71,12 @@ class Versement{
     }
 
 
-
+    public function getDatevalidation(){
+        return $this->datevalidation;
+    }
+    public function getTempsvalidation(){
+        return $this->tempsvalidation;
+    }
     public function getNbordereaux(){
         return $this->nbordereaux;
     }

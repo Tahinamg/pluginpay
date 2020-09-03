@@ -14,7 +14,7 @@ protected $db;
 
 
     public function VoirWestern(){
-        $sql=$this->db->query("SELECT `MATRICULE`,`NOM`,`PRENOM`,`ETUDIANTS`.`IDETUDIANTS`,`MOTIF`,`SEMESTRE`,`WESTERN`.`MONTANT`,`IDWESTERN`,`ETAT`,`DECISION`,`DATESERVER`,`NSUIVI`,`NOMEXP`,`MONTANTWESTERN`,`OBSERVATION` FROM `WESTERN` NATURAL JOIN `SUIVRE`,`ETUDIANTS` WHERE `ETUDIANTS`.`IDETUDIANTS`=`WESTERN`.`IDETUDIANTS` AND `WESTERN`.`ETAT`='non lu' ORDER BY `IDWESTERN` ASC");
+        $sql=$this->db->query("SELECT `MATRICULE`,`NOM`,`PRENOM`,`ETUDIANTS`.`IDETUDIANTS`,`MOTIF`,`SEMESTRE`,`WESTERN`.`MONTANT`,`IDWESTERN`,`ETAT`,`DECISION`,`DATESERVER`,`NSUIVI`,`NOMEXP`,`MONTANTWESTERN`,`OBSERVATION`,`DATEVALIDATION`,`TEMPSVALIDATION` FROM `WESTERN` NATURAL JOIN `SUIVRE`,`ETUDIANTS` WHERE `ETUDIANTS`.`IDETUDIANTS`=`WESTERN`.`IDETUDIANTS` AND `WESTERN`.`ETAT`='non lu' ORDER BY `IDWESTERN` ASC");
         $data=$sql->fetchAll(PDO::FETCH_ASSOC);
         $sql->closeCursor();
         return $data;
@@ -27,7 +27,7 @@ protected $db;
         return $data;
     }
     public function ValiderEcolageViaWestern($qte,$matricule,$idwestern,$observation){
-        $sql1=$this->db->prepare("UPDATE `WESTERN` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDWESTERN`=:idwestern");
+        $sql1=$this->db->prepare("UPDATE `WESTERN` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation,`DATEVALIDATION`=CURRENT_DATE,`TEMPSVALIDATION`=CURRENT_TIME WHERE `IDWESTERN`=:idwestern");
         $sql1->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql1->bindValue(":idwestern",$idwestern,PDO::PARAM_INT);
         $sql1->execute();
@@ -42,7 +42,7 @@ protected $db;
     }
 
     Public function ValiderInscriptionViaWestern($matricule,$idwestern,$observation){
-        $sql=$this->db->prepare("UPDATE `WESTERN` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDWESTERN`=:idwestern");
+        $sql=$this->db->prepare("UPDATE `WESTERN` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation,`DATEVALIDATION`=CURRENT_DATE,`TEMPSVALIDATION`=CURRENT_TIME WHERE `IDWESTERN`=:idwestern");
         $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idwestern",$idwestern,PDO::PARAM_INT);
         $sql->execute();
@@ -57,7 +57,7 @@ protected $db;
     }
     
     public function ValiderRepechageViaWestern($idetudiant,$idwestern,$observation){
-        $sql=$this->db->prepare("UPDATE `WESTERN` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDWESTERN`=:idwestern");
+        $sql=$this->db->prepare("UPDATE `WESTERN` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation,`DATEVALIDATION`=CURRENT_DATE,`TEMPSVALIDATION`=CURRENT_TIME WHERE `IDWESTERN`=:idwestern");
         $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idwestern",$idwestern,PDO::PARAM_INT);
         $sql->execute();
@@ -69,7 +69,7 @@ protected $db;
         $sql->closeCursor();
     }
     public function ValiderDroitExamenViaWestern($matricule,$idwestern,$observation){
-        $sql=$this->db->prepare("UPDATE `WESTERN` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDWESTERN`=:idwestern");
+        $sql=$this->db->prepare("UPDATE `WESTERN` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation,`DATEVALIDATION`=CURRENT_DATE,`TEMPSVALIDATION`=CURRENT_TIME WHERE `IDWESTERN`=:idwestern");
         $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idwestern",$idwestern,PDO::PARAM_INT);
         $sql->execute();
@@ -85,7 +85,7 @@ protected $db;
 
 
     public function ValiderSoutenanceViaWestern($matricule,$idwestern,$observation){
-        $sql=$this->db->prepare("UPDATE `WESTERN` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDWESTERN`=:idwestern");
+        $sql=$this->db->prepare("UPDATE `WESTERN` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation,`DATEVALIDATION`=CURRENT_DATE,`TEMPSVALIDATION`=CURRENT_TIME WHERE `IDWESTERN`=:idwestern");
         $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idwestern",$idwestern,PDO::PARAM_INT);
         $sql->execute();
@@ -99,7 +99,7 @@ protected $db;
 
     }
     public function ValiderCertificat($matricule,$idwestern,$observation){
-        $sql=$this->db->prepare("UPDATE `WESTERN` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDWESTERN`=:idwestern");
+        $sql=$this->db->prepare("UPDATE `WESTERN` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation,`DATEVALIDATION`=CURRENT_DATE,`TEMPSVALIDATION`=CURRENT_TIME WHERE `IDWESTERN`=:idwestern");
         $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idwestern",$idwestern,PDO::PARAM_INT);
         $sql->execute();
@@ -120,8 +120,7 @@ protected $db;
     }
     
     public function ListPaiementWestern($date,$motif,$vague){
-        $sql=$this->db->prepare("SELECT `IDWESTERN`,`SUIVRE`.`MATRICULE`,`CODE`,`NOM`,`PRENOM`,`NUMERO`,`NSUIVI`,`NOMEXP`,`MONTANTWESTERN`,`MOTIF`,`DATESERVER`,`MONTANT`,`OBSERVATION` FROM `SUIVRE` NATURAL JOIN `ETUDIANTS` NATURAL JOIN `WESTERN` WHERE `SUIVRE`.`IDETUDIANTS`=`WESTERN`.`IDETUDIANTS` AND `WESTERN`.`DATESERVER` LIKE :datevalidation AND `CODE`=:vague AND `WESTERN`.`ETAT`='lu' AND `WESTERN`.`DECISION`='valide' AND `MOTIF`=:motif ORDER BY DATESERVER ASC");
-        $date.="%";
+        $sql=$this->db->prepare("SELECT `IDWESTERN`,`SUIVRE`.`MATRICULE`, `CODE` AS `VAGUE`,`NOM`,`PRENOM`,`NUMERO`,`NSUIVI`,`NOMEXP`,`MONTANTWESTERN`,`MOTIF`,`DATESERVER`,`MONTANT`,`OBSERVATION`,`DATEVALIDATION`,`TEMPSVALIDATION` FROM (`WESTERN` LEFT OUTER JOIN `SUIVRE` ON `WESTERN`.`IDETUDIANTS`=`SUIVRE`.`IDETUDIANTS`) LEFT OUTER JOIN `ETUDIANTS` ON `ETUDIANTS`.`IDETUDIANTS`=`WESTERN`.`IDETUDIANTS` WHERE `WESTERN`.`DATEVALIDATION` LIKE :datevalidation AND `CODE`=:vague AND `WESTERN`.`ETAT`='lu' AND `WESTERN`.`DECISION`='valide' AND `MOTIF`=:motif ORDER BY DATEVALIDATION ASC");
         $sql->bindValue(":datevalidation",$date,PDO::PARAM_STR);
         $sql->bindValue(":vague",$vague,PDO::PARAM_STR);
         $sql->bindValue(":motif",$motif,PDO::PARAM_STR);

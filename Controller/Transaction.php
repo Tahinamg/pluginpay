@@ -80,7 +80,9 @@ switch ($formatpaiement) {
                     'etat'=>"non lu",
                     'decision'=>"non prise",
                     'idetudiants'=>(int) $mpianatra['id'],
-                    'observation'=>"aucun"
+                    'observation'=>"aucun",
+                    "datevalidation"=>"non defini",
+                    "tempsvalidation"=>"non defini"
                 );
                 $western=new Western($data3);
                 $westernmanager=new WesternManager($db);
@@ -117,7 +119,9 @@ switch ($formatpaiement) {
             "montant"=>(string) $_POST['montant'],
             "idetudiants"=>(int) $mpianatra['id'],
             "observation"=>"aucun",
-            "dateversement"=>(string) $_POST['dateversement']
+            "dateversement"=>(string) $_POST['dateversement'],
+            "datevalidation"=>"non defini",
+            "tempsvalidation"=>"non defini"
         );
         $versement= new Versement($data);
         $versementmanager=new VersementManager($db);
@@ -155,7 +159,9 @@ switch ($formatpaiement) {
                     "etat"=>"non lu",
                     "decision"=>"non prise",
                     "montant"=>(string) $_POST['montant'],
-                    "observation"=>"aucun"
+                    "observation"=>"aucun",
+                    "datevalidation"=>"non defini",
+                    "tempsvalidation"=>"non defini"
                 );
                 $cheque=new Cheque($data);
                 $chequemanager = new ChequeManager($db);
@@ -188,7 +194,9 @@ switch ($formatpaiement) {
                 "decision"=>"non prise",
                 "montant"=>(string) $_POST['montant'],
                 "datevirement"=>(string) $_POST['datevirement'],
-                "observation"=>"aucun"
+                "observation"=>"aucun",
+                "datevalidation"=>"non defini",
+                "tempsvalidation"=>"non defini"
 
             );
             $virement=new Virement($data);
@@ -211,7 +219,7 @@ switch ($formatpaiement) {
             $regrefmoney='/[0-9]{4,12}/';
             $regmontant='/[0-9]{1,9}/';
             if(preg_match($regexpediteur,$_POST['ExpediteurMoney'])&&preg_match($regrefmoney,$_POST['RefMoney'])&&preg_match($regmontant,$_POST['montant'])&&preg_match($regmontantmoneygram,$_POST['MontantMoney'])&&preg_match($regmotif,$_POST['motif'])){
-                $datamoneygram=array("expediteur"=>(string) $_POST['ExpediteurMoney'],"reference"=>(string) $_POST['RefMoney'],"datymoneygram"=>(string) $_POST['DateMoney'],"montantmoneygram"=>(string) $_POST['MontantMoney'],"montant"=>$_POST['montant'],"observation"=>"aucun","motif"=>$_POST["motif"],"idetudiants"=>$mpianatra["id"],"decision"=>"non prise","etat"=>"non lu");
+                $datamoneygram=array("expediteur"=>(string) $_POST['ExpediteurMoney'],"reference"=>(string) $_POST['RefMoney'],"datymoneygram"=>(string) $_POST['DateMoney'],"montantmoneygram"=>(string) $_POST['MontantMoney'],"montant"=>$_POST['montant'],"observation"=>"aucun","motif"=>$_POST["motif"],"idetudiants"=>$mpianatra["id"],"decision"=>"non prise","etat"=>"non lu","datevalidation"=>"non defini","tempsvalidation"=>"non defini");
                 $moneygram=new MoneyGram($datamoneygram);
                 $moneygrammanager=new MoneyGramManager($db);
                 $moneygrammanager->setMoneyGram($moneygram);

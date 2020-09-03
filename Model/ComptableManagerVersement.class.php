@@ -1,6 +1,6 @@
 <?php
 class ComptableManagerVersement{
-
+//UPLOAD
     protected $db;
 
     public function __construct($db)
@@ -14,7 +14,7 @@ class ComptableManagerVersement{
 
 
     public function VoirVersement(){
-        $sql=$this->db->query("SELECT `MATRICULE`,`NOM`,`PRENOM`,`ETUDIANTS`.`IDETUDIANTS`,`MOTIF`,`SEMESTRE`,`VERSEMENT`.`MONTANT`,`IDVERSEMENT`,`ETAT`,`DECISION`,`DATESERVER`,`NBORDEREAUX`,`DATY`,`AGENCE`,`OBSERVATION`,`DATEVERSEMENT` FROM `VERSEMENT` NATURAL JOIN `SUIVRE`,`ETUDIANTS` WHERE `ETUDIANTS`.`IDETUDIANTS`=`VERSEMENT`.`IDETUDIANTS` AND `VERSEMENT`.`ETAT`='non lu' ORDER BY `IDVERSEMENT` ASC");
+        $sql=$this->db->query("SELECT `MATRICULE`,`NOM`,`PRENOM`,`ETUDIANTS`.`IDETUDIANTS`,`MOTIF`,`SEMESTRE`,`VERSEMENT`.`MONTANT`,`IDVERSEMENT`,`ETAT`,`DECISION`,`DATESERVER`,`NBORDEREAUX`,`DATY`,`AGENCE`,`OBSERVATION`,`DATEVERSEMENT`,`DATEVALIDATION`,`TEMPSVALIDATION` FROM `VERSEMENT` NATURAL JOIN `SUIVRE`,`ETUDIANTS` WHERE `ETUDIANTS`.`IDETUDIANTS`=`VERSEMENT`.`IDETUDIANTS` AND `VERSEMENT`.`ETAT`='non lu' ORDER BY `IDVERSEMENT` ASC");
         $data=$sql->fetchAll(PDO::FETCH_ASSOC);
         
         $sql->closeCursor();
@@ -28,7 +28,7 @@ class ComptableManagerVersement{
         return $data;
     }
     public function ValiderEcolageViaVersement($qte,$matricule,$idversement,$observation){
-        $sql1=$this->db->prepare("UPDATE `VERSEMENT` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDVERSEMENT`=:idversement");
+        $sql1=$this->db->prepare("UPDATE `VERSEMENT` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation,`DATEVALIDATION`=CURRENT_DATE,`TEMPSVALIDATION`=CURRENT_TIME WHERE `IDVERSEMENT`=:idversement");
         $sql1->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql1->bindValue(":idversement",$idversement,PDO::PARAM_INT);
         $sql1->execute();
@@ -42,7 +42,7 @@ class ComptableManagerVersement{
     }
 
     Public function ValiderInscriptionViaVersement($matricule,$idversement,$observation){
-        $sql=$this->db->prepare("UPDATE `VERSEMENT` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDVERSEMENT`=:idversement");
+        $sql=$this->db->prepare("UPDATE `VERSEMENT` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation,`DATEVALIDATION`=CURRENT_DATE,`TEMPSVALIDATION`=CURRENT_TIME WHERE `IDVERSEMENT`=:idversement");
         $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idversement",$idversement,PDO::PARAM_INT);
         $sql->execute();
@@ -57,7 +57,7 @@ class ComptableManagerVersement{
     }
     
     public function ValiderRepechageViaVersement($idetudiant,$idversement,$observation){
-        $sql=$this->db->prepare("UPDATE `VERSEMENT` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDVERSEMENT`=:idversement");
+        $sql=$this->db->prepare("UPDATE `VERSEMENT` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation,`DATEVALIDATION`=CURRENT_DATE,`TEMPSVALIDATION`=CURRENT_TIME WHERE `IDVERSEMENT`=:idversement");
         $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idversement",$idversement,PDO::PARAM_INT);
         $sql->execute();
@@ -68,7 +68,7 @@ class ComptableManagerVersement{
         $sql->execute();
     }
     public function ValiderDroitExamenViaVersement($matricule,$idversement,$observation){
-        $sql=$this->db->prepare("UPDATE `VERSEMENT` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDVERSEMENT`=:idversement");
+        $sql=$this->db->prepare("UPDATE `VERSEMENT` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation,`DATEVALIDATION`=CURRENT_DATE,`TEMPSVALIDATION`=CURRENT_TIME WHERE `IDVERSEMENT`=:idversement");
         $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idversement",$idversement,PDO::PARAM_INT);
         $sql->execute();
@@ -84,7 +84,7 @@ class ComptableManagerVersement{
 
 
     public function ValiderSoutenanceViaVersement($matricule,$idversement,$observation){
-        $sql=$this->db->prepare("UPDATE `VERSEMENT` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDVERSEMENT`=:idversement");
+        $sql=$this->db->prepare("UPDATE `VERSEMENT` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation,`DATEVALIDATION`=CURRENT_DATE,`TEMPSVALIDATION`=CURRENT_TIME WHERE `IDVERSEMENT`=:idversement");
         $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idversement",$idversement,PDO::PARAM_INT);
         $sql->execute();
@@ -99,7 +99,7 @@ class ComptableManagerVersement{
     }
 
     public function ValiderCertificat($matricule,$idversement,$observation){
-        $sql=$this->db->prepare("UPDATE `VERSEMENT` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDVERSEMENT`=:idversement");
+        $sql=$this->db->prepare("UPDATE `VERSEMENT` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation,`DATEVALIDATION`=CURRENT_DATE,`TEMPSVALIDATION`=CURRENT_TIME WHERE `IDVERSEMENT`=:idversement");
         $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idversement",$idversement,PDO::PARAM_INT);
         $sql->execute();
@@ -119,7 +119,7 @@ class ComptableManagerVersement{
         $sql->closeCursor();
     }
     public function ListPaiementVersement($date,$motif,$vague){
-        $sql=$this->db->prepare("SELECT `IDVERSEMENT`,`SUIVRE`.`MATRICULE`,`CODE`,`NOM`,`PRENOM`,`NUMERO`,`NBORDEREAUX`,`AGENCE`,`DATEVERSEMENT`,`MOTIF`,`DATESERVER`,`MONTANT`,`OBSERVATION` FROM `SUIVRE` NATURAL JOIN `ETUDIANTS` NATURAL JOIN `VERSEMENT` WHERE `SUIVRE`.`IDETUDIANTS`=`VERSEMENT`.`IDETUDIANTS` AND `VERSEMENT`.`DATESERVER` LIKE :datevalidation AND `CODE`=:vague AND `VERSEMENT`.`ETAT`='lu' AND `VERSEMENT`.`DECISION`='valide' AND `MOTIF`=:motif ORDER BY DATESERVER ASC");
+        $sql=$this->db->prepare("SELECT `IDVERSEMENT`,`SUIVRE`.`MATRICULE` , `CODE` AS `VAGUE`,`NOM`,`PRENOM`,`NUMERO`,`NBORDEREAUX`,`AGENCE`,`DATEVERSEMENT`,`MOTIF`,`DATESERVER`,`MONTANT`,`OBSERVATION`,`DATEVALIDATION`,`TEMPSVALIDATION` FROM (`VERSEMENT` LEFT OUTER JOIN `SUIVRE` ON `VERSEMENT`.`IDETUDIANTS`=`SUIVRE`.`IDETUDIANTS`) LEFT OUTER JOIN `ETUDIANTS` ON `ETUDIANTS`.`IDETUDIANTS`=`VERSEMENT`.`IDETUDIANTS` WHERE `VERSEMENT`.`DATEVALIDATION` = :datevalidation AND `VERSEMENT`.`MOTIF` =:motif AND `SUIVRE`.`CODE`=:vague AND `VERSEMENT`.`ETAT`='lu' AND `VERSEMENT`.`DECISION`='valide' ORDER BY DATEVALIDATION ASC");
         $date.="%";
         $sql->bindValue(":datevalidation",$date,PDO::PARAM_STR);
         $sql->bindValue(":vague",$vague,PDO::PARAM_STR);

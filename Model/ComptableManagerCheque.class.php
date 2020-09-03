@@ -1,7 +1,7 @@
 <?php
 class ComptableManagerCheque{
 protected $db;
-
+    //UPLOAD
     public function __construct($db)
     {
         $this->setDb($db);
@@ -13,7 +13,7 @@ protected $db;
 
 
     public function VoirCheque(){
-        $sql=$this->db->query("SELECT `MATRICULE`,`NOM`,`PRENOM`,`ETUDIANTS`.`IDETUDIANTS`,`MOTIF`,`SEMESTRE`,`CHEQUE`.`MONTANT`,`IDCHEQUE`,`ETAT`,`DECISION`,`TIREUR`,`ETABLISSEMENT`,`NCHEQUE`,`DATESERVER`,`OBSERVATION` FROM `CHEQUE` NATURAL JOIN `SUIVRE`,`ETUDIANTS` WHERE `ETUDIANTS`.`IDETUDIANTS`=`CHEQUE`.`IDETUDIANTS` AND `CHEQUE`.`ETAT`='non lu' ORDER BY `IDCHEQUE` ASC");
+        $sql=$this->db->query("SELECT `MATRICULE`,`NOM`,`PRENOM`,`ETUDIANTS`.`IDETUDIANTS`,`MOTIF`,`SEMESTRE`,`CHEQUE`.`MONTANT`,`IDCHEQUE`,`ETAT`,`DECISION`,`TIREUR`,`ETABLISSEMENT`,`NCHEQUE`,`DATESERVER`,`OBSERVATION`,`DATEVALIDATION`,`TEMPSVALIDATION` FROM `CHEQUE` NATURAL JOIN `SUIVRE`,`ETUDIANTS` WHERE `ETUDIANTS`.`IDETUDIANTS`=`CHEQUE`.`IDETUDIANTS` AND `CHEQUE`.`ETAT`='non lu' ORDER BY `IDCHEQUE` ASC");
          $data=$sql->fetchAll(PDO::FETCH_ASSOC);
         $sql->closeCursor();
         return $data;
@@ -27,7 +27,7 @@ protected $db;
         return $data;
     }
     public function ValiderEcolageViaCheque($qte,$matricule,$idCheque,$observation){
-        $sql1=$this->db->prepare("UPDATE `CHEQUE` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDCHEQUE`=:idCheque");
+        $sql1=$this->db->prepare("UPDATE `CHEQUE` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation,`DATEVALIDATION`=CURRENT_DATE,`TEMPSVALIDATION`=CURRENT_TIME WHERE `IDCHEQUE`=:idCheque");
         $sql1->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql1->bindValue(":idCheque",$idCheque,PDO::PARAM_INT);
         $sql1->execute();
@@ -41,7 +41,7 @@ protected $db;
     }
 
     Public function ValiderInscriptionViaCheque($matricule,$idCheque,$observation){
-        $sql=$this->db->prepare("UPDATE `CHEQUE` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDCHEQUE`=:idCheque");
+        $sql=$this->db->prepare("UPDATE `CHEQUE` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation,`DATEVALIDATION`=CURRENT_DATE,`TEMPSVALIDATION`=CURRENT_TIME WHERE `IDCHEQUE`=:idCheque");
         $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idCheque",$idCheque,PDO::PARAM_INT);
         $sql->execute();
@@ -56,7 +56,7 @@ protected $db;
     }
     
     public function ValiderRepechageViaCheque($idetudiant,$idCheque,$observation){
-        $sql=$this->db->prepare("UPDATE `CHEQUE` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDCHEQUE`=:idCheque");
+        $sql=$this->db->prepare("UPDATE `CHEQUE` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation,`DATEVALIDATION`=CURRENT_DATE,`TEMPSVALIDATION`=CURRENT_TIME WHERE `IDCHEQUE`=:idCheque");
         $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idCheque",$idCheque,PDO::PARAM_INT);
         $sql->execute();
@@ -68,7 +68,7 @@ protected $db;
         $sql->closeCursor();
     }
     public function ValiderDroitExamenViaCheque($matricule,$idCheque,$observation){
-        $sql=$this->db->prepare("UPDATE `CHEQUE` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDCHEQUE`=:idCheque");
+        $sql=$this->db->prepare("UPDATE `CHEQUE` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation,`DATEVALIDATION`=CURRENT_DATE,`TEMPSVALIDATION`=CURRENT_TIME WHERE `IDCHEQUE`=:idCheque");
         $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idCheque",$idCheque,PDO::PARAM_INT);
         $sql->execute();
@@ -84,7 +84,7 @@ protected $db;
 
 
     public function ValiderSoutenanceViaCheque($matricule,$idCheque,$observation){
-        $sql=$this->db->prepare("UPDATE `CHEQUE` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDCHEQUE`=:idCheque");
+        $sql=$this->db->prepare("UPDATE `CHEQUE` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation,`DATEVALIDATION`=CURRENT_DATE,`TEMPSVALIDATION`=CURRENT_TIME WHERE `IDCHEQUE`=:idCheque");
         $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idCheque",$idCheque,PDO::PARAM_INT);
         $sql->execute();
@@ -100,7 +100,7 @@ protected $db;
 
 
     public function ValiderCertificat($matricule,$idCheque,$observation){
-        $sql=$this->db->prepare("UPDATE `CHEQUE` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDCHEQUE`=:idCheque");
+        $sql=$this->db->prepare("UPDATE `CHEQUE` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation,`DATEVALIDATION`=CURRENT_DATE,`TEMPSVALIDATION`=CURRENT_TIME WHERE `IDCHEQUE`=:idCheque");
         $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idCheque",$idCheque,PDO::PARAM_INT);
         $sql->execute();
@@ -120,8 +120,7 @@ protected $db;
         $sql->closeCursor();
     }
     public function ListPaiementCheque($date,$motif,$vague){
-        $sql=$this->db->prepare("SELECT `IDCHEQUE`,`SUIVRE`.`MATRICULE`,`CODE`,`NOM`,`PRENOM`,`NUMERO`,`ETABLISSEMENT`,`TIREUR`,`NCHEQUE`,`MOTIF`,`DATESERVER`,`MONTANT`,`OBSERVATION` FROM `SUIVRE` NATURAL JOIN `ETUDIANTS` NATURAL JOIN `CHEQUE` WHERE `SUIVRE`.`IDETUDIANTS`=`CHEQUE`.`IDETUDIANTS` AND `CHEQUE`.`DATESERVER` LIKE :datevalidation AND `CODE`=:vague AND `CHEQUE`.`ETAT`='lu' AND `CHEQUE`.`DECISION`='valide' AND `MOTIF`=:motif ORDER BY DATESERVER ASC");
-        $date.="%";
+        $sql=$this->db->prepare("SELECT `IDCHEQUE`,`SUIVRE`.`MATRICULE`, `CODE` AS `VAGUE`,`NOM`,`PRENOM`,`NUMERO`,`ETABLISSEMENT`,`TIREUR`,`NCHEQUE`,`MOTIF`,`DATESERVER`,`MONTANT`,`OBSERVATION`,`DATEVALIDATION`,`TEMPSVALIDATION` FROM (`CHEQUE` LEFT OUTER JOIN `SUIVRE` ON `CHEQUE`.`IDETUDIANTS`=`SUIVRE`.`IDETUDIANTS`) LEFT OUTER JOIN `ETUDIANTS` ON `ETUDIANTS`.`IDETUDIANTS`=`CHEQUE`.`IDETUDIANTS` WHERE `CHEQUE`.`DATEVALIDATION` LIKE :datevalidation AND `CODE`=:vague AND `CHEQUE`.`ETAT`='lu' AND `CHEQUE`.`DECISION`='valide' AND `MOTIF`=:motif ORDER BY DATEVALIDATION ASC");
         $sql->bindValue(":datevalidation",$date,PDO::PARAM_STR);
         $sql->bindValue(":vague",$vague,PDO::PARAM_STR);
         $sql->bindValue(":motif",$motif,PDO::PARAM_STR);

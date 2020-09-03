@@ -1,5 +1,6 @@
 <?php
 class MoneyGram{
+    //UPLOAD
     protected $idmoneygram;
     protected $expediteur;
     protected $reference;
@@ -12,6 +13,8 @@ class MoneyGram{
     protected $idetudiants;
     protected $decision;
     protected $etat;
+    protected $tempsvalidation;
+    protected $datevalidation;
 public function __construct(array $data){
     $this->hydrate($data);
 }
@@ -24,7 +27,12 @@ public function hydrate(array $datahydrate){
         }
     }
 }
-
+    public function getTempsvalidation(){
+        return $this->tempsvalidation;
+    }
+    public function getDatevalidation(){
+        return $this->datevalidation;
+    }
     public function getIdmoneygram(){
         return $this->idmoneygram;
     }
@@ -62,7 +70,12 @@ public function hydrate(array $datahydrate){
         return $this->etat;
     }
 
-
+    public function setDatevalidation($datevalidation){
+        $this->datevalidation=$datevalidation;
+    }
+    public function setTempsvalidation($tempsvalidation){
+        $this->tempsvalidation=$tempsvalidation;
+    }
     public function setIdmoneygram($idmoneygram){
          $this->idmoneygram=$idmoneygram;
     }
