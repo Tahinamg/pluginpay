@@ -55,7 +55,7 @@ if(!isset($_SESSION['finance'])){
 
         <a href="#" id="classification" class="list-group-item list-group-item-action bg-light p-3 border-0"><i
             class="fas fa-clipboard-list lead mr-2"></i> Classification</a>
-        <a href="" id="stat" class="list-group-item list-group-item-action bg-light p-3 border-0"><i
+        <a href="#" id="stat" class="list-group-item list-group-item-action bg-light p-3 border-0"><i
             class="fas fa-chart-bar lead mr-2"></i> Statistique</a>
         <a href="#" id="recouvrement" class="list-group-item list-group-item-action bg-light p-3 border-0"><i
             class="fas fa-calculator lead mr-2"></i> Recouvrement</a>
@@ -87,7 +87,7 @@ if(!isset($_SESSION['finance'])){
         </div>
       </nav>
 
-      <section>
+      <section style="height: 100vh; overflow:scroll">
        
         <div id="welcoming" class="container-fluid p-5">
           <div>
@@ -122,7 +122,7 @@ if(!isset($_SESSION['finance'])){
 <script type="text/javascript" src="node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
 <script type="text/javascript" src="JS/all.min.js"></script>
 <script type="text/javascript" src="JS/bootstrap.min.js"></script>-->
-<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
 <script type="text/javascript" src="JS/AjaxNotification.js"></script>
 <script type="text/javascript" src="JS/AjaxAffichage.js"></script>
 <script type="text/javascript" src="JS/affichage.js"></script>

@@ -19,7 +19,7 @@ $(document).ready(function() {
                     })
                 }*/
                 if ($(this).val() == "ecolage") {
-                    var element = '<div id="qe" style="position:relative;opacity:0" class="form-group"><label for="nbm">Nombre de mois à payer</label><input id="nbm" type="number" class="form-control"  placeholder="Indiquez le nombre de mois d\'ecolage que vous voulez payez" name="nbecolage" required></div>';
+                    var element = '<div id="qe" style="position:relative;opacity:0" class="form-group"><label for="nbm">Nombre de mois à payer</label><input id="nbm" type="number" min="1" max="8" class="form-control"  placeholder="Indiquez le nombre de mois d\'ecolage que vous voulez payez" name="nbecolage" required></div>';
                     $("#motif").after(element);
                     $("#qe").animate({
                         opacity: 1,

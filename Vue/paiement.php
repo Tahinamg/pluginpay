@@ -447,19 +447,19 @@ include "../Controller/AccesPaiement.php";
     <input type="radio" class="custom-control-input" id="customradio6" <?php
     //REPECHAGE
     if ($mpianatra['nationalite'] == 'MG') {
-        echo 'data-value="' . ($mpianatra['repechage'] * 20000) . '"';
+        echo 'data-value="' . ($mpianatra['repechage'] * 15000) . '"';
     } else {
         echo 'data-value="' . ($mpianatra['repechage'] * 30) . '"';
     }
     
     
     ?> value="repechage" name="motif">
-    <label class="custom-control-label" for="customradio6">Droit de repechages
+    <label class="custom-control-label" for="customradio6">Droit de rep&ecirc;chage
     <?php
     if ($mpianatra['nationalite'] == 'MG') {
-        echo '(20 000 ARIARY/matières à repech&eacute;)';
+        echo '(15 000 ARIARY/matière à rep&ecirc;cher;)';
     } else {
-        echo '(30 € /matières à repech&eacute;) ';
+        echo '(30 € /matière à rep&ecirc;cher) ';
     }
     ?>
     </label>
