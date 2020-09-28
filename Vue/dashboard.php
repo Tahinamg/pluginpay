@@ -95,7 +95,7 @@ if(!isset($_SESSION['finance'])){
           </div>
         </div>
         <br>
-          <div class="table-responsive-xl" style="overflow-x: auto">
+          <div id="containertable" class="table-responsive-xl" style="overflow-x: auto">
             <table class="table table-responsive-xl table-hover w-auto">
             </table>
           </div>
@@ -124,8 +124,9 @@ if(!isset($_SESSION['finance'])){
 <script type="text/javascript" src="JS/bootstrap.min.js"></script>-->
 
 <script type="text/javascript" src="JS/AjaxNotification.js"></script>
-<script type="text/javascript" src="JS/AjaxAffichage.js"></script>
 <script type="text/javascript" src="JS/affichage.js"></script>
+<script type="text/javascript" src="JS/AjaxAffichage.js"></script>
+
 <script>
 $("#notification").click(
         function(){

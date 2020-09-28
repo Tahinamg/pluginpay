@@ -151,11 +151,11 @@ include "../Controller/AccesPaiement.php";
     <h5 align="center">Pour effectuer le paiement par Western Union veuillez nous contacter directement sur :</h5>
     <br>
     <div class="d-flex">
-    <img width="25px" src="Image/mail.png">
+    <img width="25px" src="paiement/Vue/Image/mail.png" alt="mail"/>
     <h6 style="margin-left: 5px;">: servicefinance@e-media.mg</h6>
     </div>
     <div class="d-flex">
-    <img width="25px" src="Image/tel.png">
+    <img width="25px" src="paiement/Vue/Image/tel.png" alt="tel"/>
     <h6 style="margin-left: 5px;">: 034 40 130 64</h6>
     </div>
     </div>

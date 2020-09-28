@@ -40,10 +40,8 @@ protected $db;
 
     }
     Public function ValiderInscriptionViaMobileMoney($matricule,$idmobilemoney,$observation){
-        $sql=$this->db->prepare("UPDATE `MOBILEMONEY` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDMOBILEMONEY`=:idmobilemoney,`DATEVALIDATION`=CURRENT_DATE,`TEMPSVALIDATION`=CURRENT_TIME");
-        $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
-        $sql->bindValue(":idmobilemoney",$idmobilemoney,PDO::PARAM_INT);
-        $sql->execute();
+        $sql=$this->db->prepare(" UPDATE `MOBILEMONEY` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation,`TEMPSVALIDATION`=CURRENT_TIME,`DATEVALIDATION`=CURRENT_DATE  WHERE `IDMOBILEMONEY`=:idmobilemoney");
+        $sql->execute(array(":observation"=>$observation,":idmobilemoney"=>$idmobilemoney));
         $sql->closeCursor();
 
 
