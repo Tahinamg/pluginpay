@@ -9,14 +9,18 @@ if(!isset($_SESSION['matricule'])){
 
 $db=MyPDO::getMysqlConnexion();
 $etudiantmanager=new EtudiantManager($db);
+$ProduitManager=new ProduitManager($db);
 $matricule=(string)$_SESSION["matricule"];
 $data=$etudiantmanager->createEtudiant($matricule);
 $etudiant=new Etudiant($data);
-$nationalite=(string)$etudiant->getNationalite();
-$semestre=(string)$etudiant->getSemestre();
 $id=(int)$etudiant->getIdetudiants();
 $repechage=$etudiantmanager->getRepechageEtudiant($id);
 
+$mpianatra = array("nationalite" =>(string)$etudiant->getNationalite(),
+                   "semestre" =>(string)$etudiant->getSemestre(),
+                    "id"=>$id,
+                    "repechage"=>$repechage[0]
+                );
 
 $donne=array(
     'nom'=>$etudiant->getNom(),
@@ -27,11 +31,6 @@ $donne=array(
 $inscri=array();
 $inscri=$etudiantmanager->dejaInscrit($donne);
 
-$mpianatra = array("nationalite" =>$nationalite,
-                   "semestre" =>$semestre,
-                    "id"=>$id,
-                    "repechage"=>$repechage[0]
-                );
 if($mpianatra["id"]==0){
     header("location:Connecter");
 }

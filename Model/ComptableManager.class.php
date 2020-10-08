@@ -121,6 +121,253 @@ public function doRecovery(array $recoveryData){
     
     }
 }
+
+public function doClassificationMvola(array $classification){
+    if(gettype($classification)!="array"){
+        throw new Exception("the parameter must be a array");
+    }
+    if(isset($classification["datevalidation"])){
+        if($classification["motif"]!='' && $classification["nationalite"]!=""){
+            if($classification["nationalite"]=="MG"){
+                $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,DATY,MONTANT,REFERENCE,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (MOBILEMONEY LEFT OUTER JOIN ETUDIANTS ON MOBILEMONEY.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON MOBILEMONEY.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation AND MOTIF=:motif AND NATIONALITE='MG'");
+            }else{
+                $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,DATY,MONTANT,REFERENCE,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (MOBILEMONEY LEFT OUTER JOIN ETUDIANTS ON MOBILEMONEY.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON MOBILEMONEY.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation AND MOTIF=:motif AND NATIONALITE!='MG'");
+            }
+            $requete->bindValue(":datevalidation",$classification["datevalidation"],PDO::PARAM_STR);
+            $requete->bindValue(":motif",$classification["motif"],PDO::PARAM_STR);
+            $requete->execute();
+            return $requete->fetchAll(PDO::FETCH_ASSOC);
+        }elseif(!empty($classification["motif"])){
+            $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,DATY,MONTANT,REFERENCE,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (MOBILEMONEY LEFT OUTER JOIN ETUDIANTS ON MOBILEMONEY.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON MOBILEMONEY.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation AND MOTIF=:motif ");
+            $requete->bindValue(":datevalidation",$classification["datevalidation"],PDO::PARAM_STR);
+            $requete->bindValue(":motif",$classification["motif"],PDO::PARAM_STR);
+            $requete->execute();
+            return $requete->fetchAll(PDO::FETCH_ASSOC);
+        }elseif(!empty($classification["nationalite"])){
+            if($classification["nationalite"]=="MG"){
+                $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,DATY,MONTANT,REFERENCE,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (MOBILEMONEY LEFT OUTER JOIN ETUDIANTS ON MOBILEMONEY.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON MOBILEMONEY.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation AND NATIONALITE='MG'");
+            }else{
+                $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,DATY,MONTANT,REFERENCE,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (MOBILEMONEY LEFT OUTER JOIN ETUDIANTS ON MOBILEMONEY.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON MOBILEMONEY.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation AND NATIONALITE!='MG'");
+            }
+            $requete->bindValue(":datevalidation",$classification["datevalidation"],PDO::PARAM_STR);
+            $requete->execute();
+            return $requete->fetchAll(PDO::FETCH_ASSOC);
+        }else{
+            $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,DATY,MONTANT,REFERENCE,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (MOBILEMONEY LEFT OUTER JOIN ETUDIANTS ON MOBILEMONEY.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON MOBILEMONEY.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation");
+            $requete->bindValue(":datevalidation",$classification["datevalidation"],PDO::PARAM_STR);
+            $requete->execute();
+            return $requete->fetchAll(PDO::FETCH_ASSOC);
+        }
+        
+    }
+
+    
+}
+
+
+public function doClassificationCheque(array $classification){
+    if(gettype($classification)!="array"){
+        throw new Exception("the parameter must be a array");
+    }
+    if(isset($classification["datevalidation"])){
+        if($classification["motif"]!='' && $classification["nationalite"]!=""){
+            if($classification["nationalite"]=="MG"){
+                $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,MONTANT,TIREUR,ETABLISSEMENT,NCHEQUE,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (CHEQUE LEFT OUTER JOIN ETUDIANTS ON CHEQUE.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON CHEQUE.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation AND MOTIF=:motif AND NATIONALITE='MG'");
+            }else{
+                $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,MONTANT,TIREUR,ETABLISSEMENT,NCHEQUE,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (CHEQUE LEFT OUTER JOIN ETUDIANTS ON CHEQUE.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON CHEQUE.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation AND MOTIF=:motif AND NATIONALITE!='MG'");
+            }
+            $requete->bindValue(":datevalidation",$classification["datevalidation"],PDO::PARAM_STR);
+            $requete->bindValue(":motif",$classification["motif"],PDO::PARAM_STR);
+            $requete->execute();
+            return $requete->fetchAll(PDO::FETCH_ASSOC);
+        }elseif(!empty($classification["motif"])){
+            $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,MONTANT,TIREUR,ETABLISSEMENT,NCHEQUE,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (CHEQUE LEFT OUTER JOIN ETUDIANTS ON CHEQUE.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON CHEQUE.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation AND MOTIF=:motif");
+            $requete->bindValue(":datevalidation",$classification["datevalidation"],PDO::PARAM_STR);
+            $requete->bindValue(":motif",$classification["motif"],PDO::PARAM_STR);
+            $requete->execute();
+            return $requete->fetchAll(PDO::FETCH_ASSOC);
+        }elseif(!empty($classification["nationalite"])){
+            if($classification["nationalite"]=="MG"){
+                $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,MONTANT,TIREUR,ETABLISSEMENT,NCHEQUE,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (CHEQUE LEFT OUTER JOIN ETUDIANTS ON CHEQUE.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON CHEQUE.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation AND NATIONALITE='MG'");
+            }else{
+                $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,MONTANT,TIREUR,ETABLISSEMENT,NCHEQUE,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (CHEQUE LEFT OUTER JOIN ETUDIANTS ON CHEQUE.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON CHEQUE.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation AND NATIONALITE!='MG'");
+            }
+            $requete->bindValue(":datevalidation",$classification["datevalidation"],PDO::PARAM_STR);
+            $requete->execute();
+            return $requete->fetchAll(PDO::FETCH_ASSOC);
+        }else{
+            $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,MONTANT,TIREUR,ETABLISSEMENT,NCHEQUE,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (CHEQUE LEFT OUTER JOIN ETUDIANTS ON CHEQUE.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON CHEQUE.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation");
+            $requete->bindValue(":datevalidation",$classification["datevalidation"],PDO::PARAM_STR);
+            $requete->execute();
+            return $requete->fetchAll(PDO::FETCH_ASSOC);
+        }
+        
+    }
+
+    
+}
+
+public function doClassificationMoneyGram(array $classification){
+    if(gettype($classification)!="array"){
+        throw new Exception("the parameter must be a array");
+    }
+    if(isset($classification["datevalidation"])){
+        if($classification["motif"]!='' && $classification["nationalite"]!=""){
+            if($classification["datevalidation"]=="MG"){
+                $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,DATYMONEYGRAM,REFERENCE,EXPEDITEUR,MONTANTMONEYGRAM,MONTANT,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (MONEYGRAM LEFT OUTER JOIN ETUDIANTS ON MONEYGRAM.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON MONEYGRAM.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation AND MOTIF=:motif AND NATIONALITE='MG'");
+            }else{
+                $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,DATYMONEYGRAM,REFERENCE,EXPEDITEUR,MONTANTMONEYGRAM,MONTANT,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (MONEYGRAM LEFT OUTER JOIN ETUDIANTS ON MONEYGRAM.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON MONEYGRAM.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation AND MOTIF=:motif AND NATIONALITE!='MG'");
+            }
+            $requete->bindValue(":datevalidation",$classification["datevalidation"],PDO::PARAM_STR);
+            $requete->bindValue(":motif",$classification["motif"],PDO::PARAM_STR);
+            $requete->execute();
+            return $requete->fetchAll(PDO::FETCH_ASSOC);
+        }elseif(!empty($classification["motif"])){
+            $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,DATYMONEYGRAM,REFERENCE,EXPEDITEUR,MONTANTMONEYGRAM,MONTANT,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (MONEYGRAM LEFT OUTER JOIN ETUDIANTS ON MONEYGRAM.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON MONEYGRAM.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation AND MOTIF=:motif");
+            $requete->bindValue(":datevalidation",$classification["datevalidation"],PDO::PARAM_STR);
+            $requete->bindValue(":motif",$classification["motif"],PDO::PARAM_STR);
+            $requete->execute();
+            return $requete->fetchAll(PDO::FETCH_ASSOC);
+        }elseif(!empty($classification["nationalite"])){
+            if($classification["nationalite"]=="MG"){
+                $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,DATYMONEYGRAM,REFERENCE,EXPEDITEUR,MONTANTMONEYGRAM,MONTANT,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (MONEYGRAM LEFT OUTER JOIN ETUDIANTS ON MONEYGRAM.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON MONEYGRAM.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation AND NATIONALITE='MG'");
+            }else{
+                $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,DATYMONEYGRAM,REFERENCE,EXPEDITEUR,MONTANTMONEYGRAM,MONTANT,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (MONEYGRAM LEFT OUTER JOIN ETUDIANTS ON MONEYGRAM.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON MONEYGRAM.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation AND NATIONALITE!='MG'");
+            }
+            $requete->bindValue(":datevalidation",$classification["datevalidation"],PDO::PARAM_STR);
+            $requete->execute();
+            return $requete->fetchAll(PDO::FETCH_ASSOC);
+        }else{
+            $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,DATYMONEYGRAM,REFERENCE,EXPEDITEUR,MONTANTMONEYGRAM,MONTANT,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (MONEYGRAM LEFT OUTER JOIN ETUDIANTS ON MONEYGRAM.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON MONEYGRAM.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation");
+            $requete->bindValue(":datevalidation",$classification["datevalidation"],PDO::PARAM_STR);
+            $requete->execute();
+            return $requete->fetchAll(PDO::FETCH_ASSOC);
+        }
+        
+    }
+}
+
+public function doClassificationVersement(array $classification){
+    if(gettype($classification)!="array"){
+        throw new Exception("the parameter must be a array");
+    }
+    if(isset($classification["datevalidation"])){
+        if($classification["motif"]!='' && $classification["nationalite"]!=""){
+            if($classification["nationalite"]=="MG"){
+              $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,DATEVERSEMENT,AGENCE,NBORDEREAUX,MONTANT,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (VERSEMENT LEFT OUTER JOIN ETUDIANTS ON VERSEMENT.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON VERSEMENT.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation AND MOTIF=:motif AND NATIONALITE='MG'");  
+            }else{
+                $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,DATEVERSEMENT,AGENCE,NBORDEREAUX,MONTANT,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (VERSEMENT LEFT OUTER JOIN ETUDIANTS ON VERSEMENT.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON VERSEMENT.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation AND MOTIF=:motif AND NATIONALITE!='MG'");  
+            }
+            
+            $requete->bindValue(":datevalidation",$classification["datevalidation"],PDO::PARAM_STR);
+            $requete->bindValue(":motif",$classification["motif"],PDO::PARAM_STR);
+            $requete->execute();
+            return $requete->fetchAll(PDO::FETCH_ASSOC);
+        }elseif(!empty($classification["motif"])){
+            $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,DATEVERSEMENT,AGENCE,NBORDEREAUX,MONTANT,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (VERSEMENT LEFT OUTER JOIN ETUDIANTS ON VERSEMENT.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON VERSEMENT.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation AND MOTIF=:motif");
+            $requete->bindValue(":datevalidation",$classification["datevalidation"],PDO::PARAM_STR);
+            $requete->bindValue(":motif",$classification["motif"],PDO::PARAM_STR);
+            $requete->execute();
+            return $requete->fetchAll(PDO::FETCH_ASSOC);
+        }elseif(!empty($classification["nationalite"])){
+            if($classification["nationalite"]=="MG"){
+                $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,DATEVERSEMENT,AGENCE,NBORDEREAUX,MONTANT,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (VERSEMENT LEFT OUTER JOIN ETUDIANTS ON VERSEMENT.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON VERSEMENT.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation AND NATIONALITE='MG'");
+            }else{
+                $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,DATEVERSEMENT,AGENCE,NBORDEREAUX,MONTANT,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (VERSEMENT LEFT OUTER JOIN ETUDIANTS ON VERSEMENT.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON VERSEMENT.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation AND NATIONALITE!='MG'");
+            }
+            $requete->bindValue(":datevalidation",$classification["datevalidation"],PDO::PARAM_STR);
+            $requete->execute();
+            return $requete->fetchAll(PDO::FETCH_ASSOC);
+        }else{
+            $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,DATEVERSEMENT,AGENCE,NBORDEREAUX,MONTANT,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (VERSEMENT LEFT OUTER JOIN ETUDIANTS ON VERSEMENT.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON VERSEMENT.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation");
+            $requete->bindValue(":datevalidation",$classification["datevalidation"],PDO::PARAM_STR);
+            $requete->execute();
+            return $requete->fetchAll(PDO::FETCH_ASSOC);
+        }
+        
+    }
+}
+
+public function doClassificationVirement(array $classification){
+    if(gettype($classification)!="array"){
+        throw new Exception("the parameter must be a array");
+    }
+    if(isset($classification["datevalidation"])){
+        if($classification["motif"]!='' && $classification["nationalite"]!=""){
+            if($classification["nationalite"]=="MG"){
+                $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,DATEVIREMENT,NCOMPTE,TITUCOMPTE,MONTANT,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (VIREMENT LEFT OUTER JOIN ETUDIANTS ON VIREMENT.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON VIREMENT.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation AND MOTIF=:motif AND NATIONALITE='MG'");
+            }else{
+                $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,DATEVIREMENT,NCOMPTE,TITUCOMPTE,MONTANT,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (VIREMENT LEFT OUTER JOIN ETUDIANTS ON VIREMENT.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON VIREMENT.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation AND MOTIF=:motif AND NATIONALITE!='MG'");
+            }
+            $requete->bindValue(":datevalidation",$classification["datevalidation"],PDO::PARAM_STR);
+            $requete->bindValue(":motif",$classification["motif"],PDO::PARAM_STR);
+            $requete->execute();
+            return $requete->fetchAll(PDO::FETCH_ASSOC);
+        }elseif(!empty($classification["motif"])){
+            $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,DATEVIREMENT,NCOMPTE,TITUCOMPTE,MONTANT,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (VIREMENT LEFT OUTER JOIN ETUDIANTS ON VIREMENT.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON VIREMENT.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation AND MOTIF=:motif");
+            $requete->bindValue(":datevalidation",$classification["datevalidation"],PDO::PARAM_STR);
+            $requete->bindValue(":motif",$classification["motif"],PDO::PARAM_STR);
+            $requete->execute();
+            return $requete->fetchAll(PDO::FETCH_ASSOC);
+        }elseif(!empty($classification["nationalite"])){
+            if($classification["nationalite"]=="MG"){
+                $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,DATEVIREMENT,NCOMPTE,TITUCOMPTE,MONTANT,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (VIREMENT LEFT OUTER JOIN ETUDIANTS ON VIREMENT.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON VIREMENT.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation AND NATIONALITE='MG'");
+            }else{
+                $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,DATEVIREMENT,NCOMPTE,TITUCOMPTE,MONTANT,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (VIREMENT LEFT OUTER JOIN ETUDIANTS ON VIREMENT.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON VIREMENT.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation AND NATIONALITE!='MG'");
+            }
+            $requete->bindValue(":datevalidation",$classification["datevalidation"],PDO::PARAM_STR);
+            $requete->execute();
+            return $requete->fetchAll(PDO::FETCH_ASSOC);
+        }else{
+            $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,DATEVIREMENT,NCOMPTE,TITUCOMPTE,MONTANT,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (VIREMENT LEFT OUTER JOIN ETUDIANTS ON VIREMENT.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON VIREMENT.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation");
+            $requete->bindValue(":datevalidation",$classification["datevalidation"],PDO::PARAM_STR);
+            $requete->execute();
+            return $requete->fetchAll(PDO::FETCH_ASSOC);
+        }
+        
+    }
+}
+
+public function doClassificationWestern(array $classification){
+    if(gettype($classification)!="array"){
+        throw new Exception("the parameter must be a array");
+    }
+    if(isset($classification["datevalidation"])){
+        if($classification["motif"]!='' && $classification["nationalite"]!=""){
+            if($classification["nationalite"]=="MG"){
+                $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,MONTANTWESTERN,MONTANT,NSUIVI,NOMEXP,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (WESTERN LEFT OUTER JOIN ETUDIANTS ON WESTERN.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON WESTERN.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation AND MOTIF=:motif AND NATIONALITE='MG'");
+            }else{
+                $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,MONTANTWESTERN,MONTANT,NSUIVI,NOMEXP,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (WESTERN LEFT OUTER JOIN ETUDIANTS ON WESTERN.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON WESTERN.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation AND MOTIF=:motif AND NATIONALITE!='MG'");
+            }
+            $requete->bindValue(":datevalidation",$classification["datevalidation"],PDO::PARAM_STR);
+            $requete->bindValue(":motif",$classification["motif"],PDO::PARAM_STR);
+            $requete->execute();
+            return $requete->fetchAll(PDO::FETCH_ASSOC);
+        }elseif(!empty($classification["motif"])){
+            $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,MONTANTWESTERN,MONTANT,NSUIVI,NOMEXP,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (WESTERN LEFT OUTER JOIN ETUDIANTS ON WESTERN.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON WESTERN.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation AND MOTIF=:motif");
+            $requete->bindValue(":datevalidation",$classification["datevalidation"],PDO::PARAM_STR);
+            $requete->bindValue(":motif",$classification["motif"],PDO::PARAM_STR);
+            $requete->execute();
+            return $requete->fetchAll(PDO::FETCH_ASSOC);
+        }elseif(!empty($classification["nationalite"])){
+            if($classification["nationalite"]=="MG"){
+            $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,MONTANTWESTERN,MONTANT,NSUIVI,NOMEXP,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (WESTERN LEFT OUTER JOIN ETUDIANTS ON WESTERN.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON WESTERN.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation AND NATIONALITE='MG'");
+            }else{
+            $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,MONTANTWESTERN,MONTANT,NSUIVI,NOMEXP,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (WESTERN LEFT OUTER JOIN ETUDIANTS ON WESTERN.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON WESTERN.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation AND NATIONALITE!='MG'");
+            }
+            $requete->bindValue(":datevalidation",$classification["datevalidation"],PDO::PARAM_STR);
+            $requete->execute();
+            return $requete->fetchAll(PDO::FETCH_ASSOC);
+        }else{
+            $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,MONTANTWESTERN,MONTANT,NSUIVI,NOMEXP,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (WESTERN LEFT OUTER JOIN ETUDIANTS ON WESTERN.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON WESTERN.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation");
+            $requete->bindValue(":datevalidation",$classification["datevalidation"],PDO::PARAM_STR);
+            $requete->execute();
+            return $requete->fetchAll(PDO::FETCH_ASSOC);
+        }
+        
+    }
+}
+
 }
 
 ?>

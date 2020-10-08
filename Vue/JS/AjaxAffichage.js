@@ -1,4 +1,3 @@
-//UPLOAD
 $("document").ready(function () {
         var controlitem = $("<form class=\"controleritem mt-3 form-inline\" >\
             <div class=\"form-group\"  align=\"center\">\
@@ -92,7 +91,6 @@ $("document").ready(function () {
                         },
                         dataType: "json",
                         success: function (dataa) {
-                            alert('e');
                             $(".table").empty();
                             $(".table").append(ententerecouvrement);
                             $(".table").append(
@@ -138,30 +136,27 @@ $("document").ready(function () {
             clearInterval(ajourlistwestern);
             clearInterval(ajourlistmvola);
             clearInterval(ajourlistmoneygram);
+
+            //mettre en place HTML du classsification
             $("#welcoming").empty();
             $(".controleritem,.containerpromo").remove();
             $(".table").empty();
             $("<form class=\"controleritem mt-3 form-inline\" >\
             <div class=\"form-group\"  align=\"center\">\
-            <label class=\"ml-3\">Date :</label>\
-            <input type=\"date\" id=\"bo\" class=\"p-2 ml-1 form-control\">\
-            <label class=\"ml-3\">Motif  :</label>\
-            <select id=\"motif\" name=\"motif\" class=\"p-2 ml-1 form-control\">\
+            <label class=\"ml-3\">Date de validation :</label>\
+            <input type=\"date\" id=\"datevalidation\" class=\"p-2 ml-1 form-control\">\
+            <label class=\"ml-3\">Motif  du paiement:</label>\
+            <select id=\"motifdepaiement\" name=\"motif\" class=\"p-2 ml-1 form-control\">\
+            <option selected value=''>Choisir un motif</option>\
             <option value=\"ecolage\">Ecolage</option>\
             <option value=\"inscription\">Inscription</option>\
-            <option value=\"soutenance\">Soutenance</option>\
-            <option value=\"examen\">Examen</option>\
-            <option value=\"certificat\">Certificat</option>\
-            </select>\
-            <label class=\"ml-3\">Vague :</label>\
-            <select id=\"month\" name=\"month\" class=\"p-2 ml-1 form-control\">\
-            <option value=\"1\">vague 1</option>\
-            <option value=\"2\">vague 2</option>\
-            <option value=\"3\">vague 3</option>\
-            <option value=\"4\">vague 4</option>\
+            <option value=\"Droit de soutenance\">Droit de soutenance</option>\
+            <option value=\"droit examen semestriel\">Droit examen semestriel</option>\
+            <option value=\"certificat\">certificat</option>\
+            <option value='repechage'>Repechage</option>\
             </select>\
             <label class=\"ml-3\">Mode de paiement :</label>\
-            <select id=\"paiement\" name=\"paiement\" class=\"p-2 ml-1 form-control\">\
+            <select id=\"modepaiement\" name=\"modepaiement\" class=\"p-2 ml-1 form-control\">\
             <option value=\"mvola\">Mvola</option>\
             <option value=\"cheque\">Cheque</option>\
             <option value=\"versement\">Versement</option>\
@@ -169,43 +164,327 @@ $("document").ready(function () {
             <option value=\"western\">Western</option>\
             <option value=\"MoneyGram\">MoneyGram</option>\
             </select>\
-    </div></form>").insertBefore(".table");
-            $(".table").append(
-                "<thead>\
-                <tr>\
-                    <th>IdWestern</th>\
-                    <th>Matricule</th>\
-                    <th>Vague</th>\
-                    <th>Nom</th>\
-                    <th>Prenom</th>\
-                    <th>Numero</th>\
-                    <th>Nsuivi</th>\
-                    <th>NomExpediteur</th>\
-                    <th>MontantWestern</th>\
-                    <th>Motif</th>\
-                    <th>DateEnvoi</th>\
-                    <th>Montant</th>\
-                    <th>Observation</th>\
-                </tr>\
-            </thead>\
-            </tbody>\
-                <tr>\
-                    <td>test</td>\
-                    <td>test</td>\
-                    <td>test</td>\
-                    <td>test</td>\
-                    <td>test</td>\
-                    <td>test</td>\
-                    <td>test</td>\
-                    <td>test</td>\
-                    <td>test</td>\
-                    <td>test</td>\
-                    <td>test</td>\
-                    <td>test</td>\
-                    <td>test</td>\
-                </tr>\
-            </tbody>"
-            );
+            <div class='form-group'>\
+            <label>&nbsp; &nbsp; Dans quelle nationalite</label>\
+            <select class='form-control' id='nationalite' name='classification'>\
+                <option selected value=''>--nationalite--</option>\
+                <option value='MG' >MALAGASY</option>\
+                <option  value='ET' >ETRANGER</option>\
+            <select>\
+            <div>\
+            <div class='form-group m-3'>\
+            <input type='button' id='searchclassification' class='btn btn-success' value='Rechercher'/>\
+            </div>\
+            </div></form>").insertBefore(".table");
+
+            $("#searchclassification").click(function(){
+                $(".notification").remove();
+                $(".table").empty();
+                $.post("../Controller/ControlClassification.php",{classification:$("#modepaiement").val(), datevalidation : $("#datevalidation").val(),
+                motif : $("#motifdepaiement").val(),nationalite:$("#nationalite").val()},
+                    function (jsonresponse, textStatus, jqXHR) {
+                    
+                        switch ($("#modepaiement").val()) {
+                            case "mvola":
+                            if(jsonresponse.length==0){
+                                    $("#containertable").append("<h2 class='notification' >Aucun resultat de votre recherche</h2>");
+                            }else{
+                                $(".table").append(
+                                    "<thead>\
+                                        <tr>\
+                                            <th>MATRICULE</th>\
+                                            <th>NOM</th>\
+                                            <th>PRENOM</th>\
+                                            <th>NATIONALITE</th>\
+                                            <th>MAIL</th>\
+                                            <th>NUMERO</th>\
+                                            <th>DATE D'INSERTION</th>\
+                                            <th>DATE AU GUICHET</th>\
+                                            <th>MONTANT</th>\
+                                            <th>REFERENCE</th>\
+                                            <th>OBSERVATION</th>\
+                                            <th>DATEVALIDATION</th>\
+                                            <th>TEMPSVALIDATION</th>\
+                                            <th>MOTIF</th>\
+                                        </tr>\
+                                    </thead>\
+                                    <tbody>\
+                                    </tbody>");
+
+                                    for(var i=0;i < jsonresponse.length;i++){                          
+                                        $("tbody").append("\
+                                        <tr>\
+                                        <td>"+jsonresponse[i]["MATRICULE"]+"</td>\
+                                        <td>"+jsonresponse[i]["NOM"]+"</td>\
+                                        <td>"+jsonresponse[i]["PRENOM"]+"</td>\
+                                        <td>"+jsonresponse[i]["NATIONALITE"]+"</td>\
+                                        <td>"+jsonresponse[i]["MAIL"]+"</td>\
+                                        <td>"+jsonresponse[i]["NUMERO"]+"</td>\
+                                        <td>"+jsonresponse[i]["DATESERVER"]+"</td>\
+                                        <td>"+jsonresponse[i]["DATY"]+"</td>\
+                                        <td>"+jsonresponse[i]["MONTANT"]+"</td>\
+                                        <td>"+jsonresponse[i]["REFERENCE"]+"</td>\
+                                        <td>"+jsonresponse[i]["OBSERVATION"]+"</td>\
+                                        <td>"+jsonresponse[i]["DATEVALIDATION"]+"</td>\
+                                        <td>"+jsonresponse[i]["TEMPSVALIDATION"]+"</td>\
+                                        <td>"+jsonresponse[i]["MOTIF"]+"</td>\
+                                        </tr>");
+                                    }
+                                }
+                                break;
+                        
+                            case "cheque":
+                                if(jsonresponse.length==0){
+                                    $("#containertable").append("<h2 class='notification' >Aucun resultat de votre recherche</h2>");
+                            }else{
+                                $(".table").append(
+                                    "<thead>\
+                                        <tr>\
+                                            <th>MATRICULE</th>\
+                                            <th>NOM</th>\
+                                            <th>PRENOM</th>\
+                                            <th>NATIONALITE</th>\
+                                            <th>MAIL</th>\
+                                            <th>NUMERO</th>\
+                                            <th>DATE D'INSERTION</th>\
+                                            <th>MONTANT</th>\
+                                            <th>TIREUR</th>\
+                                            <th>ETABLISSEMENT</th>\
+                                            <th>NUMERO DU CHEQUE</th>\
+                                            <th>OBSERVATION</th>\
+                                            <th>DATEVALIDATION</th>\
+                                            <th>TEMPSVALIDATION</th>\
+                                            <th>MOTIF</th>\
+                                        </tr>\
+                                    </thead>\
+                                    <tbody>\
+                                    </tbody>");
+                                    for(var i=0;i < jsonresponse.length;i++){                          
+                                        $("tbody").append("\
+                                        <tr>\
+                                        <td>"+jsonresponse[i]["MATRICULE"]+"</td>\
+                                        <td>"+jsonresponse[i]["NOM"]+"</td>\
+                                        <td>"+jsonresponse[i]["PRENOM"]+"</td>\
+                                        <td>"+jsonresponse[i]["NATIONALITE"]+"</td>\
+                                        <td>"+jsonresponse[i]["MAIL"]+"</td>\
+                                        <td>"+jsonresponse[i]["NUMERO"]+"</td>\
+                                        <td>"+jsonresponse[i]["DATESERVER"]+"</td>\
+                                        <td>"+jsonresponse[i]["MONTANT"]+"</td>\
+                                        <td>"+jsonresponse[i]["TIREUR"]+"</td>\
+                                        <td>"+jsonresponse[i]["ETABLISSEMENT"]+"</td>\
+                                        <td>"+jsonresponse[i]["NCHEQUE"]+"</td>\
+                                        <td>"+jsonresponse[i]["OBSERVATION"]+"</td>\
+                                        <td>"+jsonresponse[i]["DATEVALIDATION"]+"</td>\
+                                        <td>"+jsonresponse[i]["TEMPSVALIDATION"]+"</td>\
+                                        <td>"+jsonresponse[i]["MOTIF"]+"</td>\
+                                        </tr>");
+                                    }
+                                }
+                                break;
+                            case "versement":
+                                if(jsonresponse.length==0){
+                                    $("#containertable").append("<h2 class='notification' >Aucun resultat de votre recherche</h2>");
+                            }else{
+                                $(".table").append(
+                                    "<thead>\
+                                        <tr>\
+                                            <th>MATRICULE</th>\
+                                            <th>NOM</th>\
+                                            <th>PRENOM</th>\
+                                            <th>NATIONALITE</th>\
+                                            <th>MAIL</th>\
+                                            <th>NUMERO</th>\
+                                            <th>DATE D'INSERTION</th>\
+                                            <th>DATE DU VERSEMENT</th>\
+                                            <th>AGENCE DU VERSEMENT</th>\
+                                            <th>NUMERO DU BORDEREAUX</th>\
+                                            <th>MONTANT</th>\
+                                            <th>OBSERVATION</th>\
+                                            <th>DATEVALIDATION</th>\
+                                            <th>TEMPSVALIDATION</th>\
+                                            <th>MOTIF</th>\
+                                        </tr>\
+                                    </thead>\
+                                    <tbody>\
+                                    </tbody>");
+                                    for(var i=0;i < jsonresponse.length;i++){                          
+                                        $("tbody").append("\
+                                        <tr>\
+                                        <td>"+jsonresponse[i]["MATRICULE"]+"</td>\
+                                        <td>"+jsonresponse[i]["NOM"]+"</td>\
+                                        <td>"+jsonresponse[i]["PRENOM"]+"</td>\
+                                        <td>"+jsonresponse[i]["NATIONALITE"]+"</td>\
+                                        <td>"+jsonresponse[i]["MAIL"]+"</td>\
+                                        <td>"+jsonresponse[i]["NUMERO"]+"</td>\
+                                        <td>"+jsonresponse[i]["DATESERVER"]+"</td>\
+                                        <td>"+jsonresponse[i]["DATEVERSEMENT"]+"</td>\
+                                        <td>"+jsonresponse[i]["AGENCE"]+"</td>\
+                                        <td>"+jsonresponse[i]["NBORDEREAUX"]+"</td>\
+                                        <td>"+jsonresponse[i]["MONTANT"]+"</td>\
+                                        <td>"+jsonresponse[i]["OBSERVATION"]+"</td>\
+                                        <td>"+jsonresponse[i]["DATEVALIDATION"]+"</td>\
+                                        <td>"+jsonresponse[i]["TEMPSVALIDATION"]+"</td>\
+                                        <td>"+jsonresponse[i]["MOTIF"]+"</td>\
+                                        </tr>");
+                                    }
+                                }
+                                
+                                break;
+                            case "virement":
+                                if(jsonresponse.length==0){
+                                    $("#containertable").append("<h2 class='notification' >Aucun resultat de votre recherche</h2>");
+                            }else{
+                                $(".table").append(
+                                    "<thead>\
+                                        <tr>\
+                                            <th>MATRICULE</th>\
+                                            <th>NOM</th>\
+                                            <th>PRENOM</th>\
+                                            <th>NATIONALITE</th>\
+                                            <th>MAIL</th>\
+                                            <th>NUMERO</th>\
+                                            <th>DATE D'INSERTION</th>\
+                                            <th>DATE DU VIREMENT</th>\
+                                            <th>NUMERO DU COMPTE</th>\
+                                            <th>TITULAIRE DU COMPTE</th>\
+                                            <th>MONTANT</th>\
+                                            <th>OBSERVATION</th>\
+                                            <th>DATEVALIDATION</th>\
+                                            <th>TEMPSVALIDATION</th>\
+                                            <th>MOTIF</th>\
+                                        </tr>\
+                                    </thead>\
+                                    <tbody>\
+                                    </tbody>");
+                                    for(var i=0;i < jsonresponse.length;i++){                          
+                                        $("tbody").append("\
+                                        <tr>\
+                                        <td>"+jsonresponse[i]["MATRICULE"]+"</td>\
+                                        <td>"+jsonresponse[i]["NOM"]+"</td>\
+                                        <td>"+jsonresponse[i]["PRENOM"]+"</td>\
+                                        <td>"+jsonresponse[i]["NATIONALITE"]+"</td>\
+                                        <td>"+jsonresponse[i]["MAIL"]+"</td>\
+                                        <td>"+jsonresponse[i]["NUMERO"]+"</td>\
+                                        <td>"+jsonresponse[i]["DATESERVER"]+"</td>\
+                                        <td>"+jsonresponse[i]["DATEVIREMENT"]+"</td>\
+                                        <td>"+jsonresponse[i]["NCOMPTE"]+"</td>\
+                                        <td>"+jsonresponse[i]["TITUCOMPTE"]+"</td>\
+                                        <td>"+jsonresponse[i]["MONTANT"]+"</td>\
+                                        <td>"+jsonresponse[i]["OBSERVATION"]+"</td>\
+                                        <td>"+jsonresponse[i]["DATEVALIDATION"]+"</td>\
+                                        <td>"+jsonresponse[i]["TEMPSVALIDATION"]+"</td>\
+                                        <td>"+jsonresponse[i]["MOTIF"]+"</td>\
+                                        </tr>");
+                                    }
+                                }
+                                break;
+                            case "western":
+                                if(jsonresponse.length==0){
+                                        $("#containertable").append("<h2 class='notification' >Aucun resultat de votre recherche</h2>");
+                                }else{
+                                    $(".table").append(
+                                        "<thead>\
+                                            <tr>\
+                                                <th>MATRICULE</th>\
+                                                <th>NOM</th>\
+                                                <th>PRENOM</th>\
+                                                <th>NATIONALITE</th>\
+                                                <th>MAIL</th>\
+                                                <th>NUMERO</th>\
+                                                <th>DATE D'INSERTION</th>\
+                                                <th>MONTANT ENVOYÉ</th>\
+                                                <th>MONTANT A DEVOIR</th>\
+                                                <th>NUMERO DE SUIVI</th>\
+                                                <th>NOM DE L'EXPEDITEUR</th>\
+                                                <th>OBSERVATION</th>\
+                                                <th>DATEVALIDATION</th>\
+                                                <th>TEMPSVALIDATION</th>\
+                                                <th>MOTIF</th>\
+                                            </tr>\
+                                        </thead>\
+                                        <tbody>\
+                                        </tbody>");
+                                        
+                                        for(var i=0;i < jsonresponse.length;i++){                          
+                                            $("tbody").append("\
+                                            <tr>\
+                                            <td>"+jsonresponse[i]["MATRICULE"]+"</td>\
+                                            <td>"+jsonresponse[i]["NOM"]+"</td>\
+                                            <td>"+jsonresponse[i]["PRENOM"]+"</td>\
+                                            <td>"+jsonresponse[i]["NATIONALITE"]+"</td>\
+                                            <td>"+jsonresponse[i]["MAIL"]+"</td>\
+                                            <td>"+jsonresponse[i]["NUMERO"]+"</td>\
+                                            <td>"+jsonresponse[i]["DATESERVER"]+"</td>\
+                                            <td>"+jsonresponse[i]["MONTANTWESTERN"]+"</td>\
+                                            <td>"+jsonresponse[i]["MONTANT"]+"</td>\
+                                            <td>"+jsonresponse[i]["NSUIVI"]+"</td>\
+                                            <td>"+jsonresponse[i]["NOMEXP"]+"</td>\
+                                            <td>"+jsonresponse[i]["OBSERVATION"]+"</td>\
+                                            <td>"+jsonresponse[i]["DATEVALIDATION"]+"</td>\
+                                            <td>"+jsonresponse[i]["TEMPSVALIDATION"]+"</td>\
+                                            <td>"+jsonresponse[i]["MOTIF"]+"</td>\
+                                            </tr>");
+                                        }
+                                }
+                                break;
+                            case "MoneyGram":
+                                if(jsonresponse.length==0){
+                                    $("#containertable").append("<h2 class='notification' >Aucun resultat de votre recherche</h2>");
+                            }else{
+                                $(".table").append(
+                                    "<thead>\
+                                        <tr>\
+                                            <th>MATRICULE</th>\
+                                            <th>NOM</th>\
+                                            <th>PRENOM</th>\
+                                            <th>NATIONALITE</th>\
+                                            <th>MAIL</th>\
+                                            <th>NUMERO</th>\
+                                            <th>DATE D'INSERTION</th>\
+                                            <th>DATE D'ENVOYE</th>\
+                                            <th>REFERENCE</th>\
+                                            <th>MONTANT ENVOYE</th>\
+                                            <th>MONTANT A DEVOIR</th>\
+                                            <th>NOM DE L'EXPEDITEUR</th>\
+                                            <th>OBSERVATION</th>\
+                                            <th>DATEVALIDATION</th>\
+                                            <th>TEMPSVALIDATION</th>\
+                                            <th>MOTIF</th>\
+                                        </tr>\
+                                    </thead>\
+                                    <tbody>\
+                                    </tbody>");
+                                    for(var i=0;i < jsonresponse.length;i++){                          
+                                        $("tbody").append("\
+                                        <tr>\
+                                        <td>"+jsonresponse[i]["MATRICULE"]+"</td>\
+                                        <td>"+jsonresponse[i]["NOM"]+"</td>\
+                                        <td>"+jsonresponse[i]["PRENOM"]+"</td>\
+                                        <td>"+jsonresponse[i]["NATIONALITE"]+"</td>\
+                                        <td>"+jsonresponse[i]["MAIL"]+"</td>\
+                                        <td>"+jsonresponse[i]["NUMERO"]+"</td>\
+                                        <td>"+jsonresponse[i]["DATESERVER"]+"</td>\
+                                        <td>"+jsonresponse[i]["DATYMONEYGRAM"]+"</td>\
+                                        <td>"+jsonresponse[i]["REFERENCE"]+"</td>\
+                                        <td>"+jsonresponse[i]["EXPEDITEUR"]+"</td>\
+                                        <td>"+jsonresponse[i]["MONTANTMONEYGRAM"]+"</td>\
+                                        <td>"+jsonresponse[i]["MONTANT"]+"</td>\
+                                        <td>"+jsonresponse[i]["OBSERVATION"]+"</td>\
+                                        <td>"+jsonresponse[i]["DATEVALIDATION"]+"</td>\
+                                        <td>"+jsonresponse[i]["TEMPSVALIDATION"]+"</td>\
+                                        <td>"+jsonresponse[i]["MOTIF"]+"</td>\
+                                        </tr>");
+                                    }
+                                }
+
+                                break;
+                        }
+                        
+                    },"JSON");
+            });
+
+           
+            
 
         });
 
@@ -857,31 +1136,31 @@ $("document").ready(function () {
                     for (var index = 0; index < jsonformat.length; index++) {
                         $("tbody").append(
                             "<tr><td>" + jsonformat[index]['NSUIVI'] + "</td><td>" + jsonformat[index]['NOMEXP'] + "</td><td>" + jsonformat[index]['MONTANTWESTERN'] + "</td><td>" + jsonformat[index]['MONTANT'] + "</td><td>" + jsonformat[index]['MOTIF'] + "</td><td>" + jsonformat[index]['MATRICULE'] + "</td><td>" + jsonformat[index]['NOM'] + "</td><td>" + jsonformat[index]['PRENOM'] + "</td><td>" + jsonformat[index]['SEMESTRE'] + "</td><td>" + jsonformat[index]['DATESERVER'] + "</td><td>" + jsonformat[index]['ETAT'] + "</td><td>" + jsonformat[index]['DECISION'] + "</td><td>" + jsonformat[index]['OBSERVATION'] + "</td><td>" + jsonformat[index]['DATEVALIDATION'] + "</td><td>" + jsonformat[index]['TEMPSVALIDATION'] + "</td><td><a href='#' data-toggle='modal' data-target='#myModal" + index + "' ><i class='mx-1 fas fa-check text-success'></i></a> <a href='#' data-toggle='modal' data-target='#refuModal" + index + "'><i class='mx-1 fas fa-window-close text-danger'></i></a>\
-                                                                                                <div class='modal fade' id='myModal" + index + "'>\
-                                                                                                <div class='modal-dialog modal-sm'><div class='modal-content'>\
-                                                                                                <div class='modal-header'><h5 class='modal-title text-success'>Êtes-vous sur de valider?</h5><button type='button' class='close' data-dismiss='modal'>×</button></div>\
-                                                                                                <div class='modal-body'>\
-                                                                                                <form action='../Controller/ControlFinanceValidationWestern.php' method='POST'>\
-                                                                                                <div class=\"form-group\">\
-                                                                                                <label>Observation :</label>\
-                                                                                                <textarea class=\"form-control\" name=\"observation\" cols=\"25\" rows=\"3\" placeholder='" + jsonformat[index]['OBSERVATION'] + "' value=\"" + jsonformat[index]['OBSERVATION'] + "\"></textarea></div>\
-                                                                                                <div class=\"form-group\">\
-                                                                                                <label>Motif :</label>\
-                                                                                                <input type='hidden' value='" + jsonformat[index]['MOTIF'] + "' name='motif' />\
-                                                                                                <input type='hidden' value='" + jsonformat[index]['MATRICULE'] + "' name='matricule' />\
-                                                                                                <input type='hidden' value='" + jsonformat[index]['IDETUDIANTS'] + "' name='idetudiants' />\
-                                                                                                <input type='hidden' value='" + jsonformat[index]['IDWESTERN'] + "'name='idwestern'/>\
-                                                                                                <input class=\"form-control\" type='number' placeholder='0' name='quantite'/></div>\
-                                                                                                <input type='submit' class='btn btn-success' value='validation'/>\
-                                                                                                </form>\
-                                                                                                </div></div></div></div>\
-                                                                                                <div class='modal fade' id='refuModal" + index + "'><div class='modal-dialog modal-sm'><div class='modal-content'><div class='modal-header'><h4 class='modal-title text-danger'>REFUSER?</h4><button type='button' class='close' data-dismiss='modal'>×</button></div>\
-                                                                                                <div class='modal-body'>\
-                                                                                                <form method='POST' action='../Controller/ControlFinanceRefusWestern.php'>\
-                                                                                                <input type='hidden' value='" + jsonformat[index]['IDWESTERN'] + "' name='idwestern'/>\
-                                                                                                <input type='submit' value='refuser' class='btn btn-danger'/>\
-                                                                                                </form>\
-                                                                                                </div></div></div></div></td></tr>"
+                            <div class='modal fade' id='myModal" + index + "'>\
+                            <div class='modal-dialog modal-sm'><div class='modal-content'>\
+                            <div class='modal-header'><h5 class='modal-title text-success'>Êtes-vous sur de valider?</h5><button type='button' class='close' data-dismiss='modal'>×</button></div>\
+                            <div class='modal-body'>\
+                                <form action='../Controller/ControlFinanceValidationWestern.php' method='POST'>\
+                                        <div class=\"form-group\">\
+                                            <label>Observation :</label>\
+                                            <textarea class=\"form-control\" name=\"observation\" cols=\"25\" rows=\"3\" placeholder='" + jsonformat[index]['OBSERVATION'] + "' value=\"" + jsonformat[index]['OBSERVATION'] + "\"></textarea></div>\
+                                            <div class=\"form-group\">\
+                                            <label>Motif :</label>\
+                                            <input type='hidden' value='" + jsonformat[index]['MOTIF'] + "' name='motif' />\
+                                            <input type='hidden' value='" + jsonformat[index]['MATRICULE'] + "' name='matricule' />\
+                                            <input type='hidden' value='" + jsonformat[index]['IDETUDIANTS'] + "' name='idetudiants' />\
+                                            <input type='hidden' value='" + jsonformat[index]['IDWESTERN'] + "'name='idwestern'/>\
+                                            <input class=\"form-control\" type='number' placeholder='0' name='quantite'/></div>\
+                                            <input type='submit' class='btn btn-success' value='validation'/>\
+                                    </form>\
+                            </div></div></div></div>\
+                            <div class='modal fade' id='refuModal" + index + "'><div class='modal-dialog modal-sm'><div class='modal-content'><div class='modal-header'><h4 class='modal-title text-danger'>REFUSER?</h4><button type='button' class='close' data-dismiss='modal'>×</button></div>\
+                            <div class='modal-body'>\
+                                <form method='POST' action='../Controller/ControlFinanceRefusWestern.php'>\
+                                    <input type='hidden' value='" + jsonformat[index]['IDWESTERN'] + "' name='idwestern'/>\
+                                    <input type='submit' value='refuser' class='btn btn-danger'/>\
+                                </form>\
+                            </div></div></div></div></td></tr>"
                         );
 
 
@@ -1046,7 +1325,7 @@ $("document").ready(function () {
                                                             <input type='hidden' value='" + jsonformat[nombretd]['IDMONEYGRAM'] + "' name='idmoneygram'/>\
                                                             <input type='submit' value='refuser' class='btn btn-danger'/>\
                                                                 </form>\
-                                                                    </div></div></div></div></td></tr>"
+                                            </div></div></div></div></td></tr>"
                             );
 
                         }

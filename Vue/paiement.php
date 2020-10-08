@@ -184,7 +184,7 @@ include "../Controller/AccesPaiement.php";
         
         <dd>Compte SG MADAGASCAR - ANTANANARIVO - AMBANIDIA <BR/>00008 - 00019 - 04506001603 39</dd>";
     } else {
-        echo "CHEQUE,VIREMENT BANCAIRE</dt>
+        echo "<dt>CHEQUE,VIREMENT BANCAIRE</dt>
         
         <dd>Compte SG MADAGASCAR - ANTANANARIVO - AMBANIDIA <BR/>00008 - 00019 - 04506001603 39</dd>";
     }
@@ -205,54 +205,20 @@ include "../Controller/AccesPaiement.php";
     
     <div class="input-group mb-3 input-group-lg">
     <input type="hidden" name="montant" <?php
-    if ($mpianatra['nationalite'] == 'MG' && ($mpianatra['semestre'] == 'S1' || $mpianatra['semestre'] == 'S2' || $mpianatra['semestre'] == 'S3' || $mpianatra['semestre'] == 'S4' || $mpianatra['semestre'] == 'S5' || $mpianatra['semestre'] == 'S6')) {
         //reduction sur le montant s'il est deja inscri
-        
+        $Prix=$ProduitManager->getPrix($mpianatra['nationalite'],$mpianatra['semestre'],"inscription");
         if ($inscri[0] >= 1) {
             $inscriplusieursfois = $etudiantmanager->inscriPlusieursFois($donne);
             if ($inscriplusieursfois > 1) {
-                echo 'value=95000';
+            
+                echo 'value="'.(($Prix[0]["MONTANT"])/2).'"';
             } else {
-                echo 'value=190000';
+                echo 'value="'.($Prix[0]["MONTANT"]).'"';
             }
         } else {
-            echo 'value=190000';
+            echo 'value="'.($Prix[0]["MONTANT"]).'"';
         }
-    } else if ($mpianatra['nationalite'] == 'MG' && ($mpianatra['semestre'] == 'S7' || $mpianatra['semestre'] == 'S8' || $mpianatra['semestre'] == 'S9' || $mpianatra['semestre'] == 'S10')) {
-        if ($inscri[0] >= 1) {
-            $inscriplusieursfois = $etudiantmanager->inscriPlusieursFois($donne);
-            if ($inscriplusieursfois > 1) {
-                echo 'value=100000';
-            } else {
-                echo 'value=200000';
-            }
-        } else {
-            echo 'value=200000';
-        }
-    } else if ($mpianatra['nationalite'] !== 'MG' && ($mpianatra['semestre'] == 'S1' || $mpianatra['semestre'] == 'S2' || $mpianatra['semestre'] == 'S3' || $mpianatra['semestre'] == 'S4' || $mpianatra['semestre'] == 'S5' || $mpianatra['semestre'] == 'S6')) {
-        if ($inscri[0] >= 1) {
-            $inscriplusieursfois = $etudiantmanager->inscriPlusieursFois($donne);
-            if ($inscriplusieursfois > 1) {
-                echo 'value=50';
-            } else {
-                echo 'value=100';
-            }
-        } else {
-            echo 'value=100';
-        }
-    } else {
-        if ($inscri[0] >= 1) {
-            $inscriplusieursfois = $etudiantmanager->inscriPlusieursFois($donne);
-            if ($inscriplusieursfois > 1) {
-                echo 'value=60';
-            } else {
-                echo 'value=120';
-            }
-        } else {
-            echo 'value=120';
-        }
-    }
-    ?> class="form-control">
+   ?> class="form-control">
     </div>
     
     
@@ -261,171 +227,62 @@ include "../Controller/AccesPaiement.php";
     
     <div class="custom-control flex-fill form-check-inline custom-radio">
     <input type="radio" class="custom-control-input" id="customradio1" checked name="motif" <?php
-    //inscription selon semestre et  nationalite
-    if ($mpianatra['nationalite'] == 'MG' && ($mpianatra['semestre'] == "S7" || $mpianatra['semestre'] == "S8" || $mpianatra['semestre'] == "S9" || ['semestre'] == "S10")) {
-        
+    //inscription selon semestre et  nationalite        
         //Reduction raha efa nanao inscription izy
-        
+        $PrixInscription=$ProduitManager->getPrix($mpianatra['nationalite'],$mpianatra['semestre'],"inscription");
         if ($inscri[0] >= 1) {
             $inscriplusieursfois = $etudiantmanager->inscriPlusieursFois($donne);
             if ($inscriplusieursfois > 1) {
-                echo 'data-value="100000"';
+                echo 'data-value="'.(($PrixInscription[0]["MONTANT"])/2).'"';
             } else {
-                echo 'data-value="200000"';
+                echo 'data-value="'.($PrixInscription[0]["MONTANT"]).'"';
             }
         } else {
-            echo 'data-value="200000"';
+            echo 'data-value="'.($PrixInscription[0]["MONTANT"]).'"';
         }
-    } else if ($mpianatra['nationalite'] == 'MG') {
-        if ($inscri[0] >= 1) {
-            $inscriplusieursfois = $etudiantmanager->inscriPlusieursFois($donne);
-            if ($inscriplusieursfois > 1) {
-                echo 'data-value="95000"';
-            } else {
-                echo 'data-value="190000"';
-            }
-        } else {
-            echo 'data-value="190000"';
-        }
-    } else if ($mpianatra['nationalite'] !== 'MG' && ($mpianatra['semestre'] == "S7" || $mpianatra['semestre'] == "S8" || $mpianatra['semestre'] == "S9" || ['semestre'] == "S10")) {
-        if ($inscri[0] >= 1) {
-            $inscriplusieursfois = $etudiantmanager->inscriPlusieursFois($donne);
-            if ($inscriplusieursfois > 1) {
-                echo 'data-value="50"';
-            } else {
-                echo 'data-value="100"';
-            }
-        } else {
-            echo 'data-value="100"';
-        }
-    } else {
-        if ($inscri[0] >= 1) {
-            $inscriplusieursfois = $etudiantmanager->inscriPlusieursFois($donne);
-            if ($inscriplusieursfois > 1) {
-                echo 'data-value="60"';
-            } else {
-                echo 'data-value="120"';
-            }
-        } else {
-            echo 'data-value="120"';
-        }
-    }
+    
     ?>value="inscription">
     <label class="custom-control-label" for="customradio1">Droit d'inscription ou de reinscription
     <?php
-    if ($mpianatra['nationalite'] == 'MG' && ($mpianatra['semestre'] == "S7" || $mpianatra['semestre'] == "S9")) {
         if ($inscri[0] >= 1) {
             $inscriplusieursfois = $etudiantmanager->inscriPlusieursFois($donne);
             if ($inscriplusieursfois > 1) {
-                echo ' 100 000 ARIARY';
+                echo " ".(($PrixInscription[0]["MONTANT"])/2)." ".$PrixInscription[0]["DEVISE"]."  (montant réservé aux étudiants ayant choisi 2 filières)";
             } else {
-                echo ' 200 000 ARIARY';
+                echo " ".($PrixInscription[0]["MONTANT"])." ".$PrixInscription[0]["DEVISE"];
             }
         } else {
-            echo ' 200 000 ARIARY';
+            echo " ".($PrixInscription[0]["MONTANT"])." ".$PrixInscription[0]["DEVISE"];
         }
-    } else if ($mpianatra['nationalite'] == 'MG') {
-        if ($inscri[0] >= 1) {
-            $inscriplusieursfois = $etudiantmanager->inscriPlusieursFois($donne);
-            if ($inscriplusieursfois > 1) {
-                echo ' 95 000 ARIARY';
-            } else {
-                echo ' 190 000 ARIARY';
-            }
-        } else {
-            echo ' 190 000 ARIARY';
-        }
-    } else {
-        if ($inscri[0] >= 1) {
-            $inscriplusieursfois = $etudiantmanager->inscriPlusieursFois($donne);
-            if ($inscriplusieursfois > 1) {
-                echo "50 €";
-            } else {
-                echo "100 €";
-            }
-        } else {
-            echo "100 €";
-        }
-    } ?>
-    (montant réservé aux étudiants ayant choisi 2 filières)</label>
+     ?>
+    </label>
     </div>
     
     <div class="custom-control flex-fill form-check-inline custom-radio">
     <input type="radio" class="custom-control-input" id="customradio2" value="ecolage" <?php
     /*ecolage  data-value mpianatra locale ->critere semestre*/
-    if ($mpianatra['nationalite'] == 'MG' && ($mpianatra['semestre'] == "S1" || $mpianatra['semestre'] == "S2")) {
-        
-        echo ' data-value="200000" ';
-    } else if ($mpianatra['nationalite'] == 'MG' && ($mpianatra['semestre'] == "S3" || $mpianatra['semestre'] == "S4")) {
-        echo ' data-value="200000"';
-    } else if ($mpianatra['nationalite'] == 'MG' && ($mpianatra['semestre'] == "S5" || $mpianatra['semestre'] == "S6")) {
-        echo ' data-value="200000"';
-    } else if ($mpianatra['nationalite'] == 'MG' && ($mpianatra['semestre'] == "S7" || $mpianatra['semestre'] == "S8")) {
-        echo  'data-value="220000"';
-    } else if ($mpianatra['nationalite'] == 'MG' && ($mpianatra['semestre'] == "S9" || $mpianatra['semestre'] == "S10")) {
-        echo  'data-value="220000"';
-    }/*ecolage data-value  mpianatra etranger ->critere semestre*/ else if ($mpianatra['nationalite'] !== 'MG' && ($mpianatra['semestre'] == "S1" || $mpianatra['semestre'] == "S2")) {
-        echo  'data-value="100"';
-    } else if ($mpianatra['nationalite'] !== 'MG' && ($mpianatra['semestre'] == "S3" || $mpianatra['semestre'] == "S4")) {
-        echo  'data-value="100"';
-    } else if ($mpianatra['nationalite'] !== 'MG' && ($mpianatra['semestre'] == "S5" || $mpianatra['semestre'] == "S6")) {
-        echo  'data-value="100"';
-    } else if ($mpianatra['nationalite'] !== 'MG' && ($mpianatra['semestre'] == "S8" || $mpianatra['semestre'] == "S7")) {
-        echo  'data-value="140"';
-    } else if ($mpianatra['nationalite'] !== 'MG' && ($mpianatra['semestre'] == "S10" || $mpianatra['semestre'] == "S9")) {
-        echo  'data-value="140"';
-    }
-    
+    $PrixEcolage=$ProduitManager->getPrix($mpianatra['nationalite'],$mpianatra['semestre'],"ecolage");
+    echo ' data-value="'.($PrixEcolage[0]["MONTANT"]).'" ';
     ?> name="motif">
     <label class="custom-control-label" for="customradio2">Ecolage
     
     <?php
     /*ecolage mpianatra locale ->critere semestre*/
-    if ($mpianatra['nationalite'] == 'MG' && ($mpianatra['semestre'] == "S1" || $mpianatra['semestre'] == "S2")) {
-        
-        echo ' (200 000 ARIARY ~ 1 mois) ';
-    } else if ($mpianatra['nationalite'] == 'MG' && ($mpianatra['semestre'] == "S3" || $mpianatra['semestre'] == "S4")) {
-        echo ' (200 000 ARIARY ~ 1 mois)';
-    } else if ($mpianatra['nationalite'] == 'MG' && ($mpianatra['semestre'] == "S5" || $mpianatra['semestre'] == "S6")) {
-        echo ' (200 000 ARIARY ~ 1 mois)';
-    } else if ($mpianatra['nationalite'] == 'MG' && ($mpianatra['semestre'] == "S7" || $mpianatra['semestre'] == "S8")) {
-        echo  '(220 000 ARIARY ~ 1 mois)';
-    } else if ($mpianatra['nationalite'] == 'MG' && ($mpianatra['semestre'] == "S9" || $mpianatra['semestre'] == "S10")) {
-        echo  '(220 000 ARIARY ~ 1 mois)';
-    }/*ecolage mpianatra etranger ->critere semestre*/ else if ($mpianatra['nationalite'] !== 'MG' && ($mpianatra['semestre'] == "S1" || $mpianatra['semestre'] == "S2")) {
-        echo  '(100 € ~ 1 mois)';
-    } else if ($mpianatra['nationalite'] !== 'MG' && ($mpianatra['semestre'] == "S3" || $mpianatra['semestre'] == "S4")) {
-        echo  '(100 € ~ 1 mois)';
-    } else if ($mpianatra['nationalite'] !== 'MG' && ($mpianatra['semestre'] == "S5" || $mpianatra['semestre'] == "S6")) {
-        echo  '(100 € ~ 1 mois)';
-    } else if ($mpianatra['nationalite'] !== 'MG' && ($mpianatra['semestre'] == "S8" || $mpianatra['semestre'] == "S7")) {
-        echo  '(140 € ~ 1 mois)';
-    } else if ($mpianatra['nationalite'] !== 'MG' && ($mpianatra['semestre'] == "S10" || $mpianatra['semestre'] == "S9")) {
-        echo  '(140 € ~ 1 mois)';
-    }
-    
+    echo " (".($PrixEcolage[0]["MONTANT"])." ".$PrixEcolage[0]["DEVISE"]." ~ 1 mois) ";
     ?>
-    
     </label>
     </div>
     
     <div class="custom-control flex-fill form-check-inline custom-radio">
     <input type="radio" class="custom-control-input" id="customradio3" value="droit examen semestriel" <?php
     //EXAMEN SEMESTRIEL
-    if ($mpianatra['nationalite'] == 'MG') {
-        echo 'data-value="20000"';
-    } else {
-        echo 'data-value="30"';
-    }
+    $PrixDES=$ProduitManager->getPrix($mpianatra['nationalite'],$mpianatra['semestre'],"droit examen semestriel");
+    echo ' data-value="'.($PrixDES[0]["MONTANT"]).'" ';
     ?> name="motif">
     <label class="custom-control-label" for="customradio3">Droit d'examen semestriel
     
     <?php
-    if ($mpianatra['nationalite'] == 'MG') {
-        echo '(20 000 ARIARY ~ 4 mois)';
-    } else {
-        echo '(30 € ~ 4 mois)';
-    }
+    echo " (".($PrixDES[0]["MONTANT"])." ".$PrixDES[0]["DEVISE"]." ~ 4 mois) ";
     ?>
     </label>
     </div>
@@ -433,45 +290,33 @@ include "../Controller/AccesPaiement.php";
     
     <div class="custom-control flex-fill form-check-inline custom-radio">
     <input type="radio" class="custom-control-input" id="customradio5" <?php
+    $PrixSoutenance=$ProduitManager->getPrix($mpianatra['nationalite'],$mpianatra['semestre'],"Droit de soutenance");
     //DROIT DE SOUTENANCE
-    if ($mpianatra['nationalite'] == 'MG') {
-        echo 'data-value="100000"';
-    } else {
-        echo 'data-value="50"';
-    }
+    echo ' data-value="'.($PrixSoutenance[0]["MONTANT"]).'" ';
     ?> value="Droit de soutenance" name="motif">
-    <label class="custom-control-label" for="customradio5">Droit de soutenance</label>
+    <label class="custom-control-label" for="customradio5">Droit de soutenance
+    </label>
     </div>
     
     <div class="custom-control flex-fill form-check-inline custom-radio">
     <input type="radio" class="custom-control-input" id="customradio6" <?php
     //REPECHAGE
-    if ($mpianatra['nationalite'] == 'MG') {
-        echo 'data-value="' . ($mpianatra['repechage'] * 15000) . '"';
-    } else {
-        echo 'data-value="' . ($mpianatra['repechage'] * 30) . '"';
-    }
-    
-    
-    ?> value="repechage" name="motif">
+    $PrixRepechage=$ProduitManager->getPrix($mpianatra['nationalite'],$mpianatra['semestre'],"repechage");
+    echo 'data-value="'.($mpianatra['repechage']*$PrixRepechage[0]["MONTANT"]).'"';    
+    ?>
+    value="repechage" name="motif">
     <label class="custom-control-label" for="customradio6">Droit de rep&ecirc;chage
     <?php
-    if ($mpianatra['nationalite'] == 'MG') {
-        echo '(15 000 ARIARY/matière à rep&ecirc;cher;)';
-    } else {
-        echo '(30 € /matière à rep&ecirc;cher) ';
-    }
+        echo '('.$PrixRepechage[0]["MONTANT"]." ".$PrixRepechage[0]["DEVISE"].'/matière à rep&ecirc;cher;)';
     ?>
     </label>
     </div>
     
     <div class="custom-control flex-fill form-check-inline custom-radio">
-    <input type="radio" class="custom-control-input" id="customradio7" value="certificat" <?php
-    if ($mpianatra['nationalite'] == 'MG') {
-        echo 'data-value="5000"';
-    } else {
-        echo 'data-value="5"';
-    }
+    <input type="radio" class="custom-control-input" id="customradio7" value="certificat" 
+    <?php
+    $PrixCertificat=$ProduitManager->getPrix($mpianatra['nationalite'],$mpianatra['semestre'],"certificat");
+    echo 'data-value="'.$PrixCertificat[0]["MONTANT"].'"';
     ?> name="motif">
     <label class="custom-control-label" for="customradio7">Certificat de scolarit&eacute; </label>
     </div>
@@ -493,53 +338,16 @@ include "../Controller/AccesPaiement.php";
     </div>
     </div>
     <?php
-    if ($mpianatra['nationalite'] == 'MG' && ($mpianatra['semestre'] == 'S1' || $mpianatra['semestre'] == 'S2' || $mpianatra['semestre'] == 'S3' || $mpianatra['semestre'] == 'S4' || $mpianatra['semestre'] == 'S5' || $mpianatra['semestre'] == 'S6')) {
         if ($inscri[0] >= 1) {
             $inscriplusieursfois = $etudiantmanager->inscriPlusieursFois($donne);
             if ($inscriplusieursfois > 1) {
-                echo '<h3>Total montants : <strong id="Panier">95000 </strong><span> ARIARY</span></h3>';
+                echo '<h3>Total montants : <strong id="Panier">'.$PrixInscription[0]["MONTANT"].'</strong><span> '.$PrixInscription[0]["DEVISE"].'</span></h3>';
             } else {
-                echo '<h3>Total montants : <strong id="Panier">190000 </strong><span> ARIARY</span></h3>';
+                echo '<h3>Total montants : <strong id="Panier">'.(($PrixInscription[0]["MONTANT"])/2).'</strong><span> '.$PrixInscription[0]["DEVISE"].'</span></h3>';
             }
         } else {
-            echo '<h3>Total montants : <strong id="Panier">190000 </strong><span> ARIARY</span></h3>';
+            echo '<h3>Total montants : <strong id="Panier">'.$PrixInscription[0]["MONTANT"].'</strong><span> '.$PrixInscription[0]["DEVISE"].'</span></h3>';
         }
-    } else if ($mpianatra['nationalite'] == 'MG' && ($mpianatra['semestre'] == 'S7' || $mpianatra['semestre'] == 'S8' || $mpianatra['semestre'] == 'S9' || $mpianatra['semestre'] == 'S10')) {
-        
-        if ($inscri[0] >= 1) {
-            $inscriplusieursfois = $etudiantmanager->inscriPlusieursFois($donne);
-            if ($inscriplusieursfois > 1) {
-                echo '<h3>Total montants : <strong id="Panier">100000 </strong><span> ARIARY</span></h3>';
-            } else {
-                echo '<h3>Total montants : <strong id="Panier">200000 </strong><span> ARIARY</span></h3>';
-            }
-        } else {
-            echo '<h3>Total montants : <strong id="Panier">200000 </strong><span> ARIARY</span></h3>';
-        }
-    } else if ($mpianatra['nationalite'] !== 'MG' && ($mpianatra['semestre'] == 'S1' || $mpianatra['semestre'] == 'S2' || $mpianatra['semestre'] == 'S3' || $mpianatra['semestre'] == 'S4' || $mpianatra['semestre'] == 'S5' || $mpianatra['semestre'] == 'S6')) {
-        
-        if ($inscri[0] >= 1) {
-            $inscriplusieursfois = $etudiantmanager->inscriPlusieursFois($donne);
-            if ($inscriplusieursfois > 1) {
-                echo '<h3>Total montants : <strong id="Panier">50 </strong><span> €</span></h3>';
-            } else {
-                echo '<h3>Total montants : <strong id="Panier">100 </strong><span> €</span></h3>';
-            }
-        } else {
-            echo '<h3>Total montants : <strong id="Panier">100 </strong><span> €</span></h3>';
-        }
-    } else {
-        if ($inscri[0] >= 1) {
-            $inscriplusieursfois = $etudiantmanager->inscriPlusieursFois($donne);
-            if ($inscriplusieursfois > 1) {
-                echo '<h3>Total montants : <strong id="Panier">60 </strong><span> €</span></h3>';
-            } else {
-                echo '<h3>Total montants : <strong id="Panier">120 </strong><span> €</span></h3>';
-            }
-        } else {
-            echo '<h3>Total montants : <strong id="Panier">120 </strong><span> €</span></h3>';
-        }
-    }
     ?>
     
     <div class="d-flex justify-content-end">

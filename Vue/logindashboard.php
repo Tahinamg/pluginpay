@@ -46,6 +46,7 @@
 </div>
 
 </body>
+
 <script
 	src="https://code.jquery.com/jquery-3.5.1.min.js"
 	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
@@ -55,7 +56,7 @@
 <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="paiement/Vue/JS/paiement.js"></script>
        
-       <!-- <script type="text/javascript" src="JS/jquery 3.5.1.js" ></script>
+  <!-- <script type="text/javascript" src="JS/jquery 3.5.1.js" ></script>
 <script type="text/javascript" src="node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
 <script type="text/javascript" src="JS/all.min.js"></script>
 <script type="text/javascript" src="JS/bootstrap.min.js"></script>
