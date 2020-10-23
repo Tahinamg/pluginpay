@@ -1,15 +1,20 @@
 <?php
-//UPLOAD
 ob_start();
 header('Content-type: application/json; charset=utf-8"');
 function loadclass($class){
    
     require "../Model/".$class.'.class.php';
-   
+   //UPLOAD
 }
 
 spl_autoload_register("loadclass");
 
+if(isset($_GET['recouvrement'])){
+    //LIST LES VAGUES POUR LES SELECTS RECOUVREMENTS
+    $compta=new ComptableManager(MyPDO::getMysqlConnexion());
+    $datalistvague=$compta->listDateEntreeParVague();
+    echo json_encode($datalistvague);
+}
 if(isset($_GET['notification']) && $_GET['notification']=="mvola"){
     $ComptableManagerMobileMoney= new ComptableManagerMobileMoney(MyPDO::getMysqlConnexion());
     $dataMvola=$ComptableManagerMobileMoney->VoirMobileMoney();
@@ -42,4 +47,5 @@ if(isset($_GET['notification']) && $_GET['notification']=="western"){
     $dataMoneyGram=$comptableManagerMoneyGram->voirMoneyGram();
     echo json_encode($dataMoneyGram);
 }
+
 ?>

@@ -23,10 +23,10 @@ if(isset($_POST['matricule'],$_POST['password'])){
         header("location:../Vue/dashboard.php");
     }else{
         
-        header("location:../Vue/logindashboard.php?erreur=1");
+        header("location:../../Loginerror");
     }
 }else{
-    header("location:../Vue/logindashboard.php?erreur=12");
+    header("location:../../Loginerror");
 }
 
 ob_flush();

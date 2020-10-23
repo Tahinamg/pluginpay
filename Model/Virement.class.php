@@ -1,7 +1,8 @@
 <?php
+//UPLOAD
 class Virement{
 
-    protected $ncompte ,$titucompte ,$idvirement,$idetudiants,$motif,$decision,$etat,$dateserver,$montant,$datevirement,$observation;
+    protected $ncompte ,$titucompte ,$idvirement,$idetudiants,$motif,$decision,$etat,$dateserver,$montant,$datevirement,$observation,$datevalidation,$tempsvalidation;
 
 
     public function __construct($donnes)
@@ -19,6 +20,13 @@ class Virement{
         }
     }
 
+    public function getDatevalidation(){
+        return $this->datevalidation;
+    }
+
+    public function getTempsvalidation(){
+        return $this->tempsvalidation;
+    }
     public function getMontant(){
         return $this->montant;
     }
@@ -56,7 +64,12 @@ class Virement{
         return $this->observation;
     }
     
-
+    public function setDatevalidation($datevalidation){
+        $this->datevalidation=$datevalidation;
+    }
+    public function setTempsvalidation($tempsvalidation){
+        $this->tempsvalidation=$tempsvalidation;
+    }
     public function setNcompte($ncompte)
     {
         $this->ncompte=$ncompte;

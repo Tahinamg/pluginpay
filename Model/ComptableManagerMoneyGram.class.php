@@ -1,6 +1,5 @@
 <?php
 class ComptableManagerMoneyGram{
-    //UPLOAD
     protected $db;
     public function __construct(PDO $database)
     {
@@ -11,20 +10,22 @@ class ComptableManagerMoneyGram{
     }
     public function voirMoneyGram(){
        
-       $sql=$this->db->query("SELECT `SUIVRE`.`MATRICULE`,`ETUDIANTS`.`NOM`,`ETUDIANTS`.`PRENOM`,`ETUDIANTS`.`IDETUDIANTS`,`SUIVRE`.`SEMESTRE`,`IDMONEYGRAM`,`DATYMONEYGRAM`,`REFERENCE`,`EXPEDITEUR`,`DATESERVER`,`OBSERVATION`,`MOTIF`,`DECISION`,`ETAT`,`MONTANT`,`MONTANTMONEYGRAM` FROM `SUIVRE` NATURAL JOIN `MONEYGRAM` NATURAL JOIN `ETUDIANTS` WHERE `MONEYGRAM`.`IDETUDIANTS`=`SUIVRE`.`IDETUDIANTS` AND `MONEYGRAM`.`ETAT`='non lu' ORDER BY `IDMONEYGRAM` ASC");
+       $sql=$this->db->query("SELECT `SUIVRE`.`MATRICULE`,`ETUDIANTS`.`NOM`,`ETUDIANTS`.`PRENOM`,`ETUDIANTS`.`IDETUDIANTS`,`SUIVRE`.`SEMESTRE`,`IDMONEYGRAM`,`DATYMONEYGRAM`,`REFERENCE`,`EXPEDITEUR`,`DATESERVER`,`OBSERVATION`,`MOTIF`,`DECISION`,`ETAT`,`MONTANT`,`MONTANTMONEYGRAM`,`DATEVALIDATION`,`TEMPSVALIDATION` FROM `SUIVRE` NATURAL JOIN `MONEYGRAM` NATURAL JOIN `ETUDIANTS` WHERE `MONEYGRAM`.`IDETUDIANTS`=`SUIVRE`.`IDETUDIANTS` AND `MONEYGRAM`.`ETAT`='non lu' ORDER BY `IDMONEYGRAM` ASC");
        $sql->execute();
        $data=$sql->fetchAll(PDO::FETCH_ASSOC);
+       $sql->closeCursor();
        return $data;
 
     
     }
     public function notifMoneyGram(){
         $sql=$this->db->query("SELECT COUNT(*) FROM `MONEYGRAM` WHERE `ETAT`='non lu' ");
-        return $sql->fetch();
+        $data=$sql->fetch();
         $sql->closeCursor();
+        return $data;
     }
     public function ValiderEcolageViaMoneyGram($qte,$matricule,$idmoneygram,$observation){
-        $sql1=$this->db->prepare("UPDATE `MONEYGRAM` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDMONEYGRAM`=:idmoneygram");
+        $sql1=$this->db->prepare("UPDATE `MONEYGRAM` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation,`DATEVALIDATION`=CURRENT_DATE,`TEMPSVALIDATION`=CURRENT_TIME WHERE `IDMONEYGRAM`=:idmoneygram");
         $sql1->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql1->bindValue(":idmoneygram",$idmoneygram,PDO::PARAM_INT);
         $sql1->execute();
@@ -38,7 +39,7 @@ class ComptableManagerMoneyGram{
     }
 
     Public function ValiderInscriptionViaMoneyGram($matricule,$idmoneygram,$observation){
-        $sql=$this->db->prepare("UPDATE `MONEYGRAM` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDMONEYGRAM`=:idmoneygram");
+        $sql=$this->db->prepare("UPDATE `MONEYGRAM` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation,`DATEVALIDATION`=CURRENT_DATE,`TEMPSVALIDATION`=CURRENT_TIME WHERE `IDMONEYGRAM`=:idmoneygram");
         $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idmoneygram",$idmoneygram,PDO::PARAM_INT);
         $sql->execute();
@@ -53,7 +54,7 @@ class ComptableManagerMoneyGram{
     }
 
     public function ValiderRepechageViaMoneyGram($idetudiant,$idmoneygram,$observation){
-        $sql=$this->db->prepare("UPDATE `MONEYGRAM` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDMONEYGRAM`=:idmoneygram");
+        $sql=$this->db->prepare("UPDATE `MONEYGRAM` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation,`DATEVALIDATION`=CURRENT_DATE,`TEMPSVALIDATION`=CURRENT_TIME WHERE `IDMONEYGRAM`=:idmoneygram");
         $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idmoneygram",$idmoneygram,PDO::PARAM_INT);
         $sql->execute();
@@ -62,9 +63,10 @@ class ComptableManagerMoneyGram{
         $sql=$this->db->prepare("DELETE FROM `REPECHER` WHERE `IDETUDIANTS`=:id");
         $sql->bindValue(":id",$idetudiant,PDO::PARAM_INT);
         $sql->execute();
+        $sql->closeCursor();
     }
     public function ValiderDroitExamenViaMoneyGram($matricule,$idmoneygram,$observation){
-        $sql=$this->db->prepare("UPDATE `MONEYGRAM` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDMONEYGRAM`=:idmoneygram");
+        $sql=$this->db->prepare("UPDATE `MONEYGRAM` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation,`DATEVALIDATION`=CURRENT_DATE,`TEMPSVALIDATION`=CURRENT_TIME WHERE `IDMONEYGRAM`=:idmoneygram");
         $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idmoneygram",$idmoneygram,PDO::PARAM_INT);
         $sql->execute();
@@ -80,7 +82,7 @@ class ComptableManagerMoneyGram{
 
 
     public function ValiderSoutenanceViaMoneyGram($matricule,$idmoneygram,$observation){
-        $sql=$this->db->prepare("UPDATE `MONEYGRAM` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDMONEYGRAM`=:idmoneygram");
+        $sql=$this->db->prepare("UPDATE `MONEYGRAM` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation,`DATEVALIDATION`=CURRENT_DATE,`TEMPSVALIDATION`=CURRENT_TIME WHERE `IDMONEYGRAM`=:idmoneygram");
         $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idmoneygram",$idmoneygram,PDO::PARAM_INT);
         $sql->execute();
@@ -95,7 +97,7 @@ class ComptableManagerMoneyGram{
     }
 
     public function ValiderCertificat($matricule,$idmoneygram,$observation){
-        $sql=$this->db->prepare("UPDATE `MONEYGRAM` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation WHERE `IDMONEYGRAM`=:idmoneygram");
+        $sql=$this->db->prepare("UPDATE `MONEYGRAM` SET `ETAT`='lu',`DECISION`='valide',`OBSERVATION`=:observation,`DATEVALIDATION`=CURRENT_DATE,`TEMPSVALIDATION`=CURRENT_TIME WHERE `IDMONEYGRAM`=:idmoneygram");
         $sql->bindValue(":observation",$observation,PDO::PARAM_STR);
         $sql->bindValue(":idmoneygram",$idmoneygram,PDO::PARAM_INT);
         $sql->execute();
@@ -112,8 +114,8 @@ class ComptableManagerMoneyGram{
         $sql=$this->db->prepare("DELETE FROM `MONEYGRAM` WHERE `MONEYGRAM`.`IDMONEYGRAM` =:idmoneygram");
         $sql->bindValue(":idmoneygram",$idmoneygram,PDO::PARAM_INT);
         $sql->execute();
+        $sql->closeCursor();
     }
-    
 
 }
 ?>

@@ -63,6 +63,18 @@ $("document").ready(function(){
         });
      },3000);
 
+     setInterval(function () { 
+        $.ajax({
+            type: "GET",
+            data:"paiement=MoneyGram",
+            url: "../Controller/ControlFinanceNotification.php",
+            dataType: "text",
+            success: function (response) {
+                $("#MoneyGramNotif").text(response);
+            }
+        });
+     },3000);
+
 
 
      });

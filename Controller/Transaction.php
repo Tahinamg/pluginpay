@@ -21,7 +21,7 @@ $etudiant=new Etudiant($data);
 $mpianatra = array("id"=>$etudiant->getIdetudiants());
 
 if($mpianatra["id"]==0){
-    header("location:../Vue/paiement.php?error=1");
+    header("location:../../UneErreur");
 }
 if(isset($_POST['formatpaiement'])){
     $formatpaiement=(string) $_POST['formatpaiement'];
@@ -44,18 +44,21 @@ switch ($formatpaiement) {
                 "etat"=>"non lu",
                 "decision"=>"non prise",
                 "montant"=>(string) $_POST['montant'],
-                "observation"=>"aucun"
+                "observation"=>"aucun",
+                "datevalidation"=>"non defini",
+                "tempsvalidation"=>"non defini"
             );
             $mvola = new MobileMoney($data);
             $mvolamanager= new MobileMoneyManager($db);
-            $mvolamanager->setMobileMoney($mvola);
-            header('location:../Vue/paiement.php?error=0');
+            $mvolamanager->setMobileMoney($mvola);        
+                header('location:../../Reussi');
+
         }else{
-            header('location:../Vue/paiement.php?error=1');
+            header('location:../../UneErreur');
         } 
       
     }else{
-        header('location:../Vue/paiement.php?error=1&errtype=mvola');
+        header('location: ../../Mvola');
     }
     break;
 
@@ -77,18 +80,20 @@ switch ($formatpaiement) {
                     'etat'=>"non lu",
                     'decision'=>"non prise",
                     'idetudiants'=>(int) $mpianatra['id'],
-                    'observation'=>"aucun"
+                    'observation'=>"aucun",
+                    "datevalidation"=>"non defini",
+                    "tempsvalidation"=>"non defini"
                 );
                 $western=new Western($data3);
                 $westernmanager=new WesternManager($db);
                 $westernmanager->setWestern($western);
-                header('location:../Vue/paiement.php?error=0');
+                header('location:../../Reussi');
             }else{
-                header('location:../Vue/paiement.php?error=1');
+                header('location:../../UneErreur');
 
             }
         }else{
-             header('location:../Vue/paiement.php?error=1&errtype=Western');
+            header('location:../../Western');
         }
         
     break;
@@ -103,10 +108,10 @@ switch ($formatpaiement) {
         $regagence='/[A-Za-z]{2,20}/';
         if(preg_match($regcash,$_POST['nrecu'])&&preg_match($regmotif,$_POST['motif'])&&preg_match($regmontant,$_POST['montant'])&&preg_match($regagence,$_POST['agence'])){
        
-        
+        //UPLOAD
         $data = array(
             "nbordereaux"=>(string) $_POST['nrecu'],
-            "daty"=>(string) $_POST['date'],
+            "daty"=>(string) $_POST['dateversement'],
             "agence"=>(string) $_POST['agence'],
             "motif"=>(string) $_POST['motif'],
             "etat"=>"non lu",
@@ -114,19 +119,21 @@ switch ($formatpaiement) {
             "montant"=>(string) $_POST['montant'],
             "idetudiants"=>(int) $mpianatra['id'],
             "observation"=>"aucun",
-            "dateversement"=>(string) $_POST['dateversement']
+            "dateversement"=>(string) $_POST['dateversement'],
+            "datevalidation"=>"non defini",
+            "tempsvalidation"=>"non defini"
         );
         $versement= new Versement($data);
         $versementmanager=new VersementManager($db);
         $versementmanager->setVersement($versement);
-        header('location:../Vue/paiement.php?error=0');
+        header('location:../../Reussi');
     }else{
-        header('location:../Vue/paiement.php?error=1');
+        header('location:../../UneErreur');
 
     }
         
     }else{
-        header('location:../Vue/paiement.php?error=1&errtype=versement');
+        header('location:../../Versement');
     }
     break;
     case 'cheque':
@@ -152,19 +159,21 @@ switch ($formatpaiement) {
                     "etat"=>"non lu",
                     "decision"=>"non prise",
                     "montant"=>(string) $_POST['montant'],
-                    "observation"=>"aucun"
+                    "observation"=>"aucun",
+                    "datevalidation"=>"non defini",
+                    "tempsvalidation"=>"non defini"
                 );
                 $cheque=new Cheque($data);
                 $chequemanager = new ChequeManager($db);
                 $chequemanager->setCheque($cheque);
-                header('location:../Vue/paiement.php?error=0');
+                header('location:../../Reussi');
 
             }else{
-            header('location:../Vue/paiement.php?error=1');
+                header('location:../../UneErreur');
 
         }
         }else{
-            header('location:../Vue/paiement.php?error=1&errtype=cheque');
+            header('location:../../Cheque');
         }
 
     break;
@@ -185,24 +194,24 @@ switch ($formatpaiement) {
                 "decision"=>"non prise",
                 "montant"=>(string) $_POST['montant'],
                 "datevirement"=>(string) $_POST['datevirement'],
-                "observation"=>"aucun"
+                "observation"=>"aucun",
+                "datevalidation"=>"non defini",
+                "tempsvalidation"=>"non defini"
 
             );
             $virement=new Virement($data);
             $virementmanager=new VirementManager($db);
             $virementmanager->setVirement($virement);
-            header('location:../Vue/paiement.php?error=0');
+            header('location:../../Reussi');
         }else{
-        header('location:../Vue/paiement.php?error=1');
+            header('location:../../UneErreur');
         }
     }else{
-        header('location:../Vue/paiement.php?error=1&errtype=virement');
+        header('location:../../Virement');
     }
     
     break;
     case "MoneyGram" :
-        echo implode(",",$_POST);
-        var_dump($_POST);
         if(isset($_POST['ExpediteurMoney'],$_POST['RefMoney'],$_POST['DateMoney'],$_POST['MontantMoney'],$_POST['montant'],$_POST['motif'])){
             $regmotif='/inscription|ecolage|droit examen semestriel|Droit de soutenance|repechage|certificat/';
             $regmontantmoneygram='/[0-9]{1,9}/';
@@ -210,23 +219,23 @@ switch ($formatpaiement) {
             $regrefmoney='/[0-9]{4,12}/';
             $regmontant='/[0-9]{1,9}/';
             if(preg_match($regexpediteur,$_POST['ExpediteurMoney'])&&preg_match($regrefmoney,$_POST['RefMoney'])&&preg_match($regmontant,$_POST['montant'])&&preg_match($regmontantmoneygram,$_POST['MontantMoney'])&&preg_match($regmotif,$_POST['motif'])){
-                $datamoneygram=array("expediteur"=>(string) $_POST['ExpediteurMoney'],"reference"=>(string) $_POST['RefMoney'],"datymoneygram"=>(string) $_POST['DateMoney'],"montantmoneygram"=>(string) $_POST['MontantMoney'],"montant"=>$_POST['montant'],"observation"=>"aucun","motif"=>$_POST["motif"],"idetudiants"=>$mpianatra["id"],"decision"=>"non prise","etat"=>"non lu");
+                $datamoneygram=array("expediteur"=>(string) $_POST['ExpediteurMoney'],"reference"=>(string) $_POST['RefMoney'],"datymoneygram"=>(string) $_POST['DateMoney'],"montantmoneygram"=>(string) $_POST['MontantMoney'],"montant"=>$_POST['montant'],"observation"=>"aucun","motif"=>$_POST["motif"],"idetudiants"=>$mpianatra["id"],"decision"=>"non prise","etat"=>"non lu","datevalidation"=>"non defini","tempsvalidation"=>"non defini");
                 $moneygram=new MoneyGram($datamoneygram);
                 $moneygrammanager=new MoneyGramManager($db);
                 $moneygrammanager->setMoneyGram($moneygram);
-                header('location:../Vue/paiement.php?error=0');
+                header('location:../../Reussi');
             }else{
-                header('location:../Vue/paiement.php?error=1');
+                header('location:../../UneErreur');
             }
         
         }else{
-            header('location:../Vue/paiement.php?error=1&errtype=moneygram');
+            header('location:../../MoneyGram');
         }
     break;
   
 }
 }else{
-    header('location:../Vue/paiement.php?error=1&errtype=formatpaiement');
+    header('location:../../Formatpaiement');
 }
 
 ob_end_flush();

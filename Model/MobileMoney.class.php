@@ -1,6 +1,6 @@
 <?php
 class MobileMoney{
-
+//UPLOAD
     
     protected $observation;
     protected $reference;//clé primaire
@@ -12,6 +12,8 @@ class MobileMoney{
     protected $dateserver;
     protected $montant;
     protected $idmobilemoney;
+    protected $tempsvalidation;
+    protected $datevalidation;
 
 
     public function __construct($donnes)
@@ -27,6 +29,12 @@ class MobileMoney{
                 $this->$method($value);
             }
         }
+    }
+    public function setDatevalidation($datevalidation){
+        $this->datevalidation=$datevalidation;
+    }
+    public function setTempsvalidation($tempsvalidation){
+        $this->tempsvalidation=$tempsvalidation;
     }
     public function setIdmobilemoney($idmobilemoney){
         $this->idmobilemoney=$idmobilemoney;
@@ -90,6 +98,12 @@ class MobileMoney{
     }
     public function getObservation(){
         return $this->observation;
+    }
+    public function getTempsvalidation(){
+        return $this->tempsvalidation;
+    }
+    public function getDatevalidation(){
+        return $this->datevalidation;
     }
 
 

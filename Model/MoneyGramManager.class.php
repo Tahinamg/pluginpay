@@ -1,6 +1,6 @@
 <?php
 class MoneyGramManager{
-    //TODO //UPLOAD ADD FIELD MONEY GRAM AND 
+    //UPLOAD
 protected $db;
     public function __construct(PDO $db)
     {
@@ -8,7 +8,7 @@ protected $db;
     }
 
     public function setMoneyGram(MoneyGram $moneyGram){
-        $sql=$this->db->prepare("INSERT INTO MONEYGRAM VALUES(NULL,:idetudiants,:datymoneygram,:reference,:expediteur,:dateserver,:observation,:motif,:decision,:etat,:montant,:montantmoneygram)");
+        $sql=$this->db->prepare("INSERT INTO MONEYGRAM VALUES(NULL,:idetudiants,:datymoneygram,:reference,:expediteur,:dateserver,:observation,:motif,:decision,:etat,:montant,:montantmoneygram,:datevalidation,:tempsvalidation)");
         $sql->bindValue(":idetudiants",$moneyGram->getIdetudiants(),PDO::PARAM_INT);
         $sql->bindValue(":datymoneygram",$moneyGram->getDatymoneygram(),PDO::PARAM_STR);
         $sql->bindValue(":reference",$moneyGram->getReference(),PDO::PARAM_STR);  
@@ -20,6 +20,8 @@ protected $db;
         $sql->bindValue(":etat",$moneyGram->getEtat(),PDO::PARAM_STR);
         $sql->bindValue(":montant",$moneyGram->getMontant(),PDO::PARAM_STR);
         $sql->bindValue(":montantmoneygram",$moneyGram->getMontantmoneygram(),PDO::PARAM_STR);
+        $sql->bindValue(":datevalidation",$moneyGram->getDatevalidation(),PDO::PARAM_STR);
+        $sql->bindValue(":tempsvalidation",$moneyGram->getTempsvalidation(),PDO::PARAM_STR);
         $sql->execute();
         $sql->closeCursor();
     }

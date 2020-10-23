@@ -16,14 +16,17 @@ class EtudiantManager{
         $statement->bindValue(":matricule",$matricule,PDO::PARAM_STR);
         $statement->execute();
         
-        return $statement->fetch(PDO::FETCH_ASSOC);
+        $data=$statement->fetch(PDO::FETCH_ASSOC);
         $statement->closeCursor();
+        return $data;
     }
     public function getRepechageEtudiant($idetudiants){
         $statement=$this->db->prepare("SELECT count(*) FROM `REPECHER` WHERE `IDETUDIANTS`=:idetudiants ");
         $statement->bindValue(":idetudiants",$idetudiants,PDO::PARAM_INT);
         $statement->execute();
-        return $statement->fetch();
+        $data=$statement->fetch();
+        $statement->closeCursor();
+        return $data;
     }
 
     public function dejaInscrit($data){
@@ -32,7 +35,9 @@ class EtudiantManager{
         $statement->bindValue(":prenom",$data['prenom'],PDO::PARAM_STR);
         $statement->bindValue(":numero",$data['numero'],PDO::PARAM_STR);
         $statement->execute();
-        return $statement->fetch();
+        $datareturn=$statement->fetch();
+        $statement->closeCursor();
+        return $datareturn;
     }
     public function inscriPlusieursFois($data){
         $statement=$this->db->prepare("SELECT count(*) FROM `ETUDIANTS` WHERE `NOM`=:nom AND `PRENOM`=:prenom AND `NUMERO`=:numero");
@@ -40,7 +45,9 @@ class EtudiantManager{
         $statement->bindValue(":prenom",$data['prenom'],PDO::PARAM_STR);
         $statement->bindValue(":numero",$data['numero'],PDO::PARAM_STR);
         $statement->execute();
-        return $statement->fetch();
+        $datareturn=$statement->fetch();
+        $statement->closeCursor();
+        return $datareturn;
     }
     
 

@@ -11,6 +11,8 @@ class Western{
     protected $dateserver;
     protected $idetudiants;
     protected $observation;
+    protected $datevalidation;
+    protected $tempsvalidation;
 
     public function __construct($data)
     {
@@ -61,6 +63,13 @@ class Western{
         return $this->observation;
     }
 
+    public function getDatevalidation(){
+        return $this->datevalidation;
+    }
+    public function getTempsvalidation(){
+        return $this->tempsvalidation;
+    }
+    
 
     public function setIdwestern($idwestern){
         $this->idwestern=$idwestern;
@@ -94,6 +103,12 @@ class Western{
     }
     public function setObservation($observation){
         $this->observation=$observation;
+    }
+    public function setDatevalidation($datevalidation){
+        $this->datevalidation=$datevalidation;
+    }
+    public function setTempsvalidation($tempsvalidation){
+        $this->tempsvalidation=$tempsvalidation;
     }
 
 }

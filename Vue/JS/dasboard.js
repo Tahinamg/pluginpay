@@ -3,8 +3,15 @@ $("document").ready(function(){
     dashboard.style.height=window.innerHeight + "px";
     
     $("#notification").click(
-        function(){
+        function(e){
+            e.preventDefault();
             $(".notificationsubmain").slideToggle("fast");
+        }
+    );
+    $("#search").click(
+        function(e){
+            e.preventDefault();
+            $(".searchsubmain").slideToggle("fast");
         }
     );
     $("#menu-toggle").click(function (e) {
