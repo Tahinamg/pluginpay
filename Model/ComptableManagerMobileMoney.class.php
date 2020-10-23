@@ -114,17 +114,7 @@ protected $db;
         $sql->execute();
         $sql->closeCursor();
     }
-    public function ListPaiementMobileMoneyOrderByDateValidation($date,$motif,$vague){
-        $sql=$this->db->prepare("SELECT `IDMOBILEMONEY`,`SUIVRE`.`MATRICULE`, `CODE` AS VAGUE,`NOM`,`PRENOM`,`NUMERO`,`REFERENCE`,`MOTIF`,`DATY`,`DATESERVER`,`MONTANT`,`OBSERVATION`,`DATEVALIDATION`,`TEMPSVALIDATION` FROM (`MOBILEMONEY` LEFT OUTER JOIN `SUIVRE` ON `MOBILEMONEY`.`IDETUDIANTS`=`SUIVRE`.`IDETUDIANTS`) LEFT OUTER JOIN `ETUDIANTS` ON `ETUDIANTS`.`IDETUDIANTS`=`MOBILEMONEY`.`IDETUDIANTS` AND `MOBILEMONEY`.`DATEVALIDATION` LIKE :datevalidation AND `CODE`=:vague AND `MOBILEMONEY`.`ETAT`='lu' AND `MOBILEMONEY`.`DECISION`='valide' AND `MOTIF`=:motif ORDER BY DATEVALIDATION ASC");
-        $date.="%";
-        $sql->bindValue(":datevalidation",$date,PDO::PARAM_STR);
-        $sql->bindValue(":vague",$vague,PDO::PARAM_STR);
-        $sql->bindValue(":motif",$motif,PDO::PARAM_STR);
-        $sql->execute();
-        $data=$sql->fetchAll(PDO::FETCH_ASSOC);
-        $sql->closeCursor();
-        return $data;
-    }
+    
     public function ListReferenceIdZero(){
         $sql=$this->db->query("SELECT `REFERENCE` FROM `MOBILEMONEY` WHERE `MOBILEMONEY`.`IDETUDIANTS`=0 ORDER BY `IDMOBILEMONEY` ASC ");
         $data=$sql->fetchAll(PDO::FETCH_ASSOC);

@@ -119,17 +119,7 @@ protected $db;
         $sql->closeCursor();
     }
 
-    public function ListPaiementVirement($date,$motif,$vague){
-        $sql=$this->db->prepare("SELECT `IDVIREMENT`,`SUIVRE`.`MATRICULE`, `CODE` AS `VAGUE`,`NOM`,`PRENOM`,`NUMERO`,`TITUCOMPTE`,`NCOMPTE`,`DATEVIREMENT`,`MOTIF`,`DATESERVER`,`MONTANT`,`OBSERVATION`,`DATEVALIDATION`,`TEMPSVALIDATION` FROM (`VIREMENT` LEFT OUTER JOIN `SUIVRE` ON `VIREMENT`.`IDETUDIANTS`=`SUIVRE`.`IDETUDIANTS`) LEFT OUTER JOIN `ETUDIANTS` ON `ETUDIANTS`.`IDETUDIANTS`=`VIREMENT`.`IDETUDIANTS` WHERE `VIREMENT`.`DATEVALIDATION` LIKE :datevalidation AND `CODE`=:vague AND `VIREMENT`.`ETAT`='lu' AND `VIREMENT`.`DECISION`='valide' AND `MOTIF`=:motif ORDER BY `DATEVALIDATION` ASC");
-        $date.="%";
-        $sql->bindValue(":datevalidation",$date,PDO::PARAM_STR);
-        $sql->bindValue(":vague",$vague,PDO::PARAM_STR);
-        $sql->bindValue(":motif",$motif,PDO::PARAM_STR);
-        $sql->execute();
-        $data=$sql->fetchAll(PDO::FETCH_ASSOC);
-        $sql->closeCursor();
-        return $data;
-    }
+    
     
 }
 ?>

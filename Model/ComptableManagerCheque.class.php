@@ -119,16 +119,7 @@ protected $db;
         $sql->execute();
         $sql->closeCursor();
     }
-    public function ListPaiementCheque($date,$motif,$vague){
-        $sql=$this->db->prepare("SELECT `IDCHEQUE`,`SUIVRE`.`MATRICULE`, `CODE` AS `VAGUE`,`NOM`,`PRENOM`,`NUMERO`,`ETABLISSEMENT`,`TIREUR`,`NCHEQUE`,`MOTIF`,`DATESERVER`,`MONTANT`,`OBSERVATION`,`DATEVALIDATION`,`TEMPSVALIDATION` FROM (`CHEQUE` LEFT OUTER JOIN `SUIVRE` ON `CHEQUE`.`IDETUDIANTS`=`SUIVRE`.`IDETUDIANTS`) LEFT OUTER JOIN `ETUDIANTS` ON `ETUDIANTS`.`IDETUDIANTS`=`CHEQUE`.`IDETUDIANTS` WHERE `CHEQUE`.`DATEVALIDATION` LIKE :datevalidation AND `CODE`=:vague AND `CHEQUE`.`ETAT`='lu' AND `CHEQUE`.`DECISION`='valide' AND `MOTIF`=:motif ORDER BY DATEVALIDATION ASC");
-        $sql->bindValue(":datevalidation",$date,PDO::PARAM_STR);
-        $sql->bindValue(":vague",$vague,PDO::PARAM_STR);
-        $sql->bindValue(":motif",$motif,PDO::PARAM_STR);
-        $sql->execute();
-        $data=$sql->fetchAll(PDO::FETCH_ASSOC);
-        $sql->closeCursor();
-        return $data; 
-    }
+
     
 }
 ?>

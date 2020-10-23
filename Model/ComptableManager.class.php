@@ -342,13 +342,17 @@ public function doClassificationWestern(array $classification){
             $requete->bindValue(":datevalidation",$classification["datevalidation"],PDO::PARAM_STR);
             $requete->bindValue(":motif",$classification["motif"],PDO::PARAM_STR);
             $requete->execute();
-            return $requete->fetchAll(PDO::FETCH_ASSOC);
+            $data=$requete->fetchAll(PDO::FETCH_ASSOC);
+            $requete->closeCursor();
+            return $data;
         }elseif(!empty($classification["motif"])){
             $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,MONTANTWESTERN,MONTANT,NSUIVI,NOMEXP,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (WESTERN LEFT OUTER JOIN ETUDIANTS ON WESTERN.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON WESTERN.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation AND MOTIF=:motif");
             $requete->bindValue(":datevalidation",$classification["datevalidation"],PDO::PARAM_STR);
             $requete->bindValue(":motif",$classification["motif"],PDO::PARAM_STR);
             $requete->execute();
-            return $requete->fetchAll(PDO::FETCH_ASSOC);
+            $data=$requete->fetchAll(PDO::FETCH_ASSOC);
+            $requete->closeCursor();
+            return $data;
         }elseif(!empty($classification["nationalite"])){
             if($classification["nationalite"]=="MG"){
             $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,MONTANTWESTERN,MONTANT,NSUIVI,NOMEXP,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (WESTERN LEFT OUTER JOIN ETUDIANTS ON WESTERN.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON WESTERN.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation AND NATIONALITE='MG'");
@@ -357,17 +361,111 @@ public function doClassificationWestern(array $classification){
             }
             $requete->bindValue(":datevalidation",$classification["datevalidation"],PDO::PARAM_STR);
             $requete->execute();
-            return $requete->fetchAll(PDO::FETCH_ASSOC);
+            $data=$requete->fetchAll(PDO::FETCH_ASSOC);
+            $requete->closeCursor();
+            return $data;
         }else{
             $requete=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,DATESERVER,MONTANTWESTERN,MONTANT,NSUIVI,NOMEXP,OBSERVATION,DATEVALIDATION,TEMPSVALIDATION,NATIONALITE,MOTIF FROM (WESTERN LEFT OUTER JOIN ETUDIANTS ON WESTERN.IDETUDIANTS=ETUDIANTS.IDETUDIANTS) LEFT OUTER JOIN SUIVRE ON WESTERN.IDETUDIANTS=SUIVRE.IDETUDIANTS  WHERE DATEVALIDATION=:datevalidation");
             $requete->bindValue(":datevalidation",$classification["datevalidation"],PDO::PARAM_STR);
             $requete->execute();
-            return $requete->fetchAll(PDO::FETCH_ASSOC);
+            $data=$requete->fetchAll(PDO::FETCH_ASSOC);
+            $requete->closeCursor();
+            return $data;
         }
         
     }
 }
-
+public function ListPaiementCheque(){
+    $sql=$this->db->prepare("SELECT `MATRICULE`,`NOM`,`PRENOM`,`NUMERO`,`MAIL`,`ETABLISSEMENT`,`TIREUR`,`NCHEQUE`,`MOTIF`,`DATESERVER`,`MONTANT`,`OBSERVATION`,`DATEVALIDATION`,`TEMPSVALIDATION` FROM (`CHEQUE` LEFT OUTER JOIN `SUIVRE` ON `CHEQUE`.`IDETUDIANTS`=`SUIVRE`.`IDETUDIANTS`) LEFT OUTER JOIN `ETUDIANTS` ON `ETUDIANTS`.`IDETUDIANTS`=`CHEQUE`.`IDETUDIANTS` WHERE `CHEQUE`.`DECISION`='valide' ORDER BY DATESERVER ASC ");
+    $sql->execute();
+    $data=$sql->fetchAll(PDO::FETCH_ASSOC);
+    $sql->closeCursor();
+    return $data; 
+}
+public function ListPaiementMobileMoney(){
+    $sql=$this->db->prepare("SELECT `MATRICULE`,`NOM`,`PRENOM`,`NUMERO`,`MAIL`,`REFERENCE`,`MOTIF`,`DATY`,`DATESERVER`,`MONTANT`,`OBSERVATION`,`DATEVALIDATION`,`TEMPSVALIDATION` FROM (`MOBILEMONEY` LEFT OUTER JOIN `ETUDIANTS` ON `ETUDIANTS`.`IDETUDIANTS`=`MOBILEMONEY`.`IDETUDIANTS`) LEFT OUTER JOIN `SUIVRE` ON `SUIVRE`.`IDETUDIANTS`=`MOBILEMONEY`.`IDETUDIANTS`  WHERE `MOBILEMONEY`.`DECISION`='valide' ORDER BY `DATESERVER` ASC");
+    $sql->execute();
+    $data=$sql->fetchAll(PDO::FETCH_ASSOC);
+    $sql->closeCursor();
+    return $data;
+}
+ 
+public function ListPaiementMoneyGram(){
+    $sql=$this->db->prepare("SELECT `MATRICULE`, `NOM`,`PRENOM`,`NUMERO`,`MAIL`,`DATYMONEYGRAM`,`REFERENCE`,`EXPEDITEUR`,`MONTANTMONEYGRAM`,`MOTIF`,`DATESERVER`,`MONTANT`,`OBSERVATION`,`DATEVALIDATION`,`TEMPSVALIDATION` FROM (`MONEYGRAM` LEFT OUTER JOIN `SUIVRE` ON `MONEYGRAM`.`IDETUDIANTS`=`SUIVRE`.`IDETUDIANTS`) LEFT OUTER JOIN `ETUDIANTS` ON `ETUDIANTS`.`IDETUDIANTS`=`MONEYGRAM`.`IDETUDIANTS` WHERE `DECISION`='valide' ORDER BY `DATYMONEYGRAM` ASC");
+    $sql->execute();
+    $data= $sql->fetchAll(PDO::FETCH_ASSOC);
+    $sql->closeCursor();
+    return $data;
+}
+public function ListPaiementVersement(){
+    $sql=$this->db->prepare("SELECT `MATRICULE`,`NOM`,`PRENOM`,`NUMERO`,`MAIL`,`NBORDEREAUX`,`AGENCE`,`DATEVERSEMENT`,`MOTIF`,`DATESERVER`,`MONTANT`,`OBSERVATION`,`DATEVALIDATION`,`TEMPSVALIDATION` FROM (`VERSEMENT` LEFT OUTER JOIN `SUIVRE` ON `VERSEMENT`.`IDETUDIANTS`=`SUIVRE`.`IDETUDIANTS`) LEFT OUTER JOIN `ETUDIANTS` ON `ETUDIANTS`.`IDETUDIANTS`=`VERSEMENT`.`IDETUDIANTS` WHERE `VERSEMENT`.`DECISION`='valide' ORDER BY `DATESERVER` ASC");
+    $sql->execute();
+    $data= $sql->fetchAll(PDO::FETCH_ASSOC);
+    $sql->closeCursor();
+    return $data;
+}
+public function ListPaiementVirement(){
+    $sql=$this->db->prepare("SELECT `MATRICULE`,`NOM`,`PRENOM`,`NUMERO`,`MAIL`,`TITUCOMPTE`,`NCOMPTE`,`DATEVIREMENT`,`MOTIF`,`DATESERVER`,`MONTANT`,`OBSERVATION`,`DATEVALIDATION`,`TEMPSVALIDATION` FROM (`VIREMENT` LEFT OUTER JOIN `SUIVRE` ON `VIREMENT`.`IDETUDIANTS`=`SUIVRE`.`IDETUDIANTS`) LEFT OUTER JOIN `ETUDIANTS` ON `ETUDIANTS`.`IDETUDIANTS`=`VIREMENT`.`IDETUDIANTS` WHERE `VIREMENT`.`DECISION`='valide' ORDER BY `DATESERVER` ASC");
+    $sql->execute();
+    $data=$sql->fetchAll(PDO::FETCH_ASSOC);
+    $sql->closeCursor();
+    return $data;
+}
+public function ListPaiementWestern(){
+    $sql=$this->db->prepare("SELECT `MATRICULE`,`NOM`,`PRENOM`,`NUMERO`,`MAIL`,`NSUIVI`,`NOMEXP`,`MONTANTWESTERN`,`MOTIF`,`DATESERVER`,`MONTANT`,`OBSERVATION`,`DATEVALIDATION`,`TEMPSVALIDATION` FROM (`WESTERN` LEFT OUTER JOIN `SUIVRE` ON `WESTERN`.`IDETUDIANTS`=`SUIVRE`.`IDETUDIANTS`) LEFT OUTER JOIN `ETUDIANTS` ON `ETUDIANTS`.`IDETUDIANTS`=`WESTERN`.`IDETUDIANTS` WHERE `WESTERN`.`DECISION`='valide' ORDER BY `DATESERVER` ASC");
+    $sql->execute();
+    $data= $sql->fetchAll(PDO::FETCH_ASSOC);
+    $sql->closeCursor();
+    return $data;
+}
+public function SearchMatricule(string $matricule){
+    $sql=$this->db->prepare("SELECT MATRICULE,NOM,PRENOM,MAIL,NUMERO,INSCRIPTION,ECOLAGE,EXAMEN,SOUTENANCE,CERTIFICAT,DATEDINSCRIPTION FROM SUIVRE NATURAL JOIN ETUDIANTS WHERE MATRICULE=:matricule");
+    $sql->execute(array(":matricule"=>$matricule));
+    $data=$sql->fetchAll();
+    $sql->closeCursor();
+    return $data;
+}
+public function SearchPaiementMvola(string $matricule){
+    $sql=$this->db->prepare("SELECT * FROM `MOBILEMONEY` NATURAL JOIN `SUIVRE` WHERE MATRICULE=:matricule");
+    $sql->execute(array(":matricule"=>$matricule));
+    $data=$sql->fetchAll();
+    $sql->closeCursor();
+    return $data;
+}
+public function SearchPaiementCheque(string $matricule){
+    $sql=$this->db->prepare("SELECT * FROM `CHEQUE` NATURAL JOIN `SUIVRE` WHERE MATRICULE=:matricule");
+    $sql->execute(array(":matricule"=>$matricule));
+    $data=$sql->fetchAll();
+    $sql->closeCursor();
+    return $data;
+}
+public function SearchPaiementMoneyGram(string $matricule){
+    $sql=$this->db->prepare("SELECT * FROM `MONEYGRAM` NATURAL JOIN `SUIVRE` WHERE MATRICULE=:matricule");
+    $sql->execute(array(":matricule"=>$matricule));
+    $data=$sql->fetchAll();
+    $sql->closeCursor();
+    return $data;
+}
+public function SearchPaiementVersement(string $matricule){
+    $sql=$this->db->prepare("SELECT * FROM `VERSEMENT` NATURAL JOIN `SUIVRE` WHERE MATRICULE=:matricule");
+    $sql->execute(array(":matricule"=>$matricule));
+    $data=$sql->fetchAll();
+    $sql->closeCursor();
+    return $data;
+}
+public function SearchPaiementVirement(string $matricule){
+    $sql=$this->db->prepare("SELECT * FROM `VIREMENT` NATURAL JOIN `SUIVRE` WHERE MATRICULE=:matricule");
+    $sql->execute(array(":matricule"=>$matricule));
+    $data=$sql->fetchAll();
+    $sql->closeCursor();
+    return $data;
+}
+public function SearchPaiementWestern(string $matricule){
+    $sql=$this->db->prepare("SELECT * FROM `WESTERN` NATURAL JOIN `SUIVRE` WHERE MATRICULE=:matricule");
+    $sql->execute(array(":matricule"=>$matricule));
+    $data=$sql->fetchAll();
+    $sql->closeCursor();
+    return $data;
+}
 }
 
-?>

@@ -1,5 +1,6 @@
 $("document").ready(function () {
-        var controlitem = $("<form class=\"controleritem mt-3 form-inline\" >\
+        var controlitem = "<div class='controlrecouvrement'>\
+            <form class=\"mt-3 form-inline\">\
             <div class=\"form-group\"  align=\"center\">\
             <label class=\"ml-3\">Mois d'entrer :</label>\
             <select name=\"bo\" id=\"bo\" class=\"p-2 ml-1 form-control\">\
@@ -28,7 +29,16 @@ $("document").ready(function () {
             <option value=\"examen\">Examen</option>\
             <option value=\"certificat\">Certificat</option>\
             </select>\
-            </div></form>");
+            <div class='form-group' >\
+            <button id='findrecouvrement' class='btn btn-secondary'> Rechercher</button>\
+            </div>\
+            </div>`\
+            </form>\
+            <br/><br/><br/>\
+            <div>\
+            <h4>Filtrer selon matricule voulu</h4>\
+            <input type='text' id='recouvrementsearch' class='form-control' placeholder='rechercher'/>\
+            </div></div>";
         var ententerecouvrement = $("<thead><tr><th>Matricule</th><th>Nom</th><th>Prénom</th><th>EtatEcolage</th><th>Semestre</th><th>Tel</th><th>Inscription</th><th>Filière</th><th>Vague</th><th>Soutenance</th><th>Examen</th><th>Certificat</th></tr></thead>");
 
 
@@ -46,8 +56,8 @@ $("document").ready(function () {
         //afficher tous les instructions qu'on peut faire sur le recouvrement
         var ajourpromo = 0;
 
-        $('#recouvrement').click(function () {
-
+        $('#recouvrement').click(function (e) {
+            e.preventDefault();
             clearInterval(ajourpromo);
             clearInterval(ajourlistvirement);
             clearInterval(ajourlistversement);
@@ -55,7 +65,7 @@ $("document").ready(function () {
             clearInterval(ajourlistwestern);
             clearInterval(ajourlistmvola);
             clearInterval(ajourlistmoneygram);
-            $(".controleritem,.containerpromo").remove();
+            $(".controleritem,.containerpromo,.controlpaiementavalable,.controlrecouvrement").remove();
             $("#welcoming").empty();
             $(".table").empty();
             $(controlitem).insertBefore(".table");
@@ -74,15 +84,20 @@ $("document").ready(function () {
                     }
                     //prendre tous les données du recouvrement et les afficher
 
-                    var ajour = 0;
-                    var dateD = document.getElementById("bo").value;
-                    var month = $('#month').find('option:selected').val();
-                    var etat = $('#etat').find('option:selected').val();
-                    var motif = $('#motif').find('option:selected').val();
+                    
                     // var dataR = 'inputdate='+ dateD + '&paiementstate='+ etat + '&motif='+ motif + '&mounth='+ month;
-                    $.ajax({
-                        type: "POST",
-                        url: "../Controller/ControlRecouvrement.php",
+
+                   
+            $("#findrecouvrement").click(function(e){
+                var ajour = 0;
+                var dateD = $("#bo").val();
+                var month = $('#month').find('option:selected').val();
+                var etat = $('#etat').find('option:selected').val();
+                var motif = $('#motif').find('option:selected').val();
+                e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: "../Controller/ControlRecouvrement.php",
                         data: {
                             inputdate: dateD,
                             paiementstate: etat,
@@ -91,6 +106,7 @@ $("document").ready(function () {
                         },
                         dataType: "json",
                         success: function (dataa) {
+                            
                             $(".table").empty();
                             $(".table").append(ententerecouvrement);
                             $(".table").append(
@@ -116,14 +132,19 @@ $("document").ready(function () {
                             ");
                             }
                             ajour = i;
+                            $("#recouvrementsearch").keyup(function(){
+                                var value = $(this).val().toLowerCase();
+                                $(".table tr").filter(function() {
+                                  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                                });
+                            })
+                            
                         }
                     });
-
-
+            });
                 }
             });
-
-
+                    
         });
 
         //onglet classification
@@ -139,9 +160,12 @@ $("document").ready(function () {
 
             //mettre en place HTML du classsification
             $("#welcoming").empty();
-            $(".controleritem,.containerpromo").remove();
+            $(".controleritem,.containerpromo,.controlpaiementavalable,.controlrecouvrement").remove();
             $(".table").empty();
-            $("<form class=\"controleritem mt-3 form-inline\" >\
+            $("<div class='controleritem'>\
+            <h3 class='text-center' >Classifiez les paiements selon ces options</h3>\
+            <p>Recherchez tous les paiements que vous avez valider selon une date précise </p>\
+            <form class=\"mt-3 form-inline\" >\
             <div class=\"form-group\"  align=\"center\">\
             <label class=\"ml-3\">Date de validation :</label>\
             <input type=\"date\" id=\"datevalidation\" class=\"p-2 ml-1 form-control\">\
@@ -175,11 +199,302 @@ $("document").ready(function () {
             <div class='form-group m-3'>\
             <input type='button' id='searchclassification' class='btn btn-success' value='Rechercher'/>\
             </div>\
-            </div></form>").insertBefore(".table");
+            </div></form></div>").insertBefore(".table");
+
+            $("<div class='controlpaiementavalable'>\
+            <form>\
+            <div class='form-group'>\
+                <h3>Listez tous les paiements que vous avez valider selon votre choix</h3>\
+                <label>Mode de paiement</label>\
+                <select class='form-control' id='listpaiementavalable'>\
+                    <option value='mvola'>Mvola</option>\
+                    <option value='cheque'>Cheque</option>\
+                    <option value='moneygram'> Moneygram</option>\
+                    <option value='virement'>Virement</option>\
+                    <option value='versement'>Versement</option>\
+                    <option value='western'>Western</option>\
+                </select>\
+            </div>\
+            <div class='form-group'>\
+            <input id='searchallpaiement' class='btn btn-success' value='Rechercher'/>\
+            </div><br/>\
+            <input type='text' id='searchfromallpaiement' class='form-control' placeholder='rechercher une paiement specifique'/>\
+            </form></div>").insertBefore(".table");
+
+            //ON CLICK ET ON FAIT APERCEVOIR LA LISTE DU PAIEMENT SELON LE MODE DE PAIEMENT
+            
+            $("#searchallpaiement").click(function(){
+                $(".notification").remove();
+                $(".table").empty();
+                $.post("../Controller/ControlClassification.php", {classification:"allpaiement",modepaiement:$("#listpaiementavalable").val()},
+                    function (jsonresponse, textStatus, jqXHR) {
+                        if($("#listpaiementavalable").val()=='mvola'){
+                            $(".table").append("\
+                            <thead>\
+                                <tr>\
+                                    <th>MATRICULE</th>\
+                                    <th>NOM</th>\
+                                    <th>PRENOM</th>\
+                                    <th>MAIL</th>\
+                                    <th>NUMERO</th>\
+                                    <th>DATE D'INSERTION</th>\
+                                    <th>DATE AU GUICHET</th>\
+                                    <th>MONTANT</th>\
+                                    <th>REFERENCE</th>\
+                                    <th>OBSERVATION</th>\
+                                    <th>DATEVALIDATION</th>\
+                                    <th>TEMPSVALIDATION</th>\
+                                    <th>MOTIF</th>\
+                                </tr>\
+                            </thead>\
+                            <tbody>\
+                            </tbody>\
+                            ");
+                            for(var i=0;i < jsonresponse.length;i++){                          
+                                $("tbody").append("\
+                                <tr>\
+                                <td>"+jsonresponse[i]["MATRICULE"]+"</td>\
+                                <td>"+jsonresponse[i]["NOM"]+"</td>\
+                                <td>"+jsonresponse[i]["PRENOM"]+"</td>\
+                                <td>"+jsonresponse[i]["MAIL"]+"</td>\
+                                <td>"+jsonresponse[i]["NUMERO"]+"</td>\
+                                <td>"+jsonresponse[i]["DATESERVER"]+"</td>\
+                                <td>"+jsonresponse[i]["DATY"]+"</td>\
+                                <td>"+jsonresponse[i]["MONTANT"]+"</td>\
+                                <td>"+jsonresponse[i]["REFERENCE"]+"</td>\
+                                <td>"+jsonresponse[i]["OBSERVATION"]+"</td>\
+                                <td>"+jsonresponse[i]["DATEVALIDATION"]+"</td>\
+                                <td>"+jsonresponse[i]["TEMPSVALIDATION"]+"</td>\
+                                <td>"+jsonresponse[i]["MOTIF"]+"</td>\
+                                </tr>");
+                            }
+                        }else if($("#listpaiementavalable").val()=='cheque'){
+                            $(".table").append(
+                                "<thead>\
+                                    <tr>\
+                                        <th>MATRICULE</th>\
+                                        <th>NOM</th>\
+                                        <th>PRENOM</th>\
+                                        <th>MAIL</th>\
+                                        <th>NUMERO</th>\
+                                        <th>DATE D'INSERTION</th>\
+                                        <th>MONTANT</th>\
+                                        <th>TIREUR</th>\
+                                        <th>ETABLISSEMENT</th>\
+                                        <th>NUMERO DU CHEQUE</th>\
+                                        <th>OBSERVATION</th>\
+                                        <th>DATEVALIDATION</th>\
+                                        <th>TEMPSVALIDATION</th>\
+                                        <th>MOTIF</th>\
+                                    </tr>\
+                                </thead>\
+                                <tbody>\
+                                </tbody>");
+                                for(var i=0;i < jsonresponse.length;i++){                          
+                                    $("tbody").append("\
+                                    <tr>\
+                                    <td>"+jsonresponse[i]["MATRICULE"]+"</td>\
+                                    <td>"+jsonresponse[i]["NOM"]+"</td>\
+                                    <td>"+jsonresponse[i]["PRENOM"]+"</td>\
+                                    <td>"+jsonresponse[i]["MAIL"]+"</td>\
+                                    <td>"+jsonresponse[i]["NUMERO"]+"</td>\
+                                    <td>"+jsonresponse[i]["DATESERVER"]+"</td>\
+                                    <td>"+jsonresponse[i]["MONTANT"]+"</td>\
+                                    <td>"+jsonresponse[i]["TIREUR"]+"</td>\
+                                    <td>"+jsonresponse[i]["ETABLISSEMENT"]+"</td>\
+                                    <td>"+jsonresponse[i]["NCHEQUE"]+"</td>\
+                                    <td>"+jsonresponse[i]["OBSERVATION"]+"</td>\
+                                    <td>"+jsonresponse[i]["DATEVALIDATION"]+"</td>\
+                                    <td>"+jsonresponse[i]["TEMPSVALIDATION"]+"</td>\
+                                    <td>"+jsonresponse[i]["MOTIF"]+"</td>\
+                                    </tr>");
+                                }
+                        }else if($('#listpaiementavalable').val()=='moneygram'){
+                            $(".table").append(
+                                "<thead>\
+                                    <tr>\
+                                        <th>MATRICULE</th>\
+                                        <th>NOM</th>\
+                                        <th>PRENOM</th>\
+                                        <th>MAIL</th>\
+                                        <th>NUMERO</th>\
+                                        <th>DATE D'INSERTION</th>\
+                                        <th>DATE D'ENVOIE</th>\
+                                        <th>REFERENCE</th>\
+                                        <th>MONTANT ENVOYER</th>\
+                                        <th>MONTANT A DEVOIR</th>\
+                                        <th>NOM DE L'EXPEDITEUR</th>\
+                                        <th>OBSERVATION</th>\
+                                        <th>DATEVALIDATION</th>\
+                                        <th>TEMPSVALIDATION</th>\
+                                        <th>MOTIF</th>\
+                                    </tr>\
+                                </thead>\
+                                <tbody>\
+                                </tbody>");
+                                for(var i=0;i < jsonresponse.length;i++){                          
+                                    $("tbody").append("\
+                                    <tr>\
+                                    <td>"+jsonresponse[i]["MATRICULE"]+"</td>\
+                                    <td>"+jsonresponse[i]["NOM"]+"</td>\
+                                    <td>"+jsonresponse[i]["PRENOM"]+"</td>\
+                                    <td>"+jsonresponse[i]["MAIL"]+"</td>\
+                                    <td>"+jsonresponse[i]["NUMERO"]+"</td>\
+                                    <td>"+jsonresponse[i]["DATESERVER"]+"</td>\
+                                    <td>"+jsonresponse[i]["DATYMONEYGRAM"]+"</td>\
+                                    <td>"+jsonresponse[i]["REFERENCE"]+"</td>\
+                                    <td>"+jsonresponse[i]["EXPEDITEUR"]+"</td>\
+                                    <td>"+jsonresponse[i]["MONTANTMONEYGRAM"]+"</td>\
+                                    <td>"+jsonresponse[i]["MONTANT"]+"</td>\
+                                    <td>"+jsonresponse[i]["OBSERVATION"]+"</td>\
+                                    <td>"+jsonresponse[i]["DATEVALIDATION"]+"</td>\
+                                    <td>"+jsonresponse[i]["TEMPSVALIDATION"]+"</td>\
+                                    <td>"+jsonresponse[i]["MOTIF"]+"</td>\
+                                    </tr>");
+                                }
+                        }else if($('#listpaiementavalable').val()=='virement'){
+                            $(".table").append(
+                                "<thead>\
+                                    <tr>\
+                                        <th>MATRICULE</th>\
+                                        <th>NOM</th>\
+                                        <th>PRENOM</th>\
+                                        <th>MAIL</th>\
+                                        <th>NUMERO</th>\
+                                        <th>DATE D'INSERTION</th>\
+                                        <th>DATE DU VIREMENT</th>\
+                                        <th>NUMERO DU COMPTE</th>\
+                                        <th>TITULAIRE DU COMPTE</th>\
+                                        <th>MONTANT</th>\
+                                        <th>OBSERVATION</th>\
+                                        <th>DATEVALIDATION</th>\
+                                        <th>TEMPSVALIDATION</th>\
+                                        <th>MOTIF</th>\
+                                    </tr>\
+                                </thead>\
+                                <tbody>\
+                                </tbody>");
+                                for(var i=0;i < jsonresponse.length;i++){                          
+                                    $("tbody").append("\
+                                    <tr>\
+                                    <td>"+jsonresponse[i]["MATRICULE"]+"</td>\
+                                    <td>"+jsonresponse[i]["NOM"]+"</td>\
+                                    <td>"+jsonresponse[i]["PRENOM"]+"</td>\
+                                    <td>"+jsonresponse[i]["MAIL"]+"</td>\
+                                    <td>"+jsonresponse[i]["NUMERO"]+"</td>\
+                                    <td>"+jsonresponse[i]["DATESERVER"]+"</td>\
+                                    <td>"+jsonresponse[i]["DATEVIREMENT"]+"</td>\
+                                    <td>"+jsonresponse[i]["NCOMPTE"]+"</td>\
+                                    <td>"+jsonresponse[i]["TITUCOMPTE"]+"</td>\
+                                    <td>"+jsonresponse[i]["MONTANT"]+"</td>\
+                                    <td>"+jsonresponse[i]["OBSERVATION"]+"</td>\
+                                    <td>"+jsonresponse[i]["DATEVALIDATION"]+"</td>\
+                                    <td>"+jsonresponse[i]["TEMPSVALIDATION"]+"</td>\
+                                    <td>"+jsonresponse[i]["MOTIF"]+"</td>\
+                                    </tr>");
+                                }
+                        }else if($('#listpaiementavalable').val()=='versement'){
+                            $(".table").append(
+                                "<thead>\
+                                    <tr>\
+                                        <th>MATRICULE</th>\
+                                        <th>NOM</th>\
+                                        <th>PRENOM</th>\
+                                        <th>MAIL</th>\
+                                        <th>NUMERO</th>\
+                                        <th>DATE D'INSERTION</th>\
+                                        <th>DATE DU VERSEMENT</th>\
+                                        <th>AGENCE DU VERSEMENT</th>\
+                                        <th>NUMERO DU BORDEREAUX</th>\
+                                        <th>MONTANT</th>\
+                                        <th>OBSERVATION</th>\
+                                        <th>DATEVALIDATION</th>\
+                                        <th>TEMPSVALIDATION</th>\
+                                        <th>MOTIF</th>\
+                                    </tr>\
+                                </thead>\
+                                <tbody>\
+                                </tbody>");
+                                for(var i=0;i < jsonresponse.length;i++){                          
+                                    $("tbody").append("\
+                                    <tr>\
+                                    <td>"+jsonresponse[i]["MATRICULE"]+"</td>\
+                                    <td>"+jsonresponse[i]["NOM"]+"</td>\
+                                    <td>"+jsonresponse[i]["PRENOM"]+"</td>\
+                                    <td>"+jsonresponse[i]["MAIL"]+"</td>\
+                                    <td>"+jsonresponse[i]["NUMERO"]+"</td>\
+                                    <td>"+jsonresponse[i]["DATESERVER"]+"</td>\
+                                    <td>"+jsonresponse[i]["DATEVERSEMENT"]+"</td>\
+                                    <td>"+jsonresponse[i]["AGENCE"]+"</td>\
+                                    <td>"+jsonresponse[i]["NBORDEREAUX"]+"</td>\
+                                    <td>"+jsonresponse[i]["MONTANT"]+"</td>\
+                                    <td>"+jsonresponse[i]["OBSERVATION"]+"</td>\
+                                    <td>"+jsonresponse[i]["DATEVALIDATION"]+"</td>\
+                                    <td>"+jsonresponse[i]["TEMPSVALIDATION"]+"</td>\
+                                    <td>"+jsonresponse[i]["MOTIF"]+"</td>\
+                                    </tr>");
+                                }
+                        }else if($("#listpaiementavalable").val()=='western'){
+                            $(".table").append(
+                                "<thead>\
+                                    <tr>\
+                                        <th>MATRICULE</th>\
+                                        <th>NOM</th>\
+                                        <th>PRENOM</th>\
+                                        <th>MAIL</th>\
+                                        <th>NUMERO</th>\
+                                        <th>DATE D'INSERTION</th>\
+                                        <th>MONTANT ENVOYÉ</th>\
+                                        <th>MONTANT A DEVOIR</th>\
+                                        <th>NUMERO DE SUIVI</th>\
+                                        <th>NOM DE L'EXPEDITEUR</th>\
+                                        <th>OBSERVATION</th>\
+                                        <th>DATEVALIDATION</th>\
+                                        <th>TEMPSVALIDATION</th>\
+                                        <th>MOTIF</th>\
+                                    </tr>\
+                                </thead>\
+                                <tbody>\
+                                </tbody>");
+                                for(var i=0;i < jsonresponse.length;i++){                          
+                                    $("tbody").append("\
+                                    <tr>\
+                                    <td>"+jsonresponse[i]["MATRICULE"]+"</td>\
+                                    <td>"+jsonresponse[i]["NOM"]+"</td>\
+                                    <td>"+jsonresponse[i]["PRENOM"]+"</td>\
+                                    <td>"+jsonresponse[i]["NATIONALITE"]+"</td>\
+                                    <td>"+jsonresponse[i]["MAIL"]+"</td>\
+                                    <td>"+jsonresponse[i]["NUMERO"]+"</td>\
+                                    <td>"+jsonresponse[i]["DATESERVER"]+"</td>\
+                                    <td>"+jsonresponse[i]["MONTANTWESTERN"]+"</td>\
+                                    <td>"+jsonresponse[i]["MONTANT"]+"</td>\
+                                    <td>"+jsonresponse[i]["NSUIVI"]+"</td>\
+                                    <td>"+jsonresponse[i]["NOMEXP"]+"</td>\
+                                    <td>"+jsonresponse[i]["OBSERVATION"]+"</td>\
+                                    <td>"+jsonresponse[i]["DATEVALIDATION"]+"</td>\
+                                    <td>"+jsonresponse[i]["TEMPSVALIDATION"]+"</td>\
+                                    <td>"+jsonresponse[i]["MOTIF"]+"</td>\
+                                    </tr>");
+                                }
+                        }
+                    },
+                    "JSON"
+                );
+                    //FILTRAGE DU TABLE ALLPAIEMENT
+                $("#searchfromallpaiement").keyup(function(){
+                    var value = $(this).val().toLowerCase();
+                    $(".table tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+                })
+            });
+            
+            //CHERCHE LES PAIEMENTS EFFECTUER DURANT UNE DATE DE VALIDATION SPECIFIQUE
 
             $("#searchclassification").click(function(){
                 $(".notification").remove();
                 $(".table").empty();
+                //ON ENVOIE LE MODE DE PAIEMENT,LA DATE DE VALIDATION,LA MOTIF,ET LA NATIONALITE AU FICHIER PHP
                 $.post("../Controller/ControlClassification.php",{classification:$("#modepaiement").val(), datevalidation : $("#datevalidation").val(),
                 motif : $("#motifdepaiement").val(),nationalite:$("#nationalite").val()},
                     function (jsonresponse, textStatus, jqXHR) {
@@ -187,7 +502,8 @@ $("document").ready(function () {
                         switch ($("#modepaiement").val()) {
                             case "mvola":
                             if(jsonresponse.length==0){
-                                    $("#containertable").append("<h2 class='notification' >Aucun resultat de votre recherche</h2>");
+                                    $("#containertable").append("<h2 class='notification text-center text-primary' >Aucun resultat de votre recherche</h2>");
+                                    //ON MODIFIE L'ENTETE DU CHAQUE TABLE SELON LA MODE DU PAIEMENT
                             }else{
                                 $(".table").append(
                                     "<thead>\
@@ -492,7 +808,7 @@ $("document").ready(function () {
 
             $("#welcoming").empty();
             $(".table").empty();
-            $(".controleritem,.containerpromo").remove();
+            $(".controleritem,.containerpromo,.controlpaiementavalable,.controlrecouvrement").remove();
             $("section").append(
                 "<br>\
             <div class=\"container containerpromo\">\
@@ -630,11 +946,19 @@ $("document").ready(function () {
             });
 
         });
-
-
+       
+        //SECTION NOTIFICATION
+        /**
+         * Notification d'une nouvelle paiement en MVOLA
+         * CHEQUE
+         * VIREMENT
+         * VERSEMENT
+         * WESTERN
+         * MONEYGRAM
+         */
 
         $("#MvolaVoir").click(function () {
-            $(".notif,#welcoming,.controleritem,.containerpromo").remove();
+            $(".notif,#welcoming,.controleritem,.containerpromo,.controlpaiementavalable,.controlrecouvrement").remove();
             clearInterval(ajourlistvirement);
             clearInterval(ajourlistversement);
             clearInterval(ajourlistcheque);
@@ -752,7 +1076,7 @@ $("document").ready(function () {
 
 
         $("#ChequeVoir").click(function () {
-            $(".notif,#welcoming,.controleritem,.containerpromo").remove();
+            $(".notif,#welcoming,.controleritem,.containerpromo,.controlpaiementavalable,.controlrecouvrement").remove();
             var nombretd = 0;
             clearInterval(ajourlistvirement);
             clearInterval(ajourlistversement);
@@ -867,7 +1191,7 @@ $("document").ready(function () {
 
 
         $("#VersementVoir").click(function () {
-            $(".notif,#welcoming,.controleritem,.containerpromo").remove();
+            $(".notif,#welcoming,.controleritem,.containerpromo,.controlpaiementavalable,.controlrecouvrement").remove();
             var nombretd = 0;
             clearInterval(ajourlistvirement);
             clearInterval(ajourlistversement);
@@ -986,7 +1310,7 @@ $("document").ready(function () {
 
 
         $("#VirementVoir").click(function () {
-            $(".notif,#welcoming,.controleritem,.containerpromo").remove();
+            $(".notif,#welcoming,.controleritem,.containerpromo,.controlpaiementavalable,.controlrecouvrement").remove();
             var nombretd = 0;
             clearInterval(ajourlistvirement);
             clearInterval(ajourlistversement);
@@ -1109,7 +1433,7 @@ $("document").ready(function () {
 
 
         $("#WesternVoir").click(function () {
-            $(".notif,#welcoming,.controleritem,.containerpromo").remove();
+            $(".notif,#welcoming,.controleritem,.containerpromo,.controlpaiementavalable,.controlrecouvrement").remove();
             clearInterval(ajourlistvirement);
             clearInterval(ajourlistversement);
             clearInterval(ajourlistcheque);
@@ -1227,7 +1551,7 @@ $("document").ready(function () {
 
         //MoneyGram
         $("#MoneyGram").click(function () {
-            $(".notif,#welcoming,.controleritem,.containerpromo").remove();
+            $(".notif,#welcoming,.controleritem,.containerpromo,.controlpaiementavalable,.controlrecouvrement").remove();
             var nombretd = 0;
             clearInterval(ajourlistvirement);
             clearInterval(ajourlistversement);

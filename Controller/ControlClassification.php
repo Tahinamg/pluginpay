@@ -7,6 +7,25 @@ function loadclass($class){
 }
 
 spl_autoload_register("loadclass");
+
+if($_POST['classification']=="allpaiement"){
+    $comptableManager = new ComptableManager(MyPDO::getMysqlConnexion());
+    if($_POST['modepaiement']=="mvola"){
+    $dataqueryresult=$comptableManager->ListPaiementMobileMoney();
+    }elseif($_POST['modepaiement']=='versement'){
+    $dataqueryresult=$comptableManager->ListPaiementVersement();
+    }elseif($_POST['modepaiement']=='virement'){
+        $dataqueryresult=$comptableManager->ListPaiementVirement();
+    }elseif($_POST['modepaiement']=='western'){
+        $dataqueryresult=$comptableManager->ListPaiementWestern();
+    }elseif($_POST['modepaiement']=='moneygram'){
+        $dataqueryresult=$comptableManager->ListPaiementMoneyGram();
+    }elseif($_POST['modepaiement']=='cheque'){
+        $dataqueryresult=$comptableManager->ListPaiementCheque();
+    }
+    echo json_encode($dataqueryresult);
+}else{
+
     $data = array();
     $date=new DateTime($_POST["datevalidation"]);
     $data["datevalidation"] = $date->format("Y-m-d") ;
@@ -31,5 +50,8 @@ spl_autoload_register("loadclass");
         $arraydata = $comptableManager->doClassificationMoneyGram($data);
     }
     echo json_encode($arraydata);
+
+}
+
 ?>
 

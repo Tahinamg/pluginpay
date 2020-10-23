@@ -118,17 +118,7 @@ class ComptableManagerVersement{
         $sql->execute();
         $sql->closeCursor();
     }
-    public function ListPaiementVersement($date,$motif,$vague){
-        $sql=$this->db->prepare("SELECT `IDVERSEMENT`,`SUIVRE`.`MATRICULE` , `CODE` AS `VAGUE`,`NOM`,`PRENOM`,`NUMERO`,`NBORDEREAUX`,`AGENCE`,`DATEVERSEMENT`,`MOTIF`,`DATESERVER`,`MONTANT`,`OBSERVATION`,`DATEVALIDATION`,`TEMPSVALIDATION` FROM (`VERSEMENT` LEFT OUTER JOIN `SUIVRE` ON `VERSEMENT`.`IDETUDIANTS`=`SUIVRE`.`IDETUDIANTS`) LEFT OUTER JOIN `ETUDIANTS` ON `ETUDIANTS`.`IDETUDIANTS`=`VERSEMENT`.`IDETUDIANTS` WHERE `VERSEMENT`.`DATEVALIDATION` = :datevalidation AND `VERSEMENT`.`MOTIF` =:motif AND `SUIVRE`.`CODE`=:vague AND `VERSEMENT`.`ETAT`='lu' AND `VERSEMENT`.`DECISION`='valide' ORDER BY DATEVALIDATION ASC");
-        $date.="%";
-        $sql->bindValue(":datevalidation",$date,PDO::PARAM_STR);
-        $sql->bindValue(":vague",$vague,PDO::PARAM_STR);
-        $sql->bindValue(":motif",$motif,PDO::PARAM_STR);
-        $sql->execute();
-        $data= $sql->fetchAll(PDO::FETCH_ASSOC);
-        $sql->closeCursor();
-        return $data;
-    }
+    
     
 }
 ?>
