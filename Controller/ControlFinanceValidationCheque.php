@@ -16,7 +16,7 @@ if (isset($_POST['motif'])) {
             $data = array($_POST['matricule'], $_POST['idcheque'], $_POST['observation']);
             $comptable->ValiderInscriptionViaCheque($data[0], $data[1], $data[2]);
 
-            $headers = "MIME-version : 1.0" . "\r\n";
+          /*  $headers = "MIME-version : 1.0" . "\r\n";
             $headers .= "Content-type: text/html; charset=utf-8" . "\r\n";
             $headers .= "From: Service Finance E-media <servicefinance@e-media.mg>" . "\r\n";
             $headers .= "Reply-To : anjaranirinagael@gmail.com" . "\r\n";
@@ -33,7 +33,7 @@ if (isset($_POST['motif'])) {
             </p>
                 <div style="text-align: end; font-style: italic;">
                     <strong>E-media Finance</strong>
-                </div></body></html>', $headers);
+                </div></body></html>', $headers);*/
 
 
             header("location:../Vue/dashboard.php?status='valider'&motif='inscription'&mode='cheque'");
@@ -45,7 +45,7 @@ if (isset($_POST['motif'])) {
 
             //mail($etudiant->get//mail(),"E-media paiement ecolage par cheque","Votre ecolage a ete valide");
 
-            $headers = "MIME-version : 1.0" . "\r\n";
+           /* $headers = "MIME-version : 1.0" . "\r\n";
             $headers .= "Content-type: text/html; charset=utf-8" . "\r\n";
             $headers .= "From: Service Finance E-media <servicefinance@e-media.mg>" . "\r\n";
             $headers .= "Reply-To : anjaranirinagael@gmail.com" . "\r\n";
@@ -63,7 +63,7 @@ if (isset($_POST['motif'])) {
                 </p>
                     <div style="text-align: end; font-style: italic;">
                         <strong>E-media Finance</strong>
-                    </div></body></html>', $headers);
+                    </div></body></html>', $headers);*/
 
 
             header("location:../Vue/dashboard.php?status='valider'&motif='ecolage'&mode='cheque'");
@@ -73,7 +73,7 @@ if (isset($_POST['motif'])) {
             $comptable->ValiderDroitExamenViaCheque($data[0], $data[1], $data[2]);
             //mail($etudiant->get//mail(),"E-media paiement droit examen semestriel par cheque","Votre droit pour l'examen semestriel a ete valide");
 
-            $headers = "MIME-version : 1.0" . "\r\n";
+           /* $headers = "MIME-version : 1.0" . "\r\n";
             $headers .= "Content-type: text/html; charset=utf-8" . "\r\n";
             $headers .= "From: Service Finance E-media <servicefinance@e-media.mg>" . "\r\n";
             $headers .= "Reply-To : anjaranirinagael@gmail.com" . "\r\n";
@@ -90,7 +90,7 @@ if (isset($_POST['motif'])) {
                 </p>
                 <div style="text-align: end; font-style: italic;">
                         <strong>E-media Finance</strong>
-                </div></body></html>', $headers);
+                </div></body></html>', $headers);*/
 
 
             header("location:../Vue/dashboard.php?status='valider'&motif='des'&mode='cheque'");
@@ -99,7 +99,7 @@ if (isset($_POST['motif'])) {
             $data = array($_POST['matricule'], $_POST['idcheque'], $_POST['observation']);
             $comptable->ValiderSoutenanceViaCheque($data[0], $data[1], $data[2]);
             //mail($etudiant->get//mail(),"E-media paiement droit de soutenance par cheque","Votre droit de soutenance a ete valide");
-            $headers = "MIME-version : 1.0" . "\r\n";
+            /*$headers = "MIME-version : 1.0" . "\r\n";
             $headers .= "Content-type: text/html; charset=utf-8" . "\r\n";
             $headers .= "From: Service Finance E-media <servicefinance@e-media.mg>" . "\r\n";
             $headers .= "Reply-To : anjaranirinagael@gmail.com" . "\r\n";
@@ -116,7 +116,7 @@ if (isset($_POST['motif'])) {
                 </p>
                     <div style="text-align: end; font-style: italic;">
                         <strong>E-media Finance</strong>
-                    </div></body></html>', $headers);
+                    </div></body></html>', $headers);*/
 
             header("location:../Vue/dashboard.php?status='valider'&motif='ds'&mode='cheque'");
             break;
@@ -125,7 +125,7 @@ if (isset($_POST['motif'])) {
             $comptable->ValiderRepechageViaCheque($data[0], $data[1], $data[2]);
             //mail($etudiant->get//mail(),"E-media paiement repechage par cheque","Votre droit de repechage a ete valide");
 
-            $headers = "MIME-version : 1.0" . "\r\n";
+           /* $headers = "MIME-version : 1.0" . "\r\n";
             $headers .= "Content-type: text/html; charset=utf-8" . "\r\n";
             $headers .= "From: Service Finance E-media <servicefinance@e-media.mg>" . "\r\n";
             $headers .= "Reply-To : anjaranirinagael@gmail.com" . "\r\n";
@@ -142,7 +142,7 @@ if (isset($_POST['motif'])) {
             </p>
                 <div style="text-align: end; font-style: italic;">
                     <strong>E-media Finance</strong>
-                </div></body></html>', $headers);
+                </div></body></html>', $headers);*/
 
             header("location:../Vue/dashboard.php?status='valider'&motif='repechage'&mode='cheque'");
             break;
@@ -151,7 +151,7 @@ if (isset($_POST['motif'])) {
             $comptable->ValiderCertificat($data[0], $data[1], $data[2]);
             //mail($etudiant->get//mail(),"E-media paiement certificat par cheque","Votre droit de certificat a ete valide");
 
-            $headers = "MIME-version : 1.0" . "\r\n";
+            /*$headers = "MIME-version : 1.0" . "\r\n";
             $headers .= "Content-type: text/html; charset=utf-8" . "\r\n";
             $headers .= "From: Service Finance E-media <servicefinance@e-media.mg>" . "\r\n";
             $headers .= "Reply-To : anjaranirinagael@gmail.com" . "\r\n";
@@ -168,7 +168,7 @@ if (isset($_POST['motif'])) {
             </p>
                 <div style="text-align: end; font-style: italic;">
                     <strong>E-media Finance</strong>
-                </div></body></html>', $headers);
+                </div></body></html>', $headers);*/
 
             header("location:../Vue/dashboard.php?status='valider'&motif='certificat'&mode='cheque'");
             break;

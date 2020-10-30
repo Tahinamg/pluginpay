@@ -17,7 +17,7 @@ if (isset($_POST['motif'])) {
             $data = array($_POST['matricule'], $_POST['idmobilemoney'], $_POST['observation']);
             $comptable->ValiderInscriptionViaMobileMoney($data[0], $data[1], $data[2]);
             //mail($etudiant->getMail(),"E-media paiement inscription par mobilemoney","Votre droit pour l'inscription a ete valide");
-            $headers = "MIME-version : 1.0" . "\r\n";
+           /* $headers = "MIME-version : 1.0" . "\r\n";
             $headers .= "Content-type: text/html; charset=utf-8" . "\r\n";
             $headers .= "From: Service Finance E-media <servicefinance@e-media.mg>" . "\r\n";
             $headers .= "Reply-To : anjaranirinagael@gmail.com" . "\r\n";
@@ -34,7 +34,7 @@ if (isset($_POST['motif'])) {
     </p>
         <div style="text-align: end; font-style: italic;">
             <strong>E-media Finance</strong>
-        </div></body></html>', $headers);
+        </div></body></html>', $headers);*/
 
 
             header("location:../Vue/dashboard.php?status='valider'&motif='inscription'&mode='mobilemoney'");
@@ -44,7 +44,7 @@ if (isset($_POST['motif'])) {
             $comptable->ValiderEcolageViaMobileMoney($data[0], $data[1], $data[2], $data[3]);
             // mail($etudiant->getMail(),"E-media paiement ecolage par mobilemoney","Votre ecolage a ete valide");
 
-            $headers = "MIME-version : 1.0" . "\r\n";
+           /* $headers = "MIME-version : 1.0" . "\r\n";
             $headers .= "Content-type: text/html; charset=utf-8" . "\r\n";
             $headers .= "From: Service Finance E-media <servicefinance@e-media.mg>" . "\r\n";
             $headers .= "Reply-To : anjaranirinagael@gmail.com" . "\r\n";
@@ -62,7 +62,7 @@ if (isset($_POST['motif'])) {
     </p>
         <div style="text-align: end; font-style: italic;">
             <strong>E-media Finance</strong>
-        </div></body></html>', $headers);
+        </div></body></html>', $headers);:*/
 
             header("location:../Vue/dashboard.php?status='valider'&motif='ecolage'&mode='mobilemoney'");
             break;
@@ -71,7 +71,7 @@ if (isset($_POST['motif'])) {
             $comptable->ValiderDroitExamen($data[0], $data[1], $data[2]);
             // mail($etudiant->getMail(),"E-media paiement droit examen semestriel par mobilemoney","Votre droit pour l'examen semestriel a ete valide");
 
-            $headers = "MIME-version : 1.0" . "\r\n";
+           /* $headers = "MIME-version : 1.0" . "\r\n";
             $headers .= "Content-type: text/html; charset=utf-8" . "\r\n";
             $headers .= "From: Service Finance E-media <servicefinance@e-media.mg>" . "\r\n";
             $headers .= "Reply-To : anjaranirinagael@gmail.com" . "\r\n";
@@ -88,7 +88,7 @@ if (isset($_POST['motif'])) {
     </p>
         <div style="text-align: end; font-style: italic;">
             <strong>E-media Finance</strong>
-        </div></body></html>', $headers);
+        </div></body></html>', $headers);*/
 
 
             header("location:../Vue/dashboard.php?status='valider'&motif='des'&mode='mobilemoney'");
@@ -99,7 +99,7 @@ if (isset($_POST['motif'])) {
             //  mail($etudiant->getMail(),"E-media paiement droit de soutenance par mobilemoney","Votre droit de soutenance a ete valide");
 
 
-            $headers = "MIME-version : 1.0" . "\r\n";
+          /*  $headers = "MIME-version : 1.0" . "\r\n";
             $headers .= "Content-type: text/html; charset=utf-8" . "\r\n";
             $headers .= "From: Service Finance E-media <servicefinance@e-media.mg>" . "\r\n";
             $headers .= "Reply-To : anjaranirinagael@gmail.com" . "\r\n";
@@ -116,7 +116,7 @@ if (isset($_POST['motif'])) {
     </p>
         <div style="text-align: end; font-style: italic;">
             <strong>E-media Finance</strong>
-        </div></body></html>', $headers);
+        </div></body></html>', $headers);*/
 
             header("location:../Vue/dashboard.php?status='valider'&motif='ds'&mode='mobilemoney'");
             break;
@@ -125,7 +125,7 @@ if (isset($_POST['motif'])) {
             $comptable->ValiderRepechage($data[0], $data[1], $data[2]);
             //  mail($etudiant->getMail(),"E-media paiement repechage par mobilemoney","Votre droit de repechage a ete valide");
 
-            $headers = "MIME-version : 1.0" . "\r\n";
+           /* $headers = "MIME-version : 1.0" . "\r\n";
             $headers .= "Content-type: text/html; charset=utf-8" . "\r\n";
             $headers .= "From: Service Finance E-media <servicefinance@e-media.mg>" . "\r\n";
             $headers .= "Reply-To : anjaranirinagael@gmail.com" . "\r\n";
@@ -142,7 +142,7 @@ if (isset($_POST['motif'])) {
     </p>
         <div style="text-align: end; font-style: italic;">
             <strong>E-media Finance</strong>
-        </div></body></html>', $headers);
+        </div></body></html>', $headers);*/
 
             header("location:../Vue/dashboard.php?status='valider'&motif='repechage'&mode='mobilemoney'");
             break;
@@ -150,7 +150,7 @@ if (isset($_POST['motif'])) {
             $data = array($_POST['matricule'], $_POST['idmobilemoney'], $_POST['observation']);
             $comptable->ValiderCertificat($data[0], $data[1], $data[2]);
 
-            $headers = "MIME-version : 1.0" . "\r\n";
+           /* $headers = "MIME-version : 1.0" . "\r\n";
             $headers .= "Content-type: text/html; charset=utf-8" . "\r\n";
             $headers .= "From: Service Finance E-media <servicefinance@e-media.mg>" . "\r\n";
             $headers .= "Reply-To : anjaranirinagael@gmail.com" . "\r\n";
@@ -167,7 +167,7 @@ if (isset($_POST['motif'])) {
     </p>
         <div style="text-align: end; font-style: italic;">
             <strong>E-media Finance</strong>
-        </div></body></html>', $headers);
+        </div></body></html>', $headers);*/
 
 
             // mail($etudiant->getMail(),"E-media paiement certificat par mobilemoney","Votre droit de certificat a ete valide");

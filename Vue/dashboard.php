@@ -23,7 +23,8 @@ if (!isset($_SESSION['finance'])) {
   <link rel="stylesheet" href="CSS/dash.css" />
   <link rel="icon" href="Image/logo E-media.png" type="image/png" sizes="16x16">
 
-
+<script  type="text/javascript" src="https://unpkg.com/xlsx@0.16.8/dist/xlsx.full.min.js"> </script>
+<script type="text/javascript" src="JS/FileSaver.min.js"></script>
 </head>
 
 <body>

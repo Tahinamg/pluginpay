@@ -17,7 +17,7 @@ if(isset($_POST['motif'])){
         case 'inscription':
             $data=array($_POST['matricule'],$_POST['idvirement'],$_POST['observation']);
             $comptable->ValiderInscriptionViaVirement($data[0],$data[1],$data[2]);
-            $headers= "MIME-version : 1.0"."\r\n";
+           /* $headers= "MIME-version : 1.0"."\r\n";
             $headers.= "Content-type: text/html; charset=utf-8"."\r\n";
             $headers.= "From: Service Finance E-media <servicefinance@e-media.mg>"."\r\n";
             $headers.= "Reply-To : anjaranirinagael@gmail.com"."\r\n";
@@ -36,14 +36,14 @@ mail($etudiant->getMail(),"E-media paiement inscription par virement",'<html><bo
             <strong>E-media Finance</strong>
         </div></body></html>',$headers);
             
-            //mail($etudiant->get//mail(),"E-media paiement inscription par virement","Votre droit pour l'inscription a ete valide");
+            //mail($etudiant->get//mail(),"E-media paiement inscription par virement","Votre droit pour l'inscription a ete valide");*/
             header("location:../Vue/dashboard.php?status='valider'&motif='inscription'&mode='virement'");
             break;
         case 'ecolage' :
             $data=array($_POST['quantite'],$_POST['matricule'],$_POST['idvirement'],$_POST['observation']);
             $comptable->ValiderEcolageViaVirement($data[0],$data[1],$data[2],$data[3]);
             
-            $headers= "MIME-version : 1.0"."\r\n";
+           /* $headers= "MIME-version : 1.0"."\r\n";
             $headers.= "Content-type: text/html; charset=utf-8"."\r\n";
             $headers.= "From: Service Finance E-media <servicefinance@e-media.mg>"."\r\n";
             $headers.= "Reply-To : anjaranirinagael@gmail.com"."\r\n";
@@ -61,7 +61,7 @@ mail($etudiant->getMail(),"E-media paiement frais de scolarité par virement",'<
     </p>
         <div style="text-align: end; font-style: italic;">
             <strong>E-media Finance</strong>
-        </div></body></html>',$headers);
+        </div></body></html>',$headers);*/
             
             //mail($etudiant->get//mail(),"E-media paiement ecolage par virement","Votre ecolage a ete valide");
             header("location:../Vue/dashboard.php?status='valider'&motif='ecolage'&mode='virement'");
@@ -69,7 +69,7 @@ mail($etudiant->getMail(),"E-media paiement frais de scolarité par virement",'<
         case 'droit examen semestriel' : 
             $data=array($_POST['matricule'],$_POST['idvirement'],$_POST['observation']);
             $comptable->ValiderDroitExamenViaVirement($data[0],$data[1],$data[2]);
-            $headers= "MIME-version : 1.0"."\r\n";
+           /* $headers= "MIME-version : 1.0"."\r\n";
             $headers.= "Content-type: text/html; charset=utf-8"."\r\n";
             $headers.= "From: Service Finance E-media <servicefinance@e-media.mg>"."\r\n";
             $headers.= "Reply-To : anjaranirinagael@gmail.com"."\r\n";
@@ -89,14 +89,14 @@ mail($etudiant->getMail(),"E-media paiement droit d'examen par virement",'<html>
         </div></body></html>',$headers);
             
             
-            //mail($etudiant->get//mail(),"E-media paiement droit examen semestriel par virement","Votre droit pour l'examen semestriel a ete valide");
+            //mail($etudiant->get//mail(),"E-media paiement droit examen semestriel par virement","Votre droit pour l'examen semestriel a ete valide");*/
             header("location:../Vue/dashboard.php?status='valider'&motif='des'&mode='virement'");
             break;
         case 'Droit de soutenance' :
             $data=array($_POST['matricule'],$_POST['idvirement'],$_POST['observation']);
             $comptable->ValiderSoutenanceViaVirement($data[0],$data[1],$data[2]);
             
-            $headers= "MIME-version : 1.0"."\r\n";
+           /* $headers= "MIME-version : 1.0"."\r\n";
             $headers.= "Content-type: text/html; charset=utf-8"."\r\n";
             $headers.= "From: Service Finance E-media <servicefinance@e-media.mg>"."\r\n";
             $headers.= "Reply-To : anjaranirinagael@gmail.com"."\r\n";
@@ -113,7 +113,7 @@ mail($etudiant->getMail(),"E-media paiement droit de soutenance par virement",'<
     </p>
         <div style="text-align: end; font-style: italic;">
             <strong>E-media Finance</strong>
-        </div></body></html>',$headers);
+        </div></body></html>',$headers);*/
             
             //mail($etudiant->get//mail(),"E-media paiement droit de soutenance par virement","Votre droit de soutenance a ete valide");
             header("location:../Vue/dashboard.php?status='valider'&motif='ds'&mode='virement'");
@@ -121,7 +121,7 @@ mail($etudiant->getMail(),"E-media paiement droit de soutenance par virement",'<
         case 'repechage' :
             $data=array($_POST['idetudiants'],$_POST['idvirement'],$_POST['observation']);
             $comptable->ValiderRepechageViaVirement($data[0],$data[1],$data[2]);
-            $headers= "MIME-version : 1.0"."\r\n";
+            /*$headers= "MIME-version : 1.0"."\r\n";
             $headers.= "Content-type: text/html; charset=utf-8"."\r\n";
             $headers.= "From: Service Finance E-media <servicefinance@e-media.mg>"."\r\n";
             $headers.= "Reply-To : anjaranirinagael@gmail.com"."\r\n";
@@ -139,7 +139,7 @@ mail($etudiant->getMail(),"E-media paiement du droit de repêchage par virement"
         <div style="text-align: end; font-style: italic;">
             <strong>E-media Finance</strong>
         </div></body></html>',$headers);
-            
+            */
             
             //mail($etudiant->get//mail(),"E-media paiement repechage par virement","Votre droit de repechage a ete valide");
             header("location:../Vue/dashboard.php?status='valider'&motif='repechage'&mode='virement'");
@@ -149,7 +149,7 @@ mail($etudiant->getMail(),"E-media paiement du droit de repêchage par virement"
             $comptable->ValiderCertificat($data[0],$data[1],$data[2]);
             //mail($etudiant->get//mail(),"E-media paiement certificat par virement","Votre droit de certificat a ete valide");
             
-            $headers= "MIME-version : 1.0"."\r\n";
+            /*$headers= "MIME-version : 1.0"."\r\n";
             $headers.= "Content-type: text/html; charset=utf-8"."\r\n";
             $headers.= "From: Service Finance E-media <servicefinance@e-media.mg>"."\r\n";
             $headers.= "Reply-To : anjaranirinagael@gmail.com"."\r\n";
@@ -166,7 +166,7 @@ mail($etudiant->getMail(),"E-media paiement certificat par virement",'<html><bod
     </p>
         <div style="text-align: end; font-style: italic;">
             <strong>E-media Finance</strong>
-        </div></body></html>',$headers);
+        </div></body></html>',$headers);*/
             
             header("location:../Vue/dashboard.php?status='valider'&motif='certificat'&mode='virement'");
             break;

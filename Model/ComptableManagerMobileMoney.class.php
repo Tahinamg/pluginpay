@@ -21,7 +21,7 @@ protected $db;
 
     }
     public function NotifMobileMoney(){
-        $sql=$this->db->query("SELECT COUNT(*) FROM `MOBILEMONEY` WHERE `ETAT`='non lu' ");
+        $sql=$this->db->query("SELECT COUNT(*) FROM `MOBILEMONEY` WHERE `ETAT`='non lu' AND IDETUDIANTS!=0");
         $data=$sql->fetch();
         $sql->closeCursor();
         return $data;

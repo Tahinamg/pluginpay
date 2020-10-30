@@ -182,11 +182,13 @@ include "../Controller/AccesPaiement.php";
         <dd>034 57 777 01 Au nom de Rojomalala</dd>
         <dt>VERSEMENT EN ESPECE A LA BANQUE,CHEQUE,VIREMENT BANCAIRE</dt>
         
-        <dd>Compte SG MADAGASCAR - ANTANANARIVO - AMBANIDIA <BR/>00008 - 00019 - 04506001603 39</dd>";
+        <dd>Compte SG MADAGASCAR - ANTANANARIVO - AMBANIDIA <BR/>00008 - 00019 - 04506001603 39</dd>
+        <dd>Compte BNI Code : 00005 - code guichet : 00065 - compte numero : 72115220001 - clé RIB : 45</dd>";
     } else {
         echo "<dt>CHEQUE,VIREMENT BANCAIRE</dt>
         
-        <dd>Compte SG MADAGASCAR - ANTANANARIVO - AMBANIDIA <BR/>00008 - 00019 - 04506001603 39</dd>";
+        <dd>Compte SG MADAGASCAR - ANTANANARIVO - AMBANIDIA <BR/>00008 - 00019 - 04506001603 39</dd>
+        <dd>Compte BNI Code : 00005 - code guichet : 00065 - compte numero : 72115220001 - clé RIB : 45</dd>";
     }
     ?>
     

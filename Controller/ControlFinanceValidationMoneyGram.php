@@ -17,7 +17,7 @@ if(isset($_POST['motif'])){
         case 'inscription':
             $data=array($_POST['matricule'],$_POST['idmoneygram'],$_POST['observation']);
             $comptable->ValiderInscriptionViaMoneyGram($data[0],$data[1],$data[2]);
-            $headers= "MIME-version : 1.0"."\r\n";
+           /* $headers= "MIME-version : 1.0"."\r\n";
             $headers.= "Content-type: text/html; charset=utf-8"."\r\n";
             $headers.= "From: Service Finance E-media <servicefinance@e-media.mg>"."\r\n";
             $headers.= "Reply-To : anjaranirinagael@gmail.com"."\r\n";
@@ -35,13 +35,13 @@ if(isset($_POST['motif'])){
             </p>
             <div style="text-align: end; font-style: italic;">
                     <strong>E-media Finance</strong>
-            </div></body></html>',$headers);
+            </div></body></html>',$headers);*/
             header("location:../Vue/dashboard.php?status='valider'&motif='inscription'&mode='moneygram'");
             break;
         case 'ecolage':
             $data=array($_POST['quantite'],$_POST['matricule'],$_POST['idmoneygram'],$_POST['observation']);
             $comptable->ValiderEcolageViaMoneyGram($data[0],$data[1],$data[2],$data[3]);
-            $headers= "MIME-version : 1.0"."\r\n";
+           /* $headers= "MIME-version : 1.0"."\r\n";
             $headers.= "Content-type: text/html; charset=utf-8"."\r\n";
             $headers.= "From: Service Finance E-media <servicefinance@e-media.mg>"."\r\n";
             $headers.= "Reply-To : anjaranirinagael@gmail.com"."\r\n";
@@ -60,14 +60,14 @@ if(isset($_POST['motif'])){
             </p>
             <div style="text-align: end; font-style: italic;">
                 <strong>E-media Finance</strong>
-            </div></body></html>',$headers);
+            </div></body></html>',$headers);*/
            
             header("location:../Vue/dashboard.php?status='valider'&motif='ecolage'&mode='moneygram'");
         break;
         case 'droit examen semestriel' :
             $data=array($_POST['matricule'],$_POST['idmoneygram'],$_POST['observation']);
             $comptable->ValiderDroitExamenViaMoneyGram($data[0],$data[1],$data[2]);
-            $headers= "MIME-version : 1.0"."\r\n";
+           /* $headers= "MIME-version : 1.0"."\r\n";
             $headers.= "Content-type: text/html; charset=utf-8"."\r\n";
             $headers.= "From: Service Finance E-media <servicefinance@e-media.mg>"."\r\n";
             $headers.= "Reply-To : anjaranirinagael@gmail.com"."\r\n";
@@ -84,7 +84,7 @@ if(isset($_POST['motif'])){
     </p>
         <div style="text-align: end; font-style: italic;">
             <strong>E-media Finance</strong>
-        </div></body></html>',$headers);
+        </div></body></html>',$headers);*/
            
            
             header("location:../Vue/dashboard.php?status='valider'&motif='des'&mode='moneygram'");
@@ -92,7 +92,7 @@ if(isset($_POST['motif'])){
         case 'Droit de soutenance':
             $data=array($_POST['matricule'],$_POST['idmoneygram'],$_POST['observation']);
             $comptable->ValiderSoutenanceViaMoneyGram($data[0],$data[1],$data[2]);
-            $headers= "MIME-version : 1.0"."\r\n";
+           /* $headers= "MIME-version : 1.0"."\r\n";
             $headers.= "Content-type: text/html; charset=utf-8"."\r\n";
             $headers.= "From: Service Finance E-media <servicefinance@e-media.mg>"."\r\n";
             $headers.= "Reply-To : anjaranirinagael@gmail.com"."\r\n";
@@ -109,14 +109,14 @@ if(isset($_POST['motif'])){
     </p>
         <div style="text-align: end; font-style: italic;">
             <strong>E-media Finance</strong>
-        </div></body></html>',$headers);
+        </div></body></html>',$headers);*/
           
             header("location:../Vue/dashboard.php?status='valider'&motif='ds'&mode='moneygram'");
             break;
         case 'repechage':
             $data=array($_POST['idetudiants'],$_POST['idmoneygram'],$_POST['observation']);
             $comptable->ValiderRepechageViaMoneyGram($data[0],$data[1],$data[2]);
-            $headers= "MIME-version : 1.0"."\r\n";
+           /* $headers= "MIME-version : 1.0"."\r\n";
             $headers.= "Content-type: text/html; charset=utf-8"."\r\n";
             $headers.= "From: Service Finance E-media <servicefinance@e-media.mg>"."\r\n";
             $headers.= "Reply-To : anjaranirinagael@gmail.com"."\r\n";
@@ -133,14 +133,14 @@ if(isset($_POST['motif'])){
     </p>
         <div style="text-align: end; font-style: italic;">
             <strong>E-media Finance</strong>
-        </div></body></html>',$headers);
+        </div></body></html>',$headers);*/
           
             header("location:../Vue/dashboard.php?status='valider'&motif='repechage'&mode='moneygram'");
             break;
         case 'certificat':
             $data=array($_POST['matricule'],$_POST['idmoneygram'],$_POST['observation']);
             $comptable->ValiderCertificat($data[0],$data[1],$data[2]);
-            $headers= "MIME-version : 1.0"."\r\n";
+          /*  $headers= "MIME-version : 1.0"."\r\n";
             $headers.= "Content-type: text/html; charset=utf-8"."\r\n";
             $headers.= "From: Service Finance E-media <servicefinance@e-media.mg>"."\r\n";
             $headers.= "Reply-To : anjaranirinagael@gmail.com"."\r\n";
@@ -159,7 +159,7 @@ if(isset($_POST['motif'])){
     </p>
         <div style="text-align: end; font-style: italic;">
             <strong>E-media Finance</strong>
-        </div></body></html>',$headers);
+        </div></body></html>',$headers);*/
         header("location:../Vue/dashboard.php?status='valider'&motif='certificat'&mode='moneygram'");
     break;
     default:

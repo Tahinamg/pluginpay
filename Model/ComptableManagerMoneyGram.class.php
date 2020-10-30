@@ -19,7 +19,7 @@ class ComptableManagerMoneyGram{
     
     }
     public function notifMoneyGram(){
-        $sql=$this->db->query("SELECT COUNT(*) FROM `MONEYGRAM` WHERE `ETAT`='non lu' ");
+        $sql=$this->db->query("SELECT COUNT(*) FROM `MONEYGRAM` WHERE `ETAT`='non lu' AND IDETUDIANTS!=0 ");
         $data=$sql->fetch();
         $sql->closeCursor();
         return $data;
