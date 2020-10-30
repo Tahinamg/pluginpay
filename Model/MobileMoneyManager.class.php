@@ -9,7 +9,7 @@ protected $db;
 
     public function setMobileMoney(MobileMoney $mobilemoney){
         //MOBILEMONEY
-        $sql=$this->db->prepare("INSERT INTO MOBILEMONEY VALUES(NULL,:idetudiants,:daty,:reference,:motif,:etat,:decision,:dateserver,:montant,:observation,:datevalidation,:tempsvalidation)");
+        $sql=$this->db->prepare("INSERT INTO MOBILEMONEY VALUES(DEFAULT,:idetudiants,:daty,:reference,:motif,:etat,:decision,:dateserver,:montant,:observation,:datevalidation,:tempsvalidation)");
         $sql->bindValue(":reference",$mobilemoney->getReference(),PDO::PARAM_STR);
         $sql->bindValue(":daty",$mobilemoney->getDaty(),PDO::PARAM_STR);
         $sql->bindValue(":idetudiants",$mobilemoney->getIdetudiants(),PDO::PARAM_INT);

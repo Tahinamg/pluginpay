@@ -21,7 +21,7 @@ protected $db;
 
     }
     public function NotifWestern(){
-        $sql=$this->db->query("SELECT COUNT(*) FROM `WESTERN` WHERE `ETAT`='non lu'");
+        $sql=$this->db->query("SELECT COUNT(*) FROM `WESTERN` WHERE `ETAT`='non lu' AND IDETUDIANTS!=0");
         $data=$sql->fetch();
         $sql->closeCursor();
         return $data;

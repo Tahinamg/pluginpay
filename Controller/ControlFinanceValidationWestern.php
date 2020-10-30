@@ -18,7 +18,7 @@ if(isset($_POST['motif'])){
             $data=array($_POST['matricule'],$_POST['idwestern'],$_POST['observation']);
             $comptable->ValiderInscriptionViaWestern($data[0],$data[1],$data[2]);
             //mail($etudiant->get//mail(),"E-media paiement inscription par Western Union","Votre droit pour l'inscription a ete valide");
-            $headers= "MIME-version : 1.0"."\r\n";
+           /* $headers= "MIME-version : 1.0"."\r\n";
             $headers.= "Content-type: text/html; charset=utf-8"."\r\n";
             $headers.= "From: Service Finance E-media <servicefinance@e-media.mg>"."\r\n";
             $headers.= "Reply-To : anjaranirinagael@gmail.com"."\r\n";
@@ -35,7 +35,7 @@ mail($etudiant->getMail(),"E-media paiement inscription par western union ",'<ht
     </p>
         <div style="text-align: end; font-style: italic;">
             <strong>E-media Finance</strong>
-        </div></body></html>',$headers);
+        </div></body></html>',$headers);*/
             
             header("location:../Vue/dashboard.php?status='valider'&motif='inscription'&mode='western'");
             break;
@@ -43,7 +43,7 @@ mail($etudiant->getMail(),"E-media paiement inscription par western union ",'<ht
             $data=array($_POST['quantite'],$_POST['matricule'],$_POST['idwestern'],$_POST['observation']);
             $comptable->ValiderEcolageViaWestern($data[0],$data[1],$data[2],$data[3]);
             
-            $headers= "MIME-version : 1.0"."\r\n";
+          /*  $headers= "MIME-version : 1.0"."\r\n";
             $headers.= "Content-type: text/html; charset=utf-8"."\r\n";
             $headers.= "From: Service Finance E-media <servicefinance@e-media.mg>"."\r\n";
             $headers.= "Reply-To : anjaranirinagael@gmail.com"."\r\n";
@@ -61,7 +61,7 @@ mail($etudiant->getMail(),"E-media paiement frais de scolarité par western unio
     </p>
         <div style="text-align: end; font-style: italic;">
             <strong>E-media Finance</strong>
-        </div></body></html>',$headers);
+        </div></body></html>',$headers);*/
             
             
             //mail($etudiant->get//mail(),"E-media paiement ecolage par Western union","Votre ecolage a ete valide");
@@ -70,7 +70,7 @@ mail($etudiant->getMail(),"E-media paiement frais de scolarité par western unio
         case 'droit examen semestriel' : 
             $data=array($_POST['matricule'],$_POST['idwestern'],$_POST['observation']);
             $comptable->ValiderDroitExamenViaWestern($data[0],$data[1],$data[2]);
-            $headers= "MIME-version : 1.0"."\r\n";
+            /*$headers= "MIME-version : 1.0"."\r\n";
             $headers.= "Content-type: text/html; charset=utf-8"."\r\n";
             $headers.= "From: Service Finance E-media <servicefinance@e-media.mg>"."\r\n";
             $headers.= "Reply-To : anjaranirinagael@gmail.com"."\r\n";
@@ -87,7 +87,7 @@ mail($etudiant->getMail(),"E-media paiement droit d'examen par western union",'<
     </p>
         <div style="text-align: end; font-style: italic;">
             <strong>E-media Finance</strong>
-        </div></body></html>',$headers);
+        </div></body></html>',$headers);*/
             
             //mail($etudiant->get//mail(),"E-media paiement droit examen semestriel par western","Votre droit pour l'examen semestriel a ete valide");
             header("location:../Vue/dashboard.php?status='valider'&motif='des'&mode='western'");
@@ -96,7 +96,7 @@ mail($etudiant->getMail(),"E-media paiement droit d'examen par western union",'<
             $data=array($_POST['matricule'],$_POST['idwestern'],$_POST['observation']);
             $comptable->ValiderSoutenanceViaWestern($data[0],$data[1],$data[2]);
             
-            $headers= "MIME-version : 1.0"."\r\n";
+         /*   $headers= "MIME-version : 1.0"."\r\n";
             $headers.= "Content-type: text/html; charset=utf-8"."\r\n";
             $headers.= "From: Service Finance E-media <servicefinance@e-media.mg>"."\r\n";
             $headers.= "Reply-To : anjaranirinagael@gmail.com"."\r\n";
@@ -114,7 +114,7 @@ mail($etudiant->getMail(),"E-media paiement droit de soutenance par Western Unio
         <div style="text-align: end; font-style: italic;">
             <strong>E-media Finance</strong>
         </div></body></html>',$headers);
-            
+            */
             //mail($etudiant->get//mail(),"E-media paiement droit de soutenance par western","Votre droit de soutenance a ete valide");
             header("location:../Vue/dashboard.php?status='valider'&motif='ds'&mode='western'");
             break;
@@ -122,7 +122,7 @@ mail($etudiant->getMail(),"E-media paiement droit de soutenance par Western Unio
             $data=array($_POST['idetudiants'],$_POST['idwestern'],$_POST['observation']);
             $comptable->ValiderRepechageViaWestern($data[0],$data[1],$data[2]);
             
-            $headers= "MIME-version : 1.0"."\r\n";
+         /*  $headers= "MIME-version : 1.0"."\r\n";
             $headers.= "Content-type: text/html; charset=utf-8"."\r\n";
             $headers.= "From: Service Finance E-media <servicefinance@e-media.mg>"."\r\n";
             $headers.= "Reply-To : anjaranirinagael@gmail.com"."\r\n";
@@ -139,7 +139,7 @@ mail($etudiant->getMail(),"E-media paiement du droit de repêchage par western u
     </p>
         <div style="text-align: end; font-style: italic;">
             <strong>E-media Finance</strong>
-        </div></body></html>',$headers);
+        </div></body></html>',$headers);*/
             
             //mail($etudiant->get//mail(),"E-media paiement repechage par western","Votre droit de repechage a ete valide");
             header("location:../Vue/dashboard.php?status='valider'&motif='repechage'&mode='western'");
@@ -148,7 +148,7 @@ mail($etudiant->getMail(),"E-media paiement du droit de repêchage par western u
             $data=array($_POST['matricule'],$_POST['idwestern'],$_POST['observation']);
             $comptable->ValiderCertificat($data[0],$data[1],$data[2]);
             
-            $headers= "MIME-version : 1.0"."\r\n";
+           /* $headers= "MIME-version : 1.0"."\r\n";
             $headers.= "Content-type: text/html; charset=utf-8"."\r\n";
             $headers.= "From: Service Finance E-media <servicefinance@e-media.mg>"."\r\n";
             $headers.= "Reply-To : anjaranirinagael@gmail.com"."\r\n";
@@ -165,7 +165,7 @@ mail($etudiant->getMail(),"E-media paiement certificat par western union",'<html
     </p>
         <div style="text-align: end; font-style: italic;">
             <strong>E-media Finance</strong>
-        </div></body></html>',$headers);
+        </div></body></html>',$headers);*/
             
             //mail($etudiant->get//mail(),"E-media paiement certificat par western","Votre droit de certificat a ete valide");
             header("location:../Vue/dashboard.php?status='valider'&motif='certificat'&mode='western'");

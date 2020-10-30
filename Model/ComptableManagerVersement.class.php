@@ -22,7 +22,7 @@ class ComptableManagerVersement{
         return $data;
     }
     public function NotifVersement(){
-        $sql=$this->db->query("SELECT COUNT(*) FROM `VERSEMENT` WHERE `ETAT`='non lu' ");
+        $sql=$this->db->query("SELECT COUNT(*) FROM `VERSEMENT` WHERE `ETAT`='non lu' AND IDETUDIANTS!=0 ");
         $data=$sql->fetch();
         $sql->closeCursor();
         return $data;

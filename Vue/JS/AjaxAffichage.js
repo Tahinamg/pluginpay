@@ -1,4 +1,15 @@
 $("document").ready(function () {
+    //to save data
+    function s2ab(s) {
+  
+        var buf = new ArrayBuffer(s.length);
+        var view = new Uint8Array(buf);
+        for (var i=0; i<s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+        return buf;
+        
+    }
+
+
         var controlitem = "<div class='controlrecouvrement'>\
             <form class=\"mt-3 form-inline\">\
             <div class=\"form-group\"  align=\"center\">\
@@ -31,6 +42,9 @@ $("document").ready(function () {
             </select>\
             <div class='form-group' >\
             <button id='findrecouvrement' class='btn btn-secondary'> Rechercher</button>\
+            </div>\
+            <div class='form-group m-3' >\
+            <button id='tranlatesheetrecouvrement' class='btn btn-success'>Exporter en xls</button>\
             </div>\
             </div>`\
             </form>\
@@ -141,6 +155,24 @@ $("document").ready(function () {
                             
                         }
                     });
+
+                    $("#tranlatesheetrecouvrement").click(function(e){
+                        e.preventDefault();
+                        var wb = XLSX.utils.book_new();
+                        wb.Props = {
+                            Title: "RECOUVREMENT",
+                            Subject: "RECOUVREMENT DES ETUDIANTS",
+                            Author: "RAVELOJAONA TAHINA",
+                            CreatedDate: new Date()
+                        };
+                        wb.SheetNames.push("Recouvrement");
+                        var ws = XLSX.utils.table_to_sheet(document.getElementsByClassName("table")[0]);
+                        wb.Sheets["Recouvrement"] = ws;
+                        var wbout = XLSX.write(wb, {bookType:'xlsx',  type: 'binary'});
+                        saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), 'Recouvrement.xlsx');
+
+                    });
+                
             });
                 }
             });
@@ -197,7 +229,10 @@ $("document").ready(function () {
             <select>\
             <div>\
             <div class='form-group m-3'>\
-            <input type='button' id='searchclassification' class='btn btn-success' value='Rechercher'/>\
+            <input type='button' id='searchclassification' class='btn btn-secondary' value='Rechercher'/>\
+            </div>\
+            <div class='form-group m-3'>\
+            <input type='button' id='exportclassificationtosheet' class='btn btn-success' value='exporter xlxs'/>\
             </div>\
             </div></form></div>").insertBefore(".table");
 
@@ -216,7 +251,10 @@ $("document").ready(function () {
                 </select>\
             </div>\
             <div class='form-group'>\
-            <input id='searchallpaiement' class='btn btn-success' value='Rechercher'/>\
+            <input id='searchallpaiement' class='btn btn-secondary' value='Rechercher'/>\
+            </div><br/>\
+            <div class='form-group'>\
+            <input id='exportallpaiementtosheet' class='btn btn-success' value='exporter en xlxs'/>\
             </div><br/>\
             <input type='text' id='searchfromallpaiement' class='form-control' placeholder='rechercher une paiement specifique'/>\
             </form></div>").insertBefore(".table");
@@ -486,7 +524,29 @@ $("document").ready(function () {
                     $(".table tr").filter(function() {
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
-                })
+                });
+
+                $("#exportallpaiementtosheet").click(function (e) {
+                    e.preventDefault();
+                        e.preventDefault();
+                        var wb = XLSX.utils.book_new();
+                        wb.Props = {
+                            Title: "LIST PAIEMENT",
+                            Subject: "LIST PAIEMENT DES ETUDIANTS",
+                            Author: "RAVELOJAONA TAHINA",
+                            CreatedDate: new Date()
+                        };
+                        wb.SheetNames.push("allpaiement");
+                        var ws = XLSX.utils.table_to_sheet(document.getElementsByClassName("table")[0]);
+                        wb.Sheets["allpaiement"] = ws;
+                        var wbout = XLSX.write(wb, {bookType:'xlsx',  type: 'binary'});
+                        var name=$("#listpaiementavalable").val()+"paiement.xlsx"
+                        saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}),name);
+
+                   
+
+                  });
+
             });
             
             //CHERCHE LES PAIEMENTS EFFECTUER DURANT UNE DATE DE VALIDATION SPECIFIQUE
@@ -797,6 +857,24 @@ $("document").ready(function () {
                         }
                         
                     },"JSON");
+                    $("#exportclassificationtosheet").click(function(e){
+                        e.preventDefault();
+                        var wb = XLSX.utils.book_new();
+                        wb.Props = {
+                            Title: "CLASSIFICATION",
+                            Subject: "CLASSIFICATION DES ETUDIANTS",
+                            Author: "RAVELOJAONA TAHINA",
+                            CreatedDate: new Date()
+                        };
+                        wb.SheetNames.push("classification");
+                        var ws = XLSX.utils.table_to_sheet(document.getElementsByClassName("table")[0]);
+                        wb.Sheets["allpaiement"] = ws;
+                        var wbout = XLSX.write(wb, {bookType:'xlsx',  type: 'binary'});
+                        var name=$("#modepaiement").val()+"classification.xlsx"
+                        saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}),name);
+
+                    
+                    });
             });
 
            

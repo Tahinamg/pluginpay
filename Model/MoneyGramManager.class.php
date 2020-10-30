@@ -8,7 +8,7 @@ protected $db;
     }
 
     public function setMoneyGram(MoneyGram $moneyGram){
-        $sql=$this->db->prepare("INSERT INTO MONEYGRAM VALUES(NULL,:idetudiants,:datymoneygram,:reference,:expediteur,:dateserver,:observation,:motif,:decision,:etat,:montant,:montantmoneygram,:datevalidation,:tempsvalidation)");
+        $sql=$this->db->prepare("INSERT INTO MONEYGRAM VALUES(DEFAULT,:idetudiants,:datymoneygram,:reference,:expediteur,:dateserver,:observation,:motif,:decision,:etat,:montant,:montantmoneygram,:datevalidation,:tempsvalidation)");
         $sql->bindValue(":idetudiants",$moneyGram->getIdetudiants(),PDO::PARAM_INT);
         $sql->bindValue(":datymoneygram",$moneyGram->getDatymoneygram(),PDO::PARAM_STR);
         $sql->bindValue(":reference",$moneyGram->getReference(),PDO::PARAM_STR);  
